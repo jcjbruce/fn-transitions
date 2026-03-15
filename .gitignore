@@ -2,3 +2,4 @@ node_modules
 dist
 .manus-logs
 .env
+.vercel
