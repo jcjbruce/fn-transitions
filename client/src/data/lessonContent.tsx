@@ -2,6 +2,7 @@
 // Each lesson returns a JSX element with the full content
 
 import React from "react";
+import { Link } from "wouter";
 import OntarioMap from "@/components/OntarioMap";
 
 // ─── Shared Styles ─────────────────────────────────────────────────────────────
@@ -28,11 +29,21 @@ const Em = ({ children }: { children: React.ReactNode }) => (
 );
 const ActivityLink = ({ href, children }: { href?: string; children: React.ReactNode }) => {
   const isInternal = href?.startsWith("/");
+  if (isInternal && href) {
+    return (
+      <Link
+        href={href}
+        className="inline-flex items-center gap-1 text-[#C2703E] hover:text-[#8B4513] font-semibold underline"
+      >
+        {children}
+      </Link>
+    );
+  }
   return (
     <a
       href={href || "#"}
-      target={isInternal ? undefined : (href && href !== "#" ? "_blank" : undefined)}
-      rel={isInternal ? undefined : "noopener noreferrer"}
+      target={href && href !== "#" ? "_blank" : undefined}
+      rel="noopener noreferrer"
       className="inline-flex items-center gap-1 text-[#C2703E] hover:text-[#8B4513] font-semibold underline"
     >
       {children}
