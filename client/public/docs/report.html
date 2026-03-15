@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supporting Education Transitions for First Nations Learners in Ontario</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ═══════════════════════════════════════════
+   DESIGN SYSTEM
+   ═══════════════════════════════════════════ */
+:root {
+  --red:        #BB0A12;
+  --red-dark:   #8B0009;
+  --red-light:  #f5e8e8;
+  --red-faint:  #fdf4f4;
+  --black:      #0f0f0d;
+  --ink:        #1a1a18;
+  --stone:      #3d3d39;
+  --mist:       #f7f6f2;
+  --sand:       #ede9e0;
+  --warm-white: #fdfcf9;
+  --border:     #e2ddd5;
+
+  --display:    'Playfair Display', Georgia, serif;
+  --serif:      'Source Serif 4', Georgia, serif;
+  --sans:       'DM Sans', system-ui, sans-serif;
+
+  --max-w:      920px;
+  --wide-w:     1100px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--serif);
+  background: var(--warm-white);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════════════════
+   PROGRESS BAR
+   ═══════════════════════════════════════════ */
+#progress {
+  position: fixed; top: 0; left: 0; height: 3px;
+  background: var(--red); width: 0%; z-index: 1000;
+  transition: width 0.1s linear;
+}
+
+/* ═══════════════════════════════════════════
+   NAV
+   ═══════════════════════════════════════════ */
+nav {
+  position: sticky; top: 0; left: 0; right: 0; z-index: 900;
+  background: rgba(253,252,249,0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 1.5rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.cat-nav {
+  background: var(--mist); border-bottom: 1px solid var(--border);
+  padding: 1.25rem 2.5rem;
+  position: sticky; top: 0; z-index: 90;
+}
+.cat-nav-inner { max-width: var(--wide-w); margin: 0 auto; display: grid; grid-template-columns: repeat(5, auto); gap: 0.45rem; align-items: center; justify-content: center; }
+.cat-nav-label { font-family: var(--sans); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--stone); margin-right: 0.5rem; text-align: center; margin-bottom: 0.5rem; display: block; }
+.cat-pill {
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.03em; color: var(--stone);
+  background: white; border: 1px solid var(--border);
+  padding: 0.3rem 0.9rem; border-radius: 20px;
+  text-decoration: none; transition: all 0.18s; white-space: nowrap;
+  display: flex; align-items: center; gap: 0.35rem;
+}
+.cat-pill:hover { background: var(--red); color: white; border-color: var(--red); transform: translateY(-1px); box-shadow: 0 3px 10px rgba(187,10,18,0.2); }
+.cat-pill.active { background: var(--red); color: white; border-color: var(--red); }
+.cat-pill .pill-num { font-size: 0.6rem; opacity: 0.6; font-weight: 600; }
+@media (max-width: 640px) {
+  .cat-nav { padding: 0.8rem 1rem; }
+  .cat-pill { font-size: 0.65rem; padding: 0.25rem 0.65rem; }
+  .cat-nav-label { display: none; }
+}
+
+/* ═══════════════════════════════════════════
+   HERO / COVER
+   ═══════════════════════════════════════════ */
+.hero {
+  min-height: 100svh;
+  background: #fdfcf9;
+  position: relative;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  padding-top: 0;
+  border-bottom: 3px solid var(--red);
+}
+
+.hero-canvas {
+  position: absolute; inset: 0;
+  opacity: 0.9;
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  display: flex; flex-direction: column;
+  min-height: 100svh;
+  padding: 2rem 2rem 3rem;
+  padding-top: calc(60px + 1.5rem);
+  max-width: var(--wide-w);
+  margin: 0 auto; width: 100%;
+}
+
+/* Light hero overrides */
+.hero-date { color: var(--stone) !important; opacity: 0.55; }
+.hero-title { color: var(--ink) !important; }
+.hero-subtitle { color: var(--stone) !important; }
+.hero-presented { color: var(--stone) !important; }
+.hero-presented strong { color: var(--ink) !important; }
+.hero-scroll { color: var(--stone) !important; opacity: 0.45; }
+
+.hero-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  padding-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.hero-logo img {
+  height: 52px;
+}
+
+.hero-date {
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 500;
+  color: rgba(255,255,255,0.5); letter-spacing: 0.12em;
+  text-transform: uppercase; padding-top: 4px;
+}
+
+.hero-body {
+  padding-top: 0;
+}
+
+.hero-eyebrow {
+  font-family: var(--sans); font-size: 0.75rem; font-weight: 500;
+  color: var(--red); letter-spacing: 0.14em; text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.hero-eyebrow::before {
+  content: ''; display: block; width: 32px; height: 2px; background: var(--red);
+}
+
+.hero-title {
+  font-family: var(--display);
+  font-size: clamp(2.4rem, 7vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  color: #fff;
+  letter-spacing: -0.02em;
+  max-width: 16ch;
+  margin-bottom: 2rem;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--red);
+}
+
+.hero-subtitle {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: rgba(255,255,255,0.65);
+  font-weight: 300;
+  line-height: 1.6;
+  max-width: 50ch;
+  margin-bottom: 3rem;
+}
+
+.hero-meta {
+  display: flex; align-items: center; gap: 1.5rem;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.hero-presented {
+  font-family: var(--sans); font-size: 0.78rem;
+  color: rgba(255,255,255,0.45); letter-spacing: 0.05em;
+}
+.hero-presented strong {
+  color: rgba(255,255,255,0.8); font-weight: 500;
+}
+
+.hero-mentee {
+  display: none; /* removed from hero meta — placed bottom-right instead */
+}
+
+.hero-scroll {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  color: rgba(255,255,255,0.35);
+  font-family: var(--sans); font-size: 0.65rem; letter-spacing: 0.1em;
+  text-transform: uppercase; z-index: 2;
+  animation: bounce 2s infinite;
+}
+.hero-scroll svg { width: 20px; height: 20px; }
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ═══════════════════════════════════════════
+   TABLE OF CONTENTS
+   ═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════
+   LAYOUT CONTAINER
+   ═══════════════════════════════════════════ */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.wide-container {
+  max-width: var(--wide-w);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ═══════════════════════════════════════════
+   SECTION HEADERS
+   ═══════════════════════════════════════════ */
+.section-marker {
+  padding: 5rem 2rem 0;
+}
+.section-marker-inner {
+  max-width: var(--wide-w); margin: 0 auto;
+  display: flex; align-items: flex-end; gap: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 2px solid var(--red);
+}
+.section-num {
+  font-family: var(--display);
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-weight: 900;
+  color: var(--red);
+  line-height: 1;
+  opacity: 0.18;
+  flex-shrink: 0;
+}
+.section-title-wrap {}
+.section-eyebrow {
+  font-family: var(--sans); font-size: 0.7rem; font-weight: 500;
+  color: var(--red); letter-spacing: 0.14em; text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+.section-name {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 700; color: var(--ink); line-height: 1.15;
+}
+
+/* ═══════════════════════════════════════════
+   CONTENT SECTIONS
+   ═══════════════════════════════════════════ */
+.content-section {
+  padding: 3rem 1.5rem 5rem;
+}
+
+h2.subhead {
+  font-family: var(--display);
+  font-size: clamp(1.3rem, 3vw, 1.75rem);
+  font-weight: 700; color: var(--ink);
+  margin: 3rem 0 1rem;
+  line-height: 1.2;
+}
+h2.subhead:first-child { margin-top: 2rem; }
+
+h3.subhead2 {
+  font-family: var(--sans);
+  font-size: 1rem; font-weight: 600;
+  color: var(--red);
+  margin: 2rem 0 0.6rem;
+  letter-spacing: 0.01em;
+}
+
+p {
+  font-family: var(--serif);
+  font-size: clamp(1rem, 2.2vw, 1.07rem);
+  line-height: 1.82;
+  color: var(--stone);
+  margin-bottom: 1.3rem;
+  font-weight: 300;
+}
+p strong { font-weight: 600; color: var(--ink); }
+
+/* ═══════════════════════════════════════════
+   PULL QUOTES
+   ═══════════════════════════════════════════ */
+.pull-quote {
+  margin: 3rem 0;
+  padding: 2rem 2rem 2rem 2.5rem;
+  border-left: 4px solid var(--red);
+  background: var(--red-faint);
+  position: relative;
+}
+.pull-quote::before {
+  content: '“';
+  font-family: var(--display);
+  font-size: 5rem; line-height: 0.8;
+  color: var(--red); opacity: 0.2;
+  position: absolute; top: 1rem; left: 1.2rem;
+  pointer-events: none;
+}
+.pull-quote blockquote {
+  font-family: var(--serif);
+  font-size: clamp(1.05rem, 2.5vw, 1.2rem);
+  font-style: italic;
+  color: var(--red-dark);
+  line-height: 1.65;
+  margin-bottom: 0.75rem;
+}
+.pull-quote cite {
+  font-family: var(--sans);
+  font-size: 0.78rem; font-weight: 500;
+  color: var(--stone); letter-spacing: 0.03em;
+  font-style: normal;
+  display: block;
+}
+.pull-quote cite::before { content: '— '; }
+
+/* ═══════════════════════════════════════════
+   CALLOUT BOXES
+   ═══════════════════════════════════════════ */
+.callout {
+  background: var(--sand);
+  border-radius: 2px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+.callout-title {
+  font-family: var(--sans); font-size: 0.75rem; font-weight: 600;
+  color: var(--red); text-transform: uppercase; letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+.callout ul {
+  list-style: none; padding: 0;
+}
+.callout ul li {
+  font-family: var(--serif); font-size: 0.97rem;
+  color: var(--stone); line-height: 1.6;
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.callout ul li:last-child { border-bottom: none; }
+.callout ul li::before {
+  content: '';
+  position: absolute; left: 0; top: 0.9rem;
+  width: 6px; height: 6px;
+  background: var(--red); border-radius: 50%;
+}
+
+/* ═══════════════════════════════════════════
+   STATS / DATA VISUALS
+   ═══════════════════════════════════════════ */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  margin: 2.5rem 0;
+  border: 1px solid var(--border);
+}
+.stat-cell {
+  background: var(--warm-white);
+  padding: 1.5rem 1rem;
+  text-align: center;
+}
+.stat-num {
+  font-family: var(--display);
+  font-size: 2.4rem; font-weight: 900;
+  color: var(--red); line-height: 1;
+  margin-bottom: 0.3rem;
+}
+.stat-label {
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 500;
+  color: var(--stone); line-height: 1.3;
+  letter-spacing: 0.02em;
+}
+
+/* ═══════════════════════════════════════════
+   REGION BAR CHART
+   ═══════════════════════════════════════════ */
+.bar-chart {
+  margin: 2rem 0;
+}
+.bar-row {
+  margin-bottom: 1.25rem;
+}
+.bar-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 0.35rem;
+}
+.bar-region {
+  font-family: var(--display); font-size: 1rem; font-weight: 700;
+  color: var(--ink);
+}
+.bar-cities {
+  font-family: var(--sans); font-size: 0.75rem; font-weight: 400;
+  color: var(--stone);
+}
+.bar-pct {
+  font-family: var(--sans); font-size: 0.85rem; font-weight: 700;
+  color: var(--red);
+}
+.bar-track {
+  width: 100%; height: 28px; background: var(--sand);
+  position: relative; overflow: visible;
+}
+.bar-fill {
+  height: 100%;
+  background: var(--red);
+  transition: width 1s cubic-bezier(0.16,1,0.3,1);
+}
+
+/* ═══════════════════════════════════════════
+   RECOMMENDATION CARDS
+   ═══════════════════════════════════════════ */
+.goal-block {
+  margin: 3rem 0;
+}
+.goal-header {
+  background: var(--red);
+  padding: 1.5rem 2rem;
+  margin-bottom: 0;
+}
+.goal-header h3 {
+  font-family: var(--display);
+  font-size: 1.2rem; font-weight: 700;
+  color: #fff; line-height: 1.3;
+}
+.goal-header .goal-num {
+  font-family: var(--sans); font-size: 0.7rem; font-weight: 600;
+  color: rgba(255,255,255,0.6); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 0.3rem;
+}
+
+.rec-list {
+  border: 1px solid var(--border);
+  border-top: none;
+}
+.rec-item {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+.rec-item:last-child { border-bottom: none; }
+.rec-num-cell {
+  background: var(--red-faint);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 1.25rem 0.5rem;
+  border-right: 1px solid var(--red-light);
+}
+.rec-num-cell span {
+  font-family: var(--display);
+  font-size: 1rem; font-weight: 900;
+  color: var(--red); opacity: 0.5;
+}
+.rec-content { padding: 1.25rem 1.5rem; }
+.rec-title {
+  font-family: var(--sans); font-size: 0.88rem; font-weight: 600;
+  color: var(--ink); margin-bottom: 0.35rem;
+}
+.rec-body {
+  font-family: var(--serif); font-size: 0.9rem;
+  color: var(--stone); line-height: 1.6; margin: 0;
+}
+
+/* ═══════════════════════════════════════════
+   METHODOLOGY VISUAL
+   ═══════════════════════════════════════════ */
+.bio-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
+.bio-card { background: var(--sand); border-left: 4px solid var(--red); padding: 1.5rem; border-radius: 4px; }
+.bio-name { font-family: var(--display); font-size: 1.1rem; font-weight: 700; color: var(--red-dark); margin-bottom: 0.75rem; }
+.bio-card p { font-size: 0.95rem; line-height: 1.8; margin-bottom: 0.75rem; }
+.bio-card p:last-child { margin-bottom: 0; }
+@media (max-width: 700px) { .bio-grid { grid-template-columns: 1fr; } }
+
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin: 2rem 0;
+}
+@media (max-width: 540px) {
+  .method-grid { grid-template-columns: 1fr; }
+}
+.method-card {
+  background: var(--warm-white);
+  padding: 2rem 1.5rem;
+  text-align: center;
+}
+.method-icon {
+  width: 56px; height: 56px;
+  background: var(--red);
+  border-radius: 50%;
+  margin: 0 auto 1rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.method-icon svg { width: 26px; height: 26px; fill: none; stroke: #fff; stroke-width: 1.5; }
+.method-pct {
+  font-family: var(--display); font-size: 2rem; font-weight: 900;
+  color: var(--red); line-height: 1; margin-bottom: 0.25rem;
+}
+.method-name {
+  font-family: var(--sans); font-size: 0.82rem; font-weight: 600;
+  color: var(--ink); margin-bottom: 0.4rem;
+}
+.method-desc {
+  font-family: var(--serif); font-size: 0.85rem;
+  color: var(--stone); line-height: 1.5; margin: 0;
+}
+
+/* ═══════════════════════════════════════════
+   THEME TILES
+   ═══════════════════════════════════════════ */
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.theme-tile {
+  padding: 1.5rem;
+  border: 1px solid var(--border);
+  background: var(--warm-white);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.theme-tile:hover {
+  border-color: var(--red);
+  box-shadow: 0 2px 16px rgba(187,10,18,0.08);
+}
+.theme-tile-num {
+  font-family: var(--display); font-size: 1.5rem; font-weight: 900;
+  color: var(--red); opacity: 0.3; line-height: 1; margin-bottom: 0.5rem;
+}
+.theme-tile-title {
+  font-family: var(--sans); font-size: 0.88rem; font-weight: 600;
+  color: var(--ink); line-height: 1.3;
+}
+
+/* ═══════════════════════════════════════════
+   DIVIDERS & ORNAMENTS
+   ═══════════════════════════════════════════ */
+.red-divider {
+  width: 48px; height: 3px;
+  background: var(--red);
+  margin: 1.5rem 0 2rem;
+}
+
+.section-divider {
+  padding: 0 1.5rem;
+}
+.section-divider-inner {
+  max-width: var(--wide-w); margin: 0 auto;
+  border-top: 1px solid var(--border);
+}
+
+/* ═══════════════════════════════════════════
+   ACKNOWLEDGEMENT HERO STRIP
+   ═══════════════════════════════════════════ */
+.ack-strip {
+  background: var(--mist);
+  border-left: 4px solid var(--red);
+  padding: 2.5rem 2rem;
+  margin: 0;
+}
+
+/* ═══════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════ */
+
+
+
+
+/* Mentee badge bottom-right of hero */
+.hero-mentee-badge {
+  position: absolute; bottom: 2rem; right: 2rem; z-index: 10;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 0.35rem;
+  text-decoration: none;
+}
+.hero-mentee-label {
+  font-family: var(--sans); font-size: 0.65rem; font-weight: 500;
+  color: var(--stone); letter-spacing: 0.08em;
+  text-transform: uppercase; opacity: 0.55;
+}
+.hero-mentee-badge img {
+  height: 30px;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.hero-mentee-badge:hover img { opacity: 1; }
+
+
+
+.footer-partner a img {
+  height: 28px; filter: brightness(0) invert(1); opacity: 0.9;
+  transition: opacity 0.2s;
+}
+
+
+
+/* ═══════════════════════════════════════════
+   ANIMATE ON SCROLL
+   ═══════════════════════════════════════════ */
+.aos {
+  opacity: 0; transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1),
+              transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.aos.visible { opacity: 1; transform: none; }
+.aos-delay-1 { transition-delay: 0.1s; }
+.aos-delay-2 { transition-delay: 0.2s; }
+.aos-delay-3 { transition-delay: 0.3s; }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .hero-content { padding: 1.5rem 1.5rem 3rem; }
+  .content-section { padding: 2rem 1rem 3rem; }
+  .section-marker { padding: 3.5rem 1rem 0; }
+  .pull-quote { padding: 1.5rem 1.25rem 1.5rem 2rem; }
+  .goal-header { padding: 1.25rem 1.25rem; }
+  .rec-content { padding: 1rem 1rem; }
+
+  .stat-num { font-size: 1.9rem; }
+}
+
+/* ═══════════════════════════════════════════
+   HERO CANVAS (SVG background animation)
+   ═══════════════════════════════════════════ */
+.hero-bg-pattern {
+  position: absolute; inset: 0;
+  background: #fdfcf9;
+}
+
+.hero-geo {
+  position: absolute; inset: 0; overflow: hidden;
+}
+
+/* ═══ COO HERO HEADER ═══ */
+.coo-hero {
+  background: #fdfcf9;
+  position: relative;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  border-bottom: 3px solid #BB0A12;
+}
+.coo-hero-canvas {
+  position: absolute; inset: 0; opacity: 0.9;
+  background:
+    radial-gradient(ellipse 60% 50% at 85% 50%, rgba(224,223,217,0.55) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(187,10,18,0.05) 0%, transparent 60%);
+}
+.coo-hero-watermark {
+  position: absolute; right: 5%; bottom: 10%;
+  width: 40%; max-width: 480px; opacity: 0.18;
+  pointer-events: none; user-select: none;
+}
+.coo-hero-content {
+  position: relative; z-index: 2;
+  max-width: 1100px; margin: 0 auto; width: 100%;
+  padding: 3rem 3rem 3.5rem;
+}
+.coo-hero-eyebrow {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.7rem; font-weight: 600;
+  color: #BB0A12; letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;
+}
+.coo-hero-eyebrow::before {
+  content: ''; display: block; width: 32px; height: 2px; background: #BB0A12;
+}
+.coo-hero-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  font-weight: 900; line-height: 1.08; color: #1a1a18;
+  letter-spacing: -0.02em; max-width: 18ch;
+  margin-bottom: 0;
+}
+.coo-hero-title em {
+  font-style: italic; color: #3d3d39;
+  display: block; font-size: 0.72em; font-weight: 400;
+  margin-bottom: 0.15em;
+}
+.coo-hero-divider {
+  width: 60px; height: 3px; background: #BB0A12; margin: 1.5rem 0;
+}
+.coo-hero-vision {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.05rem; font-weight: 300;
+  color: #3d3d39; max-width: 52ch; line-height: 1.75;
+  font-style: italic;
+}
+.coo-hero-presented {
+  padding-top: 2rem;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.72rem;
+  color: #3d3d39; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.coo-hero-presented a { color: #1a1a18; text-decoration: none; transition: color 0.2s; }
+.coo-hero-presented a:hover { color: #BB0A12; }
+@media (max-width: 640px) {
+  .coo-hero-watermark {
+  position: absolute; right: 5%; bottom: 10%;
+  width: 40%; max-width: 480px; opacity: 0.18;
+  pointer-events: none; user-select: none;
+}
+.coo-hero-content { padding: 2rem 1.5rem 2.5rem; }
+  .coo-hero-title { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+}
+
+</style>
+</head>
+<body>
+<section class="coo-hero">
+  <div class="coo-hero-canvas"></div>
+  <img class="coo-hero-watermark" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABOwAAANZCAYAAAC85aHNAABOmUlEQVR4nO3dy3JbObIoULqiRh76n/zV+icPPXUPVGrJEiVubuKRj7UienTj1hGBzEQiDUrfLgAAABDE0/cff3b/DNH9/P3r2+6fAZhLkgMAALCNAd3jDPCgHkkNAADAFoZ1YxncQR2SGQAAgKUM6uYyuIP8JDEAAABTGMzFYYgHuUhYAAAAHmIwl5thHsQjKQEAADjMcK4HQzzYSwICAABwleEcbxniwTqSDQAAAMM57maAB/NILgAAgKYM6RjF8A7GklAAAACNGNKxiiEenCd5AAAAijOkYyeDO7ifpAEAACjEcI4MDPHgaxIEAAAgMQM6sjO8g48kBQAAQDKGdFRleAfPJAIAAEBwBnR0Y3BHdxIAAAAgKIM6ujO4oyuBDwAAEIghHXzOAI8uBDoAAMBmhnRwjgEeVQlsAACATQzqYAyDO6oR0AAAAIsZ1ME8hndUIIgBAAAWMaiDdQzuyEzwAgAATGJABzEY3pGNgAUAABjMoA7iMrwjA0EKAAAwgCEd5GJwR2SCEwAA4AEGdZCbwR0RCUoAAIATDOqgDkM7ohGQAAAAdzCog7oM7ohCIAIAANxgSAc9GeCxi8ADAAD4hEEdcLkY3LGegAMAAHjHoA64xuCOVQQaAADAfwzqgKMM75hJcAEAAO0Z1AFnGdwxg6ACAADaMqgDRjC0YzQBBQAAtGNQB8xgcMcoAgkAAGjDoA5YweCORwkgAACgPIM6YBfDO84QNAAAQFkGdUAUBnfcQ7AAAAAlGdYBERnccYQgAQAASjGoA6IztOMWAQIAtBP9Mq+Jh3Oi5zbAe858PiMwAIASul7UNfrQN/+BGpzlXCMoAIBUXMyP0fzTgXoAVOHc5j0BAQCE4xI+l0sB2akRQFXOaF4IBABgKRftHFwYiEoNAbpwFvdm8wGAqVyu63BxYCe1BOjK+duTTQcAhnGh7sclghXUFqA7520/NhwAOM0lmrdcJphBnQF45aztw0YDAIe5OHMvFwvOUm8APud8rc8GAwBXuSwzmssFR6g9AMc5W+uysQDA/7kos5qLBi/UH4D7OUfrsrEA0JgLMpG4dPSlFgGc5/ysyaYCQCMuxWTjElKbmgTwOGdlTTYVABpwKSY7l5F61CWAMZyRNdlUACjIRZjKXExyU58AxnEm1mVjAaAIl2A6clHJRZ0CGMcZWJvNBYDEXH7hlYtLXGoVwHjOvdpsLgAk4+ILt7nExKBeAYznjOvBJgNAAi69cJ6LzR7qFsB4zrQ+bDQABObCC+O45KyhbgHM4RzrxWYDQDAuuzCfS88c6hfAHM6tfmw4AAThogvruQCNo4YBzOGs6smmA0AALrqwl8vQY9QwgDmcT33ZeADYyCUXYnExuo8aBjCPM6k3mw8AC7ncQh4uSl9TzwDmcQYhAABgARdbyM3F6W9qGsA8zhwuFwM7AJjKpRZqcYlS1wBmccbwlmAAgAlcaKGuzhcqtQ1gjs5nC9cJCAAYzIUWeuh0uVLXAObpdJ5wnKAAgAFcZqGv6hct9Q1gnupnCOcJDAA4ySUWeK/axUudA5ij2nnBeAIEAE5wiQW+UuEips4BzFHhjGA+QQIAd3CBBY7KfCFT6wDmyHw2sJZAAYCDXGCBM7JdztQ6gDmynQfsJVgA4AaXV+BRmS5pah7AWJnOAOIQNABwhQsrMEvki5vaBzBO5HpPfIIHAN5wWQVWiXiRUwMBHhexvpOPIAKAi0sqsE+0i516CHBetJpOXv/s/gEAYDeXU2AnNQggv5+/f30zrGMkwQRAay7KQCRRLntqI8BxUWo3tQgqANpxEQWii3T5UzMBrotUq6lHcAHQiosn91rRjItLPhPpMihOAV5Fqs/UJMAAaMFFs7eKTbWY7iNS/Io7oLtINZnaBBoApblc1qVhPkYO1BEp5sUV0E2kGkwPAg6Aklwma9Acjyc38ouUF+IJqC5SzaUXgQdAOS6QeWmK95Az+UTKFfEDVBWp1tKP4AOgFBfHXDTCccmlHCLlkJgBqohUW+lLEAJQgotifJrfvORXbJFyS6wA2UWqqfQmEAFIzwUxHs1uffIulmg5Jz6AbKLVURCQAHzp6fuPP5EbGJfCOCLHCfPIwTii5qAYAaKLWj/pTVAC8MFnl6tIzYwLYByR4oK95GUMEXNSbAARRayX8EJwAvCXry5VEZoal744IsQDccnV/aLlqJgAIohWG+EzAhWAy+Vy7CK1s8Fx0YtHw8tR8nevaLkqHoAdotVCuEXAAjR3z8VpV6PjchePppez5PMe0XJWHACrRKt/cJTABWjqzGVpR8PjUheT5pcR5Pd6kXLX/gOzRap5cC/BC9DM2QvS6obHRS42DTAjyfe1ouWv/QdGi1bn4AxBDNDEIxciwzre0wgzg9xfJ2oOiwHgjKg1DR4hqAEaePQCtLIJclnLQWPMTOrAGpHzWAwAR0SuY/AowQ1Q2IgLj2Edn9EkM5uasEbkXBYDwDWR6xaMIsgBCso2qLtcXMoy0iyzivowX+R8tv/A5RK7TsEMAh6giJEXGq/qOErzzGpqxjwZ8tn+Qy8Z6hLMIvgBCjCs6+naXq1eU400O6gdc2XIazEA9WWoRTCTBABIbPSFxbAuh1v7ZGhHF+rIPJnyWhxALZnqD8wkEQCSMqzr5+ge7VhfzTU7qSlzZMtrcQB5Zas3sIKkAEjIV2B7uXePDOzoSo0ZL2tuiwXIIWuNgRUkB0AiXtX1cmZ/dq6zppso1Juxsue2eIB4stcVWEGSACSReVh3ubgw3ePs3kRYYw04kUTIiSqy57ZYgP2y1xFYTcIABDbrguFlXUyP7EuUddaME02U3Kgie46LB1gre82AnSQPQEAGdb2M2Jdo661BJ5Jo+ZFdhfwWEzBXhToBu0kigEBmXiBWNU4uQceN2pOoa65ZJ5qouZJVlRwXF/C4KvUAIpFUAEEY1vVSfVj3QgNPNNFzJptKOS424D6V8h8ikmAAARjW9TFyP7KsuYaeiLLkTwYVc1x8wHUV8x2ikmwAm8y+DPh9dbGM3o9sa67BJ6psuRRV5RwXI3RWObchOskHsIFhXR8z9iLrmmv6iSxrXkXSIcfFCV10yGeIThICLLSi0Tesi2HWPmRec80/0WXOryg65bl4oZJOuQtZSEqABVY19YZ1+83cgypr7lJAdFVybZeOOS5myKpjvkIWkhNgopUNvGHdXrPXv9qauyCQQbW8W6lzjosbIuucm5CNZAWYxLCujxXrX3HdXRrIomL+rSLPxQ97yUHIS/ICTOArsD0Y1D3ORYIsqufiTPL8b2KJmeQb1CGZAQarOKy7XFww3lq19l3W3OWCTLrk5Uhy/GtiikfIL6hLcgMMUvUrsJeLy8QLLxrnceEgm245OoI8P0588ZbcgZ4kPsCDVjfVhnXr7WiUO667CwnZdMzTR8nz+4mzXuQI8EIxAHhA5WGdC8Izw7r1XFbIpnvO3kuOP07M1SMvgPcUBYATdjTKXtattatx7r7ub7m8kIncPU5uzyEGcxD/wFGKBcAddjXDhnVrGdbF4nJDFnL4PnJ7DXG5jxgHHqGAABxkWNeDYV1cLj5kIJfvI6/jELvHiFlgFcUG4IadDaxh3To7G/DO634vFyWykNfHyetcqsW2+AOiUpwAPrG7ITWsW8ewLieXLKKT38fJ59yyxLo4AzJRsACu2N14+muwa+xu3Duv/Wi79xK+ItePkccA8MqhCPDO7ouVl3Vr7L4Ydl33FXbvLXxG3t8mfwHgmQMR4I3dlynDuvkiXAY7rvtOEfYcXsj/r8lXAHjmQAS4xLhAGdbNFeUS2G3do4kSB/e4J2Yyfr6u1ILPiWMAMLADCHNp8nvr5oly+eu27hlEiY0Xo2Ik2ufic+rCdWIYgO4chEBbkS5JhnXzRLn0dVt39osS+9ymPlwnhgHozCEItBPtYmRYN0+Uy163dSeOKDnAberEdWIYgK4cgEAbES9DhnXzRLnkdVt34omSC9ymXlwnhgHoyOEHtBDxEuSPTMwR6WLXZc2JL1JecJva8ZEYBqCbf3b/AAAzPX3/8Sfixcewbo5IF7ouaw6MF6mWRaGmAtCNgR1Qlub+WZd1cMEFKvn5+9c3de1vXc4zALhcDOyAoqI29asvYFHXYbRol9ou6w7MF62+AQBraACAUiIPSnwNdo5ol9ku604+0XKF+6gtr8QyAB14YQeU4TLTT6RLW9TflwjUEKneAQDzGdgBJUQflHhdN57LK9CNuveswxkHAAZ2QGoZXjUZ1o0X7dLaYc2BGKLVv13UXQCqc+ADKWVp1A3rxop4Ua2+5tQRMX94jPojrgGoywEHpJLpcmJYN1bES1n1NaeWiDnEGN1rkdgGoCJfiQXS6H4h+Yq1Wc+ak42Yrav7wEpsA1DRv7t/AIAjsjXj3S9Po0Vbz2zxCNT3UifVJ4DxjtTWaP0q+QkoILSMFw9fhR0rWvNTfb2pLVo+MUfXOiW+gSz1T73iCEEChJXlwH3LsG6saM1M9fWmvmg5xTxd65UYh7y61q0z1LoebDIQUsYD27BurGiNSPX1po9oucU8XeuWGP/I1/mIomtdWkku12EjgXAyHuSGdWNFazSqrze9RMsv5upav8T5q3tiwLoxUtf6E5X8zseGAWFkPdR3HH5Z1+qIaM1E5bWmp2g5xhoda5lYf3bv3ls37tWxvlQi5+PyV2KB7Rzy96m8XtEahsprDfTy8/evb2paP/acWcRWHS97Ga0Pxws7YLPsh72vwo4TrUmovNb0Fi3XWKtbbesc74/sded141m3WsF1asFeFh/YokoTsPIQq7Jm10RrBiqvNVwu8XKOtbrVuK7xbmDHUd1qAuepDWv5SiywVKWGwIE1RrR1rBSjANd0+3rs0/cff6KdNbBbpxrAOO/jRm2dy+ICy1RqDHwVdoxoh3zVdYb3ouUee3Sred3i3gs7Lpd+ec5easdYXtgBS2gWzqu6dtEO9KrrDPCZbi/tOrGviAF2eBt30Xr9jCwgMFXFZsHvrRsj0iFeeZ3hmkj5x36damCn2PfCrpdOeUwu6sl5Fg6YpmLjYFg3RqSDu/I6w1ci5SExdKiHneL+7H52WqPsOuQs9agxx1koYIqKDYTfWzdGpEO66hrDEZFykTg61MVOsX/vfnZam4w65Ce9qDlf+2f3DwDUo5l4XNU1jHQoV11jgEdEqtM87p79tPcxPX3/8eflf7t/FhhNbH9NUQaGqVxsva57XKSLQMX1hTMi5SVxdKiR3WL/1p52W4/oOuQgfEY9emUhgCGqNxZ+d91jIh28FdcXzoqUm8RTvV6Kf6KonmtwVvc63frDA2NUbzIM6x4T6aCtuL7wiEj5SUzV66YcYJfquQUjda3VLT80MEaHRsNXYR8T6XCttrYwQqQcJa7q9VMesEr1XILZutXrVh8WGKNLs2FY97goh2rFtYVRouQpsVWuo3KAmSrnDuzSpW63+JDAGJ0ajh2HQLX1jXKQVltXGC1KrhJf5XoqDxipcq5ANJXr9z+7fwAgB43HXNZ3DusKt8kTjqp8KYIRnr7/+KOmwlqV887ADripagH8jK/CPs6lDqCmqvW94lnMGi/DAjEEe1XMwZIHLjBGxaJ3hL8K+5gol7mKawszRcldcqhaY+UBR1SNf6iiSi0v8SGA8bo2Il7XPSbK4VhtXWGFKPlLHlVrrVzgmqrxDtVlrum+Egt8oCFZo9o6Zz4MgXo1ifnUfTrwdVfILXMOO2SB/8tayEbxVdjHRLm4VVxbWCVKHpNLxborF6gY10Cu+u6FHXC5XDQlPCbKwSeO4TFyiDOinAHwKH9AAurLlN8OVyBV0ZrF7647L8JFrdJ6wm4RcpqcqtViudBDtbgFjote50P/cMB8mhTDukdEOOQqrSdEESG3yalSTZYHtVWKVeAxUeu9r8RCYxoVHhH1YAOAEfRJddlb4K2oX4V32YKGIhajXbyuOy/CwK7SekI0EXKcnCrVZnlQR6W4BOaKUvtD/BDAGhqVj/xl2HN2H2KV1hKi2p3n5FapTsuFvCrFIbDe7vrvK7HQhIblo90FOKvd6yaWYQ25xiN2nxUjyYV8on69Dchldx0pc5AC1+0uMlH5Kuw5uy9gVdYRMtmd9+RWpW7LgxyqxBsQz45zwMEDRWlYPmdYd06Ey0qVtYRMIuQ+uVWp3XIhpirxBeSw8izwlVgoSOMSh70Yx1rCHnKPR1UZdMmFWHztFdhhZe0xsINiNC5fq3JpWG33uolrAOByMagDYlhRh1xcoRDNy9d8FfYcwzrgctlfC8ivSj2XC3tUiR+glplnghd2UIB/aWSW3ZcScQ1xyEcetftMGUUurGfNgahm3sUN7CA5DUxM9uVx1hDikZc8qsrQjvleLsHqDpDBjFplYAeJaWCYaeelSmwD1FVhaOecmsOQDshsdO0ysIOkNDL3WXk5sDePsX4QmxxlhApDO8ZSW4AKRv6jw78j/iPAOpoZKhPfANCLsx+o6On7jz+P/uOUf9mCRDQ053hdd78dLx+qrB104YUUI2Sv/fLgvOx7D3DEI+eEr8RCEpqaczTS9zOsA46Qt4zgnO5J/QC6eOQrsgZ2kICm5pzVl4AK+2RYBwDHOcPuZ82Ajs7UPgM7CE5TwyqGdcC95DAjeGXXg7/+CnR3bw10OEJQGprHeF13P2sGnGXgwqOynwly4Lrs+woww9Ezwws7CEhzw2qGdcAj5DSPyj7wkgN/85oO4HNHa6SBHQSiuckp+54Z1gEjyG0elX1oxzO1AOCYW/d/AzsIwKBuLA3/cYZ1wEhynEdlPsPFvzUAOOOz2mlgB5tpbHKzf8dZK+hBrkM//vEZ4DHX6qiBHWyksWGnla8YxDr0Iud5ROZXdt0Y1AGM9bamGtjBBpqbeTT58Yh16Enu84is53mXuNfLAszzUl8N7GAxzc08fh/bcavWKvMaAY9TA3hE1qFddfIaYA0DO1hIg0Mn4h24XNQCHmNoF4dXdQBrvJx9BnawiAZnLq/rjluxVpnXBxhPTaCTavFuUAewx7+7fwCoToNDN2IeuOalNngxBXk40wHWetsnaZhgIk3OGjsuf1n3dvZaZV0XYD2DO+6R8XzJHuMZ1xwgq2tnhq/EwiSanLqy7q1hHRCJr9lxj+zDr0zkJsBan51xBnYwgSaHbsQ8cJbhAMQhFwHW+uofpAzsYDCNzlr+2MQxXiYA0WWtr/CZbDGd7ecFyO7WHc0fnYBBNDl0JfaBUd7WE//QwHs/f//65syZw7oCxKMRggdpcPZaeaHLutez1ijregD5GN7xIuPZEz1+M64pQHZHzgZfiYUHaHD2it4AAzDGy++5c+7i7Acgu6NnmQMPTnBhiMHrutu8rgOqMrjpLds5FDles60lQFb3ngVe2MGdNDV0JweACNQiGCPyMBGgijO11sAO7uByEIfXdbfNWKOsawHUpCb1lW3IFD1Ws60nQCZna6yBHRzg9+ZA/MsG0JPaBGMY2gGM90htNbCDG1wE4tFQricPgMjUqJ6y9QMZ4jTbmgJE9mhNNbCDL2RorJgrawyMbLizrgHQi1oFY/z8/eubwR3AY0bUUQM7+ITGPyYN5FryAMhEzYJxDO4A7jeydhrYwRUafjIbdUDIAyAjtauXbAOljPGZbY0BdhldL/8d+R+D7DI2UczTOR46f3YA4G8vl1D9AcB1M/5xwws7uPgrsFn4F9415AKQnToGc/iaLMBHs+qigR3taeq5JmtcPHpYZP3cAPSVbYBU4aw1uAOYXwsN7AC4XC41LhAAL9S0XgyP9jC4AzpaVfsM7GhNM5+HZvC2R9ZILgDAOtXOXX0a0MXKemdgR1vVGiXG6RYb3T4vADUZGu3ltR1Q2Y4aZ2AH0JhhHVCZGgfrvVxqDe+AKnbVMwM7IDwN321n1shFFgCYSQ8HZLezjhnYAbyRcYhlWAcAzzINiLqcxV7bAVntrl0GdrS1O/kAAKALgzsgiyj1ysCO1iIkIV+zR+N1+Rd9gMtFzSO2jvEZ5SIMcE2k+mRgR3uREpK9MjbN98Zvxs8IANRjcAdEErEmGdjBxdCOHgzrAOhAX5dLxEsy0EvUGvTv7h8AonhJUkONOKIWzozENQAQmV4cWCnDXdMLO3jHv/JRjcYXAOJyTv9NLw7MlKnGGNjBJ7IkMWNUbZarfi4A+Io+Lr9Ml2ogh2w1xcAOvpAtoSux9gAAGNwBj8paRwzsABL76gWd13UAkIMz+7asF25gr8x1w8AOCGd1Ua3YJFf8TABnqYlQx8vgLvMlHFgje53wV2IBknv6/uOPv6wGAHSj/wGuyT6oe+GFHXzB4U8WT99//BGvAPAq24XNOX5etr0G5qj2+tYLO/iEpqkH+wzQw9vXyEA9b/Nbfwe9VD3fDezgCoc8AADkZHgH9VUd0r1lYAfvONT36lB4AQBYw++5g1o63RfbfFA4wkG+n78QC8AsnZp8XmU768XpfNliArrrWhe9sIP/OLj7secAvfg9dsDl4iuzkEX3M9vADi4O6ii6F2QAANYyvIN43Auf/bP7B4DdHMwAAHW5+HGUWIH95OErAztaM6wDACAS/eleP3//+mZgAOvJvY98JZaWNELx+GMTAABE4auyMJ8B3dcM7GjHgQsAABxleAfjGNId5yuxtOKABYDe9AI9uSAyiq/twTly535e2AEAAMAd3g8e/GMAfGRA9xgDO1pwgMamkAMAvHr6/uOP/igXX5uFV+rXGAZ2lOfA5D0xAQDALIZ3dGNAN4dFpTQHZA7+QiwAq7lc9JSpBxCj9WSKP7hFjZrPCzvKciACAABRvAw43FPIypBuLQM7SnIIAgCQmd9jV5c/WEEm6tA+BnaU48DjK+IDAIBIrg1E9KzsZlC3n4EdpTjY8nEQAACr/Pz965t+kQz84QpWcy+Lx8COMhxkAABANV7gMYMBXXwGdpTgwAIAoBq/x47PeIHHGepJLgZ2pOeA4iixAsALgxCgCi/w+IqzLi8DO1JzEAEAAPzNEK8nw7laDOxIy4GTnwMFAFjNH56gK0O8Wtyl6jOwIyUHCwAAwGO+Gvq4c+1lIIeBHek4OAAAAOa6NTByLxvHcI5rDOxIxaEAAIziD08AnPe+frqrHefs4QgDOwAAoJVMv8fOYJksjsZplty7hxxlBgM70qhY2FlH/ABwjWEIwFr31NzdPbzzgZ0M7Ehhd6FmPIcfAADwFXcGOvtn9w8AtxjWAQDQmX4YoB8DO0LTnAAAAADd+EosAACt+T12kMvZf9SX50AmXtgRltd1jCKWAID3DG/yefr+488jfZ2eEMjEwI6QHKa1aZABALjHqPuBewaQhYEdAADtucRDXKPzU74DGRjYEY4DFAAAuFzm3Q3cOYDoDOwIxcFZn6/DAgAQgbsHEJmBHWE4MAGAnfQiEMuKnJT3QFQGdoTgoAQAYLVML//1ywC9GNixneYDAADYxX0EiMjAjq0cjgBAJHoTACACAzugNBcvAIB89HBAdwZ2bOMQBgAAAPjIwI4tDOsAgKj0KQDAbgZ2LKcJBgCi06/0kekvxXZiX4DuDOwAAAAAIBADO5byr9W9+ZdSAAAAuM3AjmUM6wCATPQu0IN/VAYiMrBjCQ0vAAAAwDEGdgAAAISz4uWb13VAVAZ2TOd1HQCQlT4GANjBwA4AAGjNK6ue7DsQmYEdU/lXaQAA4KxZQzXDOiA6AzsAAADCGj1cM6wDMjCwYxqv6wAAgBFGDdkM64AsDOwAAOAL/hESYvj5+9e3RwZuhnVAJv/u/gGoSWMLAADM8PP3r29H7xuGdEBWBnYMZ1gHAFTz9P3HHxd/iEM+AtX5SiwAAAAABGJgx1Be1wEAVelz6rK3AERjYAeUpfkGYDRnSz32FICIDOwYRrPDV/yeEQCq0PPU8PT9xx97CUBU/ugEAADQhiEdABkY2AEAwJ381dhcDOkAyMZXYhlCEwQAdKP/ie3lK6+V9qnSZwHga17YAQDASV7axWGYBUAlBnY8THMEAHRmaLeHHhSAynwlFihJEw/ASs6ddap9zRUArvEvgTxEs8RRO14eiE8AVvPSbg5n+t/EGUB9vhILAACD+HrsGAZ0AHRnYMdpGikAgI9eeiSDu+P0lQDwN7/DDgAAJjCEus3vowOA67yw4xSNFQDAbV7bfaSPBIDbDOwAAGCyt0Oq6sO7LAO5l33I8vMC0IuBHQAALPR+QJR1gJd10PV+vQ3uAIjIwI67aWYAAMbJ8PpO/wcAa4VsCIhLs8ZZqy8gYhWAikadp13PyVvrl2Fdog51ARjLCzsAAEjizNdpMwyhVjDoAiATAzsAAEjKMO4Ywzoykt9yl94M7ICSfv7+9U2TAwC48LOTfvQxR9ZPjlOVgR0AAFBStYt8tc9ThaHcXl+tv5whMwM7DnMQAQCQhYs6o7kP5XNrz9QJIjOwAwAASql6CX/6/uNP1c8WjeFcD2/3WW4RjYEdhziwyMjvsQOAfly6uYdekRfXYkE9YScDO25yiAEAwH6GB+e4z3DWZ7EjF1nBwA4AACjBJRrDOVZ4H2dqDzMY2PElBx4AABm4MPfjrkIUBnjMYGAHAACk5nLchyEdGbzEqdrEIwzsAACAtFyIazOgIzMv73iEgR2fcjgCABCZy28t7h9UZ4DHPQzsAAAAWM6Aju4M8PiKgR0AAJCOi21OhnTwubf5ocZhYMdVDlIAAKJykc3DvQLO8foOAzsAACANl9YcDOpgLK/v+jGwAwAA4DTDOVjrJecM7mozsOMDBy4AABG5nMbhzgD7GdzVZmAHAACE50Iah2EdxOLrsjX9s/sHIBaHLwAA0biAxuG+ALE9ff/xR57WYGAHLOHQAAAAWMPgLj8DOwAAICyv6wDOM7jLy++w4/8kMQAAANTj99zl44UdAAAQkktlPPYE8vPqLgcDOwAAIJzVgyGX1+MM7aCGl8Gd+heTgR2Xy0WDQl0aSgDIx/kNsJbBXTwGdgAAQBiGdTn8/P3rm72Cegzu4vBHJyCgt82PYgkAdGEABBDDyz1UXd7HCzsI5Nq/VPrXSwCAufwD6Xl6VahNfdzHCzskYBC3Gp2X/3f7BQBUZOjzNesD7PL2DqoWreOFHSTjXzEBgGr0NvnZQ+jB77hbx8CuOYkWgwYHAOhKH1SHvYQ+DO7mM7CDAM4UOg0RAJCdfqYeewq9GNrNY2AHAAAsZ7BTl72FXry2m8PArjEJlZ9mCADISA9Tnz2GfswYxjKwA5bZVcA1jADAZ1ww59GDQT9e241jYAdBnC1qGiEAIBO9y/0yr1nmnx04z9DucQZ2AADAEoY3Pdl36Mlru8cY2DUlaWLyyg4AqEq/0pv9h74M7s4xsINgDO0AgGr0KVwu4gC6M7i7j4Ed0IIGEQD2cAbzlngADO2OMbBrSHLE55UdAFBB9N4kQ18cfQ3PqPiZgPt4bXebgR0AADCcoQxfER/A5WJw9xUDOyhG8wMAQAb6VuCFod1HBnbNSII8HtkrzQ8AsJNehKPECvDCvOJvBnYAAABsY2gHvDC0e2VgB0VFbXwUYACoLWoP8p6eJJYscQPMpz4/M7BrRNDTnUYQACAuvRrwwvzCwA7YQPEFgJoMXMbquJ4dPzNwXfe/IGtgB4VpeACAVfQdjCKWgLe6Du4M7JroGNwV2DcAADoytAPe63Y/NrADWtH8AcB42c7Xbpe+rLLFFTBfp9d2BnYQ3KPFSKMDAMyk15jDuj6zDsA1HYZ2BnYAAMAphimsIM6Aa6oP7QzsGqgexNymyfmb9QCAvvTGOf38/eubHg54r/JXZA3sIIGKBajiZwKATgxP5rG2APepeL80sAMAAO5ioMQuYg/4TLWhnYEdAABwWOaBSbXLXFe+Hgt8plKdN7CDJPy1WAAAeKW/Ba6pMrQzsCuuSqACALCfAQnRiEngmgqzEAM7YJsKRRQAujAYISpfkQWuyX7f/Hf3DwCww8/fv75lL+AwwmcXHPkBvFVhGJKlrlVY6130d8B7T99//MlaV1P+0BzjsKrp0WITLS52Fs9oawGzPZJv8gX6ynrReS9LHauy3rtl2W9gjYy11Qs7oC3/Ckt1IxuTa/8t+QP1ZbzgwOWizwP+lvGlnYEdABSzqhl5+3/HpQiILEuNynaZjM7QDnjrpR5kqbX+6AQAFLHzl277hd9Qj5ymAnEMvJdlkG9gB2yVpVhCVC+DsigXkmg/DwA4k4D3MtxDDeyKyhB87KFhgRoyDMUM7yCvSnmrL+ZyyXFuAmtFPx8M7IDWNG5klDFuM/7M0JV83cO6r2GdgbciD+0M7CCZyAUFmC/zRcPrBohPjtKBOAfeinrHNrArKGqwAXBepWFXpc8CxKYv5jPOIeCtiOeFgR2w3e7iqGGDPfyOO4hFLtKNmAfe2n0vfc/ADhrSnEAeXQZaXT4nRFUx/6JdvL5Scf2zcP4Ab0U6OwzsIKFIRaQKjRoRdYxLFydYT86BPABeRblvG9gBIUQpihBF94tD988Pq8i1/exBHP7RCHgR4X5qYAcAhOR33MFclXMrwkWLvCrnBnDc7rPk353/xxlvd0CxztP3H380E1CT3P7o5+9f37KecZ/tZ9bPQw3qDHztJUfUauht573bCztoSqP+kTWB2LK9trv182b7PNQh7uA4tRrYNbg3sAPC8C+YwBEZLk/3/HzRPwu1dIi3TP1Eh/2oIsPZA8yz42wxsAN4QyMGeVS6PFX5HMQmzuBx8ghYxcAOAEgt2uXp7M8T7XNQi/iCceQT9LT6lZ2BHSSW6SsfR1X8TMB8lV7bwWidciNTH9FpXyqyf9DTynPGwA4AKGP34M4FjmjEJMyz+8wB9lg1tDOwA3hH48VO4m+Ml0vUyvW0d0TScZCQ6XUdtXTLNWDNmWNgV4gmhSrEMjDS7IvUqMGI2scohgfx2aN6Og7JobvZvZuBHQBQ3qxLlMsZ0YhJ2EsOQi8zh3YGdpCcFxlzaLbYQdzNNWp9Z3zdVi3nUd1f98ghIumej9DNrDNIESlGs9LT2YYgerzsbnSirw917I71zo7m+cw9Umt4hPqRL4fsWT/ZYhQ4Z3R9/3fkfwygkp+/f33TYDGCy1lcu/dGjeGs3bELHPeSr2o+cA8DOwAYyCWao1zcOEON+Vu2PLJ/vRncQW1P33/8GVnnDeyK8SKISkYXPJhFnHIP5zT3UmOgFnc2qGvkHdbhX5QDoJeqv8PucolxScmwTrfcu44VPvMqEWKUPOQWR6ktt2XMJ/vKexnjGLhtRL33wq4oz62BF2cOi/f/f9SS61y8OEoOcZS6Upe95Rr3NqhpxEs7A7viHjkAMjYVDjr426g81kzCefKGozL2XrDDZ3U1cw7ptYD30hY0OKLLgVf5K7GXS4zmK8tavTd77bKuywgR4pK4OucG91FLzsmWY/b5MWf3O/u6Z4tz4KNH6lDqAgb3qnzonSkEWdYjQrOVZa3eWr1uGdforAgxSUyd8oDHqCOPyZZr9vt+I/c48/pni3Xgo7M16J/RPwhElvmwZi+xc9vP37++vf3f7p8HICI18nHZBhj2+36j9/jp+48/2eIGqONs/fE77IDwRv5p7E52r9vb/9uVmmSxCJyhdsBts/uFl/9+pnz0u+2gLy/sAA7K1NxF8/71nbWkIpcpPqPmjZMtz+z9cSv3NlscXS5e50J2Z+qOgR3tOOhyythY8bWMw7tMPyuwX7YaB7vs6POy9pbqCvQh0Wkp6wF9yz2Hd8Y1iNKcZFu7KOt2ROS1zbSO7BM5hllHvZgjW36Jg2N272uFfdq9hsBx99QcL+wACCPqq7toPw8Ql3oBxxk0jRGxdwKuu6fuGdhBQ1mboyg/d7aGKMq63SvK77zLtt/APurFPFnPMuKrFFsR+ibgtqN1x1+JhUKO/FXQSk0JvXwV2zPiWrPLGT9///qmzvakZsyTMafEw20Z9zUTf10W8nOQ0FKHg+t9o1jlM0dpgDOuZ5S1W+GR/em0TsyTsUZwnroxV8Z8EhO3RdvXDnsWbc2hu1t1p3xRgmscVrlFaaiyxVGUdVvt1j51XRfmy1YjOEcNmStrHomLr0Xc1057FnH9oauvak+bogRvOaRyi9JQZYyjKGsHXWSsExynps6XMYfExW1R97XT3kXdA+jos9rjj04ANKI5g7U6Xf5gNGdWTfY1Bn+gAuIzsAPSidLoZW1woqwfdJG1VvA1+zqXswrWMbiDvT478wzsAAAmcxGCHuQ6mXl1B/tcG9oZ2AE8IGtD4+UCrJe1XvCRvZzLGcUuYu+VwR2s9/T9x5+3dcjADkhJQwXADi6wc2U+38UGFXl1B/sY2AE0lflSBFm58ACQleEdrGVgB6QVZeCkaQHuoWbAdVHO9TPkdQ328TiDO5jPwA5ggKwNS+bLEQB1OI8gp7ev7rL2wxDJ2zwysAMAWMylBuqQz/DK8A7Oe583BnZAapH+RT5rYxJpDaGTrDUDRst8Dsnj+1mzPgzu4LhruWJgB0DqyxJk5iIDQHVe3cHXPssNAzuAgTI3IoZ2sEfmugGPynz2yF24n995B69u5YGBHZBe5mY/GmsJ8DV1EmoyPNrD8I5u7ol5AzuAwbI3HC6jAKzgvOkre6/EHIZ3VHYmtiUCLWkQa4p0uGePsUhrCV1krxvdqJOPyR7v9v9xkWLAfuYQKWbgqEfqixd2QBmRDvHsjV+ktQSISJ08z9pxueTvlVjPCzwyGRGr/476YQCo5en7jz8aIoDPqZM92fNxfv7+9W33ANd+5vR+33bHEcyoJYoTLSnotUVqvCrEWqT1hMoq1Iuu1MnjKsS5/R5rd0zYz9p2xxd1ragdvhILABCAS2NeLoTHVFgneTrezjW1n/X5Gi0jrY4nQUtLFRpGPhftQK4Sb9HWFaqpUiu6UyuvqxDf9naulTFiL3lRoTYxz+5aoVDRksJc3+7i+l6FmIu2plBNhTrBKzXzVZXYtqfzrYgV+8gtVWoW94lYG/zRCQAO8cvVAY57ufCpmzXYxzVm/xEK+8gR1+LEEK+WLLUgxQ8JIym2PUQswlViL+LaQgVVagTXda2dFeK6697tNjJ27CGrVKh5mVXL9VIfBo5QRPuIWLCrxF/EtYXsqtQHPtetdlaI6W57FtHZOLJ3RFahPu7UJb9bfEh4S3HsI2ohrxKDUdcXsqpSG/hap9pZIaY77Vcm12LLXpFZhXo5U9f8bvmh6U0x7CVica8UgxHXF7KqVBv4XJe6WSGeu+wVkFPGOquu3scfnQBK84cSAGCtjJdIgGzccer7Z/cPANBNpcPVpQzguEr1vzp7BcBuBnZAeYZKc1lfgNu6DICcCQAwhoEd0EK0C0S1i1u09QWIpFrNr85+ARCB32EHAAA8xD/cAMBYXtjRimaSSKr9C778AvioWq2/plL977BfAORgYAe0EfFCUe1iEHGNAXapVuOrs18AROIrsQCb/fz965tBF0AdnQY/zq/9zu5BpzgFyMjADoChnr7/+OMSAPcx9KijU/2rFLcZ9m30el/772VYB4AuFGRaqdRY8piIDWnF+Iy4zhBRxfzvqFPNqxSzUfat0pq+iLK2ABl5YQcQRMWvxnptB1BPtbNqt8rrefSz6RUAPlIYaaNyM8Q5EZvDqnEaca0hiqp530m3GlcpZiPsXaX1nCHCHgHs4IUd0FbE118VX9kBVBbtHJnNGTWW9bztszXqlntAPwZ2AEwXcTgK8IiONa3acKnjHlbyNh7tJVCRwkYL1RpMxorY5FWN2YhrDTtVzfXKutaxarEaaR+rrW00kfYa4B6KFy1ohLglYjNXOW4jrjfsUDnPK+lesyrGaaQ9rbi+WUSKA4D3fCWW8jRBAMBbLunHVeyjou2/31+7z/t1jxYbQG8KEuVpgDgqYpNWOX4jrjesVDm/I1FrzqsYo1HjoeJaVxE1ZoD6/tn9A8BMmh+yq9wkyk86E/9z/fz969vL/3b/LFmJUXj29P3HH/kA7KCJoTSHK/eKeLmrHscR1xxmq57Xu6gnY1SNz+jxUXXdK4seU0BuCgylaXw4I2Lz1SGWI647zNAhn1dTP8apGp8ZYqTq2neTIdaAHBQTStP4cEbURqtDPEddexilQx6vpGaMVTU+M8VJ1T3oLFP8AbEoHpSl4eERUZur6nEddd1hlOo5vIpaMV7V2MwWK1X3gVfZYhLYxx+dACAMFxUqE9+P8Yck5hGbcYjv+vwRC+AoAzuAK6I2Uh0a+ahrD48Q14/pUPt2qRyb4obIXgZ3lXMQeIxDjJIcfIwQudHvEuOR9wCO6pKvM6gBc1WOzcyxU3lfOC5zDANjKAKUpNFhlMjNUpc4j7wHcEuXPJ1B7s9VOTYrxE7l/eF+FWIauJ/EpyRNDiNFbpI6xXrkfYBrOuXnSHJ9vuqxWSGGqu8R51WIb+AYv8MO4IbITXOnpi3yPsB74vV+/qDEGtVjUwxRnd97B3040CjJIcYMUS8B3eI96j7Ai245+Qj5vFb12KwWT9X3izGqxT3wygs7gOS6NWouMEQmPo/rVrt2qx6b4omu3v612ep5Dt042CjJYcUskS8E3eI+8l7QV7c8PEv+rlU9LivHU/W9Y77K+QHVeWEHcAeNcxz2AvLxe+rWUyuhN6/vIC8NEyU5kJgt6oWza+xH3Q/66ZqDn5Gb+3SJxQ4x1mUvWadD3kAFXthRkkOIrrrGvssMEYjDV17S7SUWga94cQc5GNgBnKDJiceeQAwGdXt1qoVdYq3L52Q9gzuITfGnNAcQs0VtojvHftQ9ob7OefdC/u3VKQY7xlqn/WWfjrkFUUlGWtDgMEvkpqZz3EfeF+qSc+zUKf66xlunPSaGrrkGUUhA2tDkMEvkZqZ73EfeG2rpmmtyLIZO8dc95jrtNbF0zz3Ywe+wow2HDB11j3sXG5ine32JolOdE3Owz8vvu+tUc2A3Azta0egxQ/TGpXvcR98fyKh7XYmiU30TcxCHwR2s4eCjLYcMo0W/THSP+ej7Q25d8ksexdAl3l6Iu79123/ik6Mwhxd2AINEb6C7N1PR9wei615DouhWy8QdxNetLsEqDkBac7gwQ/TLhbiPv0fk0iGn5Mx+HeLsGrF3Xdd4IAd5C2N4YUdrDhNmiN5Ei/v4ewSRqBn7da1ZYu9z1obI/I47GMPAjvY0PMwQvUkR9/H3CKDzpdc5Bfl1rmEwgoEdQFMuQ4Z2jFE5lyp/tug61ydxd4x1IguDOzhHkYf/OESYIUMzLfafZdgrYqqaQ3Jin6oxdYS4u1/neCEneQ7HeGEHMJEmOg//+guvXKb26VyHxB30oOeCYxyK8B+HBjNluITIgb9l2DNiqJg74n+9inF0DzH3mO7xQ27yH67zwg5gAY10PvaMrlyc1uteb8Qc9ObFHVxnYAcXjTJcLs8XJpemv6kNwEwuqYZ1o1hHKlAT4W8GdgCLaEJysm904tK/jroi3oDr9F7wzMCO9hwGrBY95ry0uy76vgF5qCeGdTNYU6oxuKM7AzuADTQfOWkcqcxlfw01RKwB99F/0ZWBHa0p/PA5F6rPqR3AvVw4nzlb5rK+VKaO0o2BHcAmGRoOjf/nMuwfEIN68cyZAoygptKFQ5O2FHoiyXCJkTNfy7CHzFEhN8TvHBViYxQxtpbYowu1hcq8sAMIQGOdn69pAC/Ug7+5UK9nzelCraUyAzsADtH8H6NxhN7UgL85O4DZ1F2qcoDSkqJOVFkuNnLomCz7yWOy54M4HSN7HMwgtvYTl3Sj7lCJF3YAgWRprDVDx/haHNQnz69zTsRgH+hGTaYSAzuAYLI0GS4Bx2XZU+A+cvs65wOwm8EdFRjYAQSUpcFwKTsuy57Sixw+T05fJ6bisSd0plaTmYEdQFBZGgwXgeNe/rU3y94CH8nhzzkPgIjUbbJyqNKWok0WWS5AcuqcLPvL5zLHvvi7T+a9nkkc5SB+4ZmaRRZe2AEEl+VfBTU/52TZX+hOnl6n9gPZqOdkYWAHwDAubudpHllNvt7ma+xfE0O52C94pbaTgYEdbWlayCZLUyG3ztM8Qgxy8Ta1HqhArScyBy3tKdJklOGiJLcel2GfyRnrYuu6jHu5g/jJTZzDdWob0QhIuGhcyClDUyG3xsmw311linNx9LlM+7iTGKpBvMPn1Dmi8JVYuCjKMIvcGsdX9HiUfLxObh3z8/evb2II6MCZQBQOXXhDcSabTJcn+TVWpr2vLkNsi5ePMuxbFOKnJjkAt6l/7CT44B3NCxllaibk2FiZ9r6qDDEtTl5l2K8oxE198gFuUwvZReDBFZoXMsrUTMix8TLtfzXR41lsPIu+T9GImz7kBtymJrKDoIMrNC5klamZkGdzZIqBKqLGslh4FnV/IhM7/cgTuE1tZDUBB5/QuJBVtmZCrs2TLRayihjD9j7mvkQnbvqSL3CcWskqAg2+oHkhq2yNhFybL1tMZBItfjvvdbS9yKRz3PBM/sBxaiYr/LP7B4DIFGKyytZ0y7X5ssUE53TNpafvP/6I8fO6xg1/EwdwnDOHFRRluEExJrNszbd8WydbbEQWIW677meEtc+ua+xwnZyC+6ihzCS44ADNC5llayTk23rZYiSa3THbcf92r3kVHWOH2+QX3EctZRaBBQdoXKggWzMh79bLFiNR7IrVjvulLozRMXY4Tp7B/dRVZhBUcIDGhSqyNRNyb49scbLbjjjttkdqwTjdYodz5Byco8YykmCCgzQuVJGxkZB/e2WMmZVWx2eH/ZDzc3SIHcaQg3CeWssoAgkO0rhQTbZmQg7uly1mVlkZm5X3QI7PUzlumEdOwmPUXh4lgOAgTQsVZWsk5GE82WJohhVxWXWd5fR8VWOHNeQoPEYN5hGCBw7QrFBV1iZCTsaTNZZGmB2PFddWDq9RMXZYT77C49Rjzvhn9w8AwD5Zm3BNTzxP33/8yRpPrPESI+Jkvp+/f31TJwHicPZxhoMcDlBg6SDj5U5u5pExvo6aGYeZ101+7pE5ZohLPsMYajT3ECxwgwaFbrI2EnI1n6yx9pavwz6Tf3tliRNyk+cwhprNUQIFbtCc0FXGZkK+5pUx3i6X3q/r5FsM0eOEWuQ9jKF2c4QggRs0JnSWsZmQs7VEjsFOfx1WXsUUJT64z735FG2f1QMYI1puE48AgRs0JZCzoZC7dUWIx1Xxteuzyp/YIuQAx43Mpwh7rz7AWBHympgEBnxBQwKvMjYTcriPVfG5I6ZmfTb5kVPGWtxR9Re46geMpbZzjaCAL2hG4G9Zmwm5zKOxuzuG7vn5d/+szJG1/nazK/92xIdaA2Op87wnIOATmhC4LmszIaeBrLLW3U6inDErYyXKZ4ZK1HveEgzwCU0IfC1zQyG/gegy19huop0phnaQm/rPC4EAn9CAwG3ZGwp5DkSTva52Ev0MWRFL0dcAsnIWcLlcLv/s/gEgIs0HHJM9VzRDQCRqUh4Zzr/qf/gCKstQY5hPgYUrFEi4X/amXd4Du2Svn91kOy+8tIO8nA+9eWEHwBBP33/8ydywa4iAHdSeXDKec17aQV4Zaw7jKKzwjqIIY2Ru3tUBYIXMdbKbCueCl3aQl/OiJy/sAJgic9OuKQJm+vn71zd1htUyn8vQnfztSaMA7yiGMFb2S6maAIySvR52Ve0cmB2H1dYLInGO9GKz4R1NBsyRvcFQG4Czste/zqrWfkM7yMuZ0oeNhjc0FzBXlQZDrQBuqVLvOqte6w3tIDfnTH1+hx0Ay2T/S7Iv/P4p4CvqA8gDgEcZ2AGwXIWh3eXiMgL8zTC/jirn1Fc6fEaoTA7XZ2AHwBZe2wFVqANwnbyAuSr00nxOAYX/KHawV6WmXj2BHirVLV51quGrYrjTmsIOzqOabCr8RyMBMVRqONQVqKlSneKjbrXb0A5qcDbVY0PhP5oIiKNaw6G+QH7V6hLXdazXK2O74/rCSs6qWmwm/EcDAfFUbDrUGsijYg3ia11rtKEd1OHsqsNGwkXjANFVbTzUHoinar3hmK512cAOanGW1eCvxAIQXtXmXjMFscjJ3qqeNdHIM5hPPatBsYSLggaZVG301SHYp2pd4T7d6/DqPOi+3rCC8y03L+wASOXp+48/FZv8n79/fdNUwVryDvaRezBfxZ65E0WS9hQxyK9q068+wXhV6wWPUW/35Ya1h/mcfTnZNNrTJEAdlZsRtQrOq1wbGEONfWZoB3U5C/PxlVgAyqjc8PvqHtxP3kAO8hTmq9wnV/Xv7h8AAEZ6aUaqNv9vP5fGCz6qmvsAQC8aGtpz4YXaulze1TI665LnzKOGPouQS/YC5oqQ5xzjhR0Apb1t/Cs3KF7e0U3lfAaAWZ6+//jjDM3BJtGeiy30061JUeeoomLuVv8afxbq5LMocWg/YL4o+c7nbBDtaQigr46NippHRhVz9atcrPh5o1Mbn0WKPXsCc0XKd66zQbSnGQA6NyxqINF0yMd7867DmuymFj6LFmv2BeaKlvP8zebQnkYAeKtr46IWsluX3Hs017qs02pq4LOI8WVvYK6Iec8zG0NrGgDgM92bF/WR2brm2Kjc6rp+s6h5z6LGlf2BuaLmfnf+SiwAXNH9F8Ff+9wuTJzRNYdm6/IXsFlHHAHEoijTmssncJSLzEdqKNfIlc+tyBnrf456Fj927BHMFb0GdGRDaM3BD5yhoflIPUVe3LY6T+zJfbrXsQzx0n2PYLYMdaATm0FrDn1gBM3NR+prbWL+nF15Yb+O6V63ssRJ932C2bLUgg5sBK058IGRNDhfU3PzEttjRMgBe/m5CPuzS7a46LxXMFu2elCZjaA1hz0wg0bnPHV5LbG6VrT4tv9/i7Y/K2WMhc77BbNlrAkV2QRac9ADM2l2xlCrxxCP+0WOZfHxLPIezZR1/7vuF6yQtS5UYgNozSEPrKLpGUv9/pp4iylD3HaPnQx7NFr2Pe+4Z7BK9vqQncWnNQc8sJKmZ48qtV785JclFrvHWpZ9GqXCfnfbM1ilQn3IzOLTmsMd2EUDlMuj54X9JnPP0S1+M+/VvSrtbad9g9Uq1YpMLDqtOdiB3TRA0EOFnqNTvaqwX0dU29Mu+warVasVWfyz+wcAgM6evv/444IBZKBeEZ2hAsyh9u+hoNGawgNE5MIB9VTsOarXqop79lbl/au+d7BL5boRkRd2ABDMyysWFw6ooWouq1N5Vb90V/98QA8GdgAQmAsxEF3VOlV16FP1c73X5XPCShVrfWSKGK0pOEBWLiKQR7d+o1p9qrZ/1fbnlmr7BxF0qyO7WGRac4ADFWiaILau/Ual2lRlDyvtyT2q7B9E0rWerOQrsQCQnN95B0RUqS5VuJhW+Axndf7sQF4KF+1VaSQB3nI5gTj0Gs8q1KWse1lh7UfIun8Qldoyl8WlPQc3UJ1mCvbSa3yUuS5l28/Maz1Ltj2EqNSXuXwlFgCK85VZIJrM9SjTBTXTz7qSdYExMtfyDBQq2lNkgO5cXGAuvcbXstagyPuadU13iLyPkIWaM4dFhYuDGuCFhgvG02cck7X+RNvfrOu4U7Q9hGzUnTksKlwc0gDXaL5gDH3GfbLWnt37nHXdIti9d1CBGjSeBYWLQxrgKM0Y3E+fcU7WerN6v7OuUzTyFB6nHo1lMeE/DmmAczRn8DU9xmOy15gZ+599TSKTr3Ce2jSWxYT/OJwBxtGwwSs9xhhV68pX8VH1M0cnZ+E8dWscCwn/cTADrKGRoxs9xjjqB6vIWzhHnR7HQsIbDmaA9TR2n58/1qYG/cV4coMV5C6co0aPYRHhDYcyQF6zm8NIZ4RGOJdIsVONXGA2+Qv3U5vHsIjwjkMZgAw0w3noLeaSC8wmh+F+avPj/tn9A0A0CgsAQB5P33/8MVBhJvcDYAcDOwAAID2DO2b6+fvXN4M7OE49fpyBHVzhMAYAyMngjpncE4BVDOwAAJJxYYTbDO6YRQ2GY9TgxxjYwSccxABE5HwC2E8thmMM7c5TZOAGBQaA3VwM89NP7CePmEFuwzFq8P0sGBzgIAZgtdWN7b1nncb7PnqJGMQtM8hvOEYNvo/FgoMcxADMtqqRnXGmacK/po+IRbwygzyHr6m997FYcJADGICRMg/n7qE5f7V7L/ib2GQGeQ6fU3fvY7HgDg5gAM5Y2aBGPqu6N+qR96az7nHJeHIdPqfmHmeh4A4OXwCu2d18Zjyfdq/ZDhn3qZOOMclcch6uU2+PsUhwB4cuQH2Zmsjs51KmtR4h+3510S0umUvew0fq7DEWCe7k0AWoI2vDWO0syroP96q2b5V1iUnWkPvwNzX2GIsEJzh0AWKq3gBWP3/sH5FUj0fWUwPglRp7mwWCkxy4AGto6PqdOVX3vNs+VlE1HtlDHYBnauttFgge4MAFOEZT9piu5021uOm6jxVUi0X2Uw9Abb3F4sCDHLZAdZqpvbqfM5Xir/teZlcpFolBTaA7dfVrFgcGcNgC2WmY4nG2vKoSn/a0hirxSBxqA52pqZ+zMDCQwxaITlMUn7Pkc9nj197WkT0WiUd9oDM19TqLAhM4cIEVNDf1OD9uyxz39reWzLFIXOoEHamn11kUmMRhC5yhYenJmXGfrHlin2vKGo/EpVbQkVr6kQWByRy40JfGgyOcE+dkzC97XVPGWCQ+9YJu1NKPLAgs4MCF/DQRzOB8eEzGvLTndWWMR+JTM+hEHf2bxYCFHLiQh4aB2ZwJY2TLVfteW7Z4JAd1gy7U0L9ZDNjAoQt7aAKIxFkwTqbctu/1ZYpHclE/6EANfWUhYCOHLozhYCcb9X+8LHXA3veRJSbJRx2hMrXzlYWAQBy+dOZwphP1fo4MdcTe95MhLslJPaEqdfOZRYDAHMJk4VCF49T2uaLXI/vfU/S4JDd1hWrUzGcWAZJwEBONgxTup5bPF702iYG+oscmuaktVKJePrMIkJRDmRkcjjCPur1O9FomFvqKHpvkprZQiXppYAclOax54aCDGNTl9SLXP/HQW+TYpAY1hiq618t/d/8AwHifFTaHdz7dDykAqObp+48/zndmeokvvT/k5qAAhnjffGZpEDTMwGxZ6mFFUWu8mOBF1BilHnWHjLrXyNYfHthndtPQvbgDMbgg7RfxPBAXvBUxRqlJ7SGjzjWy7QcHAJjN5Wi/qI2+2OCtqHFKPWoP2XSuj//s/gEAACpyKQKOUi9Y5efvX986D0AgEwM7AIDBXL7jsBdkIVZZyeCOLDrXRgM7AABYzEWZazpfTNnjZXCnJkE8BnYAAJRmCEIm4pVdDO6IqmtdNLADAIANXIz5TNfLKTGoTRCDgR0AwEAu2jHZF7IRs+zktR3sZ2AHAAAQkKEduxnaEUXHeij5AAAG6dhMZhPt8ilmOCJa3NKbusUu3WqhF3YAAACBGZAQib8sC2sY2AEAAARnaEdEhnas1K0OGtgBAAAk0O2ySg5e28EcBnYAALQRbeDhksu9osUwvDC4Y4VONdDADgBggE4NJLCXekNkfscdjGFgBwAAkIyhHRkY3DFDl/pnYAcAAJBQl0sr+Xl1B/czsAMAAEjK0I5sDO7gGEkCADCAS3Mu0S6L4odHRYtpuIcayBnV654XdgAAAMkZeJCZr8zCRwZ2AAAPclHmUS6pjKAWUYHhHTwzsAMAACjC0I5KDO/ozMAOAACgEEM7KjK8473qtc7ADgAAoJjqF1l6M7ijAwM7AAAIwOWT0QztqM6rOyoT1AAAD3Ipzifq5U4sMUPUeIfZ1NQeqtY4L+wAACCIqpcO9jK0oCsv8HqoWuP+3f0DAAAAAMz0fmhXdchDHQZ2AAAAxT19//HHKyN4dS0fDPGIxMAOAACgAUM7+JpXeESiWAMAPEhDn0/0oYWYYqbo8Q/RqdHxVKxrXtgBAAA04qUdPMbXaVnBwA4AAKAZQzsYyxBvn6q1rOSHAgBYTVOeS4bmXkwxW4Y8gKrU+Md0qF9e2AEAADTklR3scyT3Og711KRXFgIAYICOTXVWWS4DYopVsuQEcM6s80TtmMviAgAMYLiSR6YLhrhilUx5AdDBP7t/AAAAAADglYEdAMAAXqcAmXnNCRCLgR0AAARlEMxKhnYAcRjYAQDQhgEYAJCBgR0AAARmyMhKXtkBxGBgBwAAwP8Z2gHsZ2AHADCIl1AAAIxgYAcAQAuZB6qZf3Zy8soOYC8DOwAAAD4wtAPYx8AOAGAgL6Fisi9wjqEdwB4GdgAAkIChI7sY2gGsZ2AHAEBpBl3wOEM7gLUM7AAABjMgYhaxBQA9GNgBAFCWAReM45UdwDoGdgAAExgUMYvYYidDO4A1DOwAACYxWNnL+gMAWRnYAQAAcJhXdgDzGdgBAEzkldce1h0AyMzADgBgMsMjRhNT7OaVHcBcBnYAAAsYsKxjrQGA7AzsAAAWMUiar9Mad/qsxOSVHcA8BnYAAJRggAUAVGFgBwCwkKHSHF3XtevnJg6v7ADmMLADAADgNEM7gPEM7AAAFvMqapyfv399676e3T8/AFRkYAcAsIEhy+OsIcThlR3AWAZ2AACQnOElERjaAYxjYAcAsImvc55n3QCAygzsAAA2M7i7j7W6zroAQB0GdgAAQRi4fM1gE+LztViAMQzsAAACMZC6zrocY50AoAYDOwCAYAxd/mY9IBev7AAep/kBAAis+8XXsO6c7nFDDPIX4Dwv7AAAAut64fX76gCAzjRBAAAJdHkxZUg3TpeYITY5DXCOF3YAAAl0eHFW/fMBABylKQIASKjK6ylDurmqxAm5yXOA+ymcAACJZR3IuMCvkTU+qEfOA9xH0QQAKCDLYMalfb0ssUFtch/gPv/u/gEAAHjc28twxAGNyzoAwHEaJwCA4lYP8Azn4ok4xKUftQHgOAUTAAAaMLRjNwM7gOP+2f0DAAAAUJ+hMcBxBnYAANCA100AkIeBHQAAAEt4ZQdwjIEdAAA04ZUdAORgYAcAAI0Y2rGbV3YAtxnYAQBAM4Z2ABCbgR0AAAAABGJgBwAADXllx06+FgvwNQM7AAAAAAjEwA4AAJryyo6dvLID+JyBHQAAAAAEYmAHAACNeWXHTl7ZAVxnYAcAAAAAgRjYAQBAc17ZAUAsBnYAAIChHdv4WizARwZ2AADA5XIxtAOAKAzsAAAA2MorO4C/GdgBAAD/55UdAOxnYAcAAAAAgRjYAQAAf/HKjh18LRbglYEdAADwgaEdAOxjYAcAAAAAgRjYAQAAV3llx2q+FgvwzMAOAAAAAAIxsAMAAD7llR0ArGdgBwAAfMnQDgDWMrADAABuMrRjFb/HDsDADgAAOMjQDgDWMLADAAAAgEAM7AAAgMO8smMFX4sFujOwAwAA7mJoBwBzGdgBAAB3M7QDgHkM7AAAgFMM7ZjJ12KBzgzsAAAAACAQAzsAAOA0r+wAYDwDOwAA4CGGdszia7FAVwZ2AADAwwztAGAcAzsAAGAIQzsAGMPADgAAGMbQDgAeZ2AHAABAWH6PHdCRgR0AADCUV3YA8BgDOwAAYDhDOwA4z8AOAACY4ufvX98M7gDgfgZ2AAAAABCIgR0AADCVV3YAcB8DOwAAAELzl2KBbgzsAACA6byyA4DjDOwAAIAlDO0A4BgDOwAAYBlDOwC4zcAOAABYytCOM/weO6ATAzsAAGA5QzsA+JyBHQAAsIWhHQBcZ2AHAABACr4WC3RhYAcAAGzjlR0AfGRgBwAAbPXz969vBncA8MrADgAACMHQDgCeGdgBAAAAQCAGdgAAQBhe2XGLPzwBdGBgBwAAhOJ32gHQnYEdAAAQkqEdAF0Z2AEAAABAIAZ2AABAWL4eC0BHBnYAAEB4hnYAdGJgBwAApGBoB0AXBnYAAEAahnYAdGBgBwAApGJoB0B1DjoAACCtp+8//uz+GdjD4BaozAs7AAAgLUMbACoysAMAAFL7+fvXN4M7ACoxsAMAAACAQAzsAACAEryyA6AKAzsAAKAMQzsAKjCwAwAASvE77QDIzsAOAAAoydAOgKwM7AAAgLIM7QDIyMAOAAAozdAOgGwM7AAAgPIM7QDIxMAOAABowdAOgCwM7AAAgDb8BVkAMjCwAwAA2jG0AyAyAzsAAKAlQzsAonJAAQAA7T19//Fn98/A/Qxdgaq8sAMAANoz+AEgEgM7AACAi6EdAHEY2AEAAPzH0A6ACAzsAAAA3vj5+9c3gzsAdjKwAwAAuMLgDoBdDOwAAAC+YGgHwGoGdgAAADd4bQfASgZ2AAAABxnaAbCCgR0AAMAdvLYDYDYDOwAAgBMM7QCYxcAOAADgJEM7AGYwsAMAAHiAr8gCMJqBHQAAwACGdgCMYmAHAAAwiNd2AIxgYAcAADCYwR0AjzCwAwAAmMTgDoAzDOwAAAAmM7gD4B4GdgAAAIsY2gFwhIEdAADAQl7bAXCLgR0AAMAGhnYAfMYBAQAAEMDT9x9/dv8M2Rh6AlV5YQcAABCA4RMALwzsAAAAgvD77QC4XAzsAAAAwjG4A+jNAQAAAJCA33H3kaEmUJUXdgAAAAkYTgH0YWAHAACQhK/KAvRgYAcAAJCMwR1AbQZ2AAAASRncAdRkYAcAAJCcwR1ALQZ2AAAARRjcAdRgYAcAAFCMwR1Abgo4AABAA0/ff/zZ/TOMZigJVKW4AQAANFJlcGdYB1TmK7EAAACN+LosQHyKNAAAQHMZX90ZOgKVeWEHAADQnFd3ALEoyAAAAHwQ/dWdASNQmQIHAADATdEGeAZ2QGW+EgsAAMBNvjYLsI6BHQAAAIcZ3AHMp8gCAADwkB1flzU0BCpT4AAAABhm1fDOwA6oTIEDAABgmlkDPAM7oDIFDgAAgGVGDfAM7IDKFDgAAAC2eGR4Z2AHVOavxAIAALCFvzgLcJ2BHQAAAFsZ2gH8zcAOAACA7QztAF79D7vAIbNQL18HAAAAAElFTkSuQmCC" alt="">
+  <div class="coo-hero-content">
+    <div class="coo-hero-eyebrow">Chiefs of Ontario</div>
+    <h1 class="coo-hero-title">
+      <em>Research Findings &amp; Analysis</em>
+      Education Report
+    </h1>
+    <div class="coo-hero-divider"></div>
+    <p class="coo-hero-vision">Exploring the experiences, challenges, and strengths of First Nations learners navigating education transitions across Ontario.</p>
+    <div class="coo-hero-presented">
+      A <a href="https://chiefs-of-ontario.org" target="_blank">Chiefs of Ontario</a> initiative, conducted by <a href="https://mentee.ca" target="_blank">Mentee</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- Progress bar -->
+<div id="progress"></div>
+
+<!-- Navigation -->
+<div class="cat-nav">
+<span class="cat-nav-label">Jump to</span>
+<div class="cat-nav-inner">
+<a class="cat-pill" href="#acknowledgement"><span class="pill-num">01</span> Acknowledgement</a>
+<a class="cat-pill" href="#preface"><span class="pill-num">02</span> Preface</a>
+<a class="cat-pill" href="#introduction"><span class="pill-num">03</span> Introduction</a>
+<a class="cat-pill" href="#methodology"><span class="pill-num">04</span> Methodology</a>
+<a class="cat-pill" href="#findings"><span class="pill-num">05</span> Findings</a>
+<a class="cat-pill" href="#discussion"><span class="pill-num">06</span> Discussion</a>
+<a class="cat-pill" href="#recommendations"><span class="pill-num">07</span> Recommendations</a>
+<a class="cat-pill" href="#conclusion"><span class="pill-num">08</span> Conclusion</a>
+<a class="cat-pill" href="#references"><span class="pill-num">09</span> References</a>
+</div>
+</div>
+
+
+
+<!-- ═══════════════════════════════════════ ACKNOWLEDGEMENT ══ -->
+<div id="acknowledgement" class="section-divider" style="padding-top:1.5rem;padding-bottom:0;">
+  <div class="section-divider-inner"></div>
+</div>
+<section class="content-section">
+  <div class="container">
+    <div class="aos">
+      <div class="red-divider"></div>
+      <h2 class="subhead" style="margin-top:0;">Acknowledgement</h2>
+      <div class="ack-strip">
+        <p style="margin:0;font-style:italic;font-size:1.05rem;line-height:1.8;">The Chiefs of Ontario and the Mentee research team extend heartfelt thanks to all First Nations learners, educators, and community representatives who shared their time, experiences, and knowledge. Your voices form the heart of this report, and this work would not be possible without your openness, strengths, and insights. Your words and experiences have shaped this report&#8217;s direction to ensure findings and recommendations reflect the realities, hopes, and priorities of First Nations learners across Ontario. This report is dedicated to you and those who will carry this work forward. <strong>Chi-miigwech.</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 1: PREFACE ══ -->
+<div id="preface" class="section-marker">
+  <div class="section-marker-inner">
+    <div class="section-num">1</div>
+    <div class="section-title-wrap">
+      <div class="section-eyebrow">Section One</div>
+      <div class="section-name">Preface</div>
+    </div>
+  </div>
+</div>
+<section class="content-section">
+  <div class="container">
+    <div class="aos">
+      <h2 class="subhead" style="margin-top:0.5rem;">Situating the Research</h2>
+      <p>This project, led by the Chiefs of Ontario (COO), supports First Nations in exercising their inherent right to self-determination in education. Recognizing that education is both a pathway to opportunity and a means of upholding cultural identity, the research identifies community-driven strategies to support educational transitions for First Nations learners across Ontario.</p>
+      <p>Aligned with broader priorities to advance reconciliation, the project underscores the vital role of First Nations&#8217; control over education and culture in shaping learner success. By recognizing educational transitions as pivotal stages in how learners uphold, express, and protect their identities and cultures, this report honours the lived experiences of First Nations learners.</p>
+
+      <h2 class="subhead">Reflexivity Statement</h2>
+      <p>The Mentee research team acknowledges that this work is situated within the ongoing impacts of colonization and the systemic barriers that shape education for First Nations people. Guided by principles of reciprocity, humility, and respect, and informed by First Nations values of relational accountability, we approached this project with care for the communities involved. The findings reflect community voices and lived realities, including participants&#8217; experiences as students, mentors, and educators. While the research does not claim to speak for all First Nations, it offers a collective reflection of shared experiences and the thoughtful pathways forward expressed through meaningful community engagement.</p>
+
+      <div class="bio-grid">
+        <div class="bio-card">
+          <div class="bio-name">Shawna D&#8217;Antimo</div>
+          <p>Aanii, I am Anishinaabe, a member of Wikwemikong First Nation, and part of the urban Indigenous community in Toronto (Treaty 13). As a First Nations researcher, it is important to acknowledge the influences that shape my experiences and inform how I approach research, relate to it, and ensure it serves the needs of our communities. My knowledge is grounded in my experiences, family, culture, and community, and I carry lived experience as a First Nations learner in Ontario, the very community this work seeks to support.</p>
+          <p>Like many other Indigenous people, I have felt the intergenerational impacts of colonization and harmful policies under the Indian Act, including residential schools, which have directly affected my family and life. These experiences have strengthened my commitment to learning how we can work together to address community needs. I see research as a tool for empowerment and meaningful change, and I am honoured to have contributed to this project supporting the success of First Nations learners.</p>
+        </div>
+        <div class="bio-card">
+          <div class="bio-name">Dr. Jason Bruce</div>
+          <p>As an educator and researcher, my work has been significantly shaped by my time in First Nations community schools. Working alongside students in these settings has given me a clear understanding of the strengths they carry, the expectations placed on them, and the determination they show as they navigate systems that too often fail to reflect their realities. I have also seen the resilience present within communities, where families, educators, and local programs continue to advocate for the conditions their learners deserve. These experiences have informed how I understand my responsibilities and how I approach research with attention to context, relationship, and accountability.</p>
+          <p>Throughout my career, I have focused on developing programs and partnerships that respond directly to community-identified needs and support meaningful opportunities for learners. My work across education, youth wellness, and community-based initiatives has reinforced the importance of aligning research with the priorities of the people it is intended to serve. I am grateful for the students and communities whose experiences have shaped my path, and I remain committed to carrying out this work with integrity, clarity of purpose, and respect.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="aos aos-delay-1">
+      <h2 class="subhead">Executive Summary</h2>
+      <p>This report presents the results of an Ontario-wide engagement process to identify best practices, strategies, and resources that support First Nations learners during educational transitions. Building upon the 2023 Post-Secondary Engagement Report, the project aimed to develop an evidence-based strategy and resource toolkit to help learners move confidently through education and into meaningful work. The findings are organized around the project&#8217;s four research themes, including:</p>
+
+      <div class="theme-grid">
+        <div class="theme-tile"><div class="theme-tile-num">01</div><div class="theme-tile-title">Best Practices &amp; Interventions</div></div>
+        <div class="theme-tile"><div class="theme-tile-num">02</div><div class="theme-tile-title">Resource Creation &amp; Development</div></div>
+        <div class="theme-tile"><div class="theme-tile-num">03</div><div class="theme-tile-title">Community &amp; Regional Perspectives</div></div>
+        <div class="theme-tile"><div class="theme-tile-num">04</div><div class="theme-tile-title">Effective Initiatives &amp; Strategies</div></div>
+      </div>
+
+      <p>Participants emphasized that success for First Nations learners through education transitions is rooted in:</p>
+      <div class="callout">
+        <div class="callout-title">Key Success Factors</div>
+        <ul>
+          <li>Relationships that are trusting, consistent, and culturally grounded</li>
+          <li>Culturally safe environments where learners feel seen, valued, and connected</li>
+          <li>Wholistic supports that address mind, body, spirit, and community</li>
+          <li>Community-driven approaches that reflect local priorities and teachings</li>
+          <li>Flexible pathways that honour different learning journeys and aspirations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 2: INTRODUCTION ══ -->
+<div id="introduction" class="section-marker">
+  <div class="section-marker-inner">
+    <div class="section-num">2</div>
+    <div class="section-title-wrap">
+      <div class="section-eyebrow">Section Two</div>
+      <div class="section-name">Introduction</div>
+    </div>
+  </div>
+</div>
+<section class="content-section">
+  <div class="container">
+    <div class="aos">
+      <h2 class="subhead" style="margin-top:0.5rem;">Project Purpose</h2>
+      <p>The purpose of this report is to present the research findings, analysis, and recommendations resulting from the Supporting Education Transitions for First Nations Learners in Ontario project. The report identifies evidence-based and culturally relevant approaches that strengthen support for learners&#8217; transitions across educational stages &#8212; from elementary to secondary, secondary to post-secondary, and from education into the workforce or other lifelong learning pathways.</p>
+      <p>This work supports First Nations&#8217; inherent right to self-determination in education and aims to empower communities by sharing effective, community-driven strategies that foster success throughout the learner journey.</p>
+      <p>The report draws on both a literature review and regional perspectives gathered through engagement sessions to inform practical strategies and adaptable resources for First Nations across Ontario. The resulting findings and recommendations are designed to support the Chiefs of Ontario (COO) and their partners in advancing policy advocacy, resource development, and capacity-building to enhance educational attainment and equitable opportunities for First Nations learners in Ontario.</p>
+
+      <h2 class="subhead">Background and Context</h2>
+      <p>The 2023 Post-Secondary Engagement Report by the Chiefs of Ontario called for stronger, culturally grounded, and community-led education models. It identified the need for improved access to information, programs, and supports during key transitional periods. This project moves from engagement to implementation, translating those recommendations into practical strategies and resources that strengthen educational pathways for First Nations learners. It recognizes that learners follow diverse and non-linear routes shaped by family, community, culture, and location.</p>
+      <p>The importance of education has long been recognized by First Nations communities as an intergenerational process that sustains language, culture, and lifelong learning. Yet, for many learners, mainstream education systems have not reflected First Nations values or supported culturally relevant learning pathways. By engaging learners, educators, and community representatives, this project seeks to build a culturally responsive framework and strategies for supporting transitions across all 133 First Nations in Ontario.</p>
+
+      <h2 class="subhead">Project Goals</h2>
+      <p>The overarching goal of this initiative is to develop an evidence-based strategy and community-ready resources that enhance education transitions for First Nations learners in Ontario.</p>
+      <p>To achieve this, the project seeks to:</p>
+      <div class="callout">
+        <ul>
+          <li>Identify, evaluate, and recommend culturally relevant interventions that support learners through key educational transitions &#8212; from elementary to secondary, secondary to post-secondary, and into the workforce or continuing education.</li>
+          <li>Promote post-secondary and lifelong learning by highlighting pathways that reflect First Nations values and community priorities.</li>
+          <li>Strengthen partnerships and coordination among First Nations education departments, schools, Indigenous Institutes, and post-secondary institutions.</li>
+          <li>Inform policy and advocacy efforts that improve funding, capacity, and program delivery in ways that align with First Nations&#8217; visions for lifelong learning.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 3: METHODOLOGY ══ -->
+<div id="methodology" class="section-marker">
+  <div class="section-marker-inner">
+    <div class="section-num">3</div>
+    <div class="section-title-wrap">
+      <div class="section-eyebrow">Section Three</div>
+      <div class="section-name">Methodology</div>
+    </div>
+  </div>
+</div>
+<section class="content-section">
+  <div class="container">
+    <div class="aos">
+      <h2 class="subhead" style="margin-top:0.5rem;">Research Approach</h2>
+      <p>The Supporting Education Transitions for First Nations Learners in Ontario project used a community-informed, participatory research approach grounded in First Nations principles of respect, reciprocity, and relational accountability. This approach ensured that findings were grounded in lived experience, informed by community priorities, and reflective of regional diversity across Ontario. The project applied OCAP&#174; principles at every stage, including planning, engagement, analysis, and review. The project&#8217;s intent was to identify and document culturally relevant, evidence-based interventions that support First Nations learners through key educational transitions.</p>
+      <p>To achieve project goals and objectives, three interconnected components were undertaken:</p>
+
+      <div class="method-grid">
+        <div class="method-card">
+          <div class="method-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="method-name">Literature Review</div>
+          <p class="method-desc">A review of existing research and best practices related to First Nations education, transition supports, and lifelong learning. This included approaches that integrate cultural teachings, mentorship, and alternative learning pathways.</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="method-name">Community Engagement</div>
+          <p class="method-desc">Province-wide engagement with First Nations learners, educators, administrators, and education professionals to gather diverse perspectives on effective transition supports across regions.</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div class="method-name">Analysis and Validation</div>
+          <p class="method-desc">Thematic analysis of qualitative insights to identify trends, strengths, and gaps in supports for First Nations learners. This analysis informed the development of the strategies, resources, and recommendations in this report.</p>
+        </div>
+      </div>
+
+      <h2 class="subhead">Methods</h2>
+      <p>A combination of qualitative methods, including focus groups, interviews, and questionnaires, was used to capture both collective and individual experiences. Engagement took place virtually to accommodate geographic diversity and increase accessibility across the province.</p>
+
+      <div class="method-grid">
+        <div class="method-card">
+          <div class="method-icon">
+            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div class="method-pct">38%</div>
+          <div class="method-name">Focus Groups</div>
+          <p class="method-desc">15 participants. Small group sessions brought together education professionals, community representatives, and learners to discuss experiences and identify supports that have made or could make a difference in transition success.</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="method-pct">31%</div>
+          <div class="method-name">Key Informant Interviews</div>
+          <p class="method-desc">12 participants. Semi-structured interviews with education leaders, counsellors, learners, and administrators provided in-depth insights into effective practices, systemic barriers, and culturally grounded approaches to learner success.</p>
+        </div>
+        <div class="method-card">
+          <div class="method-icon">
+            <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div class="method-pct">31%</div>
+          <div class="method-name">Questionnaires</div>
+          <p class="method-desc">12 participants. Written submissions were used as an asynchronous engagement option, enabling education professionals and learners with limited internet access or scheduling constraints to contribute their perspectives in a flexible, accessible manner.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="aos aos-delay-1">
+      <h2 class="subhead">Engagement Process</h2>
+      <p>A total of <strong>39 participants</strong> contributed to the study through focus groups, interviews, and questionnaires. This engagement reflected a wide range of experiences, professional roles, and regions across Ontario. Participants were briefed on the project&#8217;s purpose and data use prior to participation to ensure transparency and informed consent.</p>
+      <p>Participants represented First Nations communities located within the following major regions of Ontario:</p>
+
+      <div class="stat-grid">
+        <div class="stat-cell"><div class="stat-num">39</div><div class="stat-label">Total Participants</div></div>
+        <div class="stat-cell"><div class="stat-num">79%</div><div class="stat-label">Identified as First Nations</div></div>
+        <div class="stat-cell"><div class="stat-num">41%</div><div class="stat-label">In Student Support Roles</div></div>
+        <div class="stat-cell"><div class="stat-num">133</div><div class="stat-label">First Nations in Ontario</div></div>
+      </div>
+
+      <h3 class="subhead2">Regional Representation</h3>
+      <div class="bar-chart">
+        <div class="bar-row">
+          <div class="bar-header">
+            <div><span class="bar-region">North</span> <span class="bar-cities">Thunder Bay, Sudbury, Kenora, Timmins</span></div>
+            <span class="bar-pct">51%</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:51%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-header">
+            <div><span class="bar-region">West</span> <span class="bar-cities">Windsor, London, Hamilton, Waterloo</span></div>
+            <span class="bar-pct">18%</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:18%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-header">
+            <div><span class="bar-region">Central</span> <span class="bar-cities">Toronto, Simcoe, York, Durham, Peel</span></div>
+            <span class="bar-pct">16%</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:16%"></div></div>
+        </div>
+        <div class="bar-row">
+          <div class="bar-header">
+            <div><span class="bar-region">East</span> <span class="bar-cities">Ottawa, Kingston, Peterborough, Prince Edward</span></div>
+            <span class="bar-pct">15%</span>
+          </div>
+          <div class="bar-track"><div class="bar-fill" style="width:15%"></div></div>
+        </div>
+      </div>
+
+      <p>This distribution of participants includes strong representation from those who directly support learners through educational transitions, as well as leadership and administrators responsible for program design and delivery. The inclusion of First Nations learners ensured that the findings were grounded in their lived experiences across various educational journeys.</p>
+      <p>Participants brought diverse experiences and backgrounds in First Nations education:</p>
+      <ul>
+        <li><strong>Roles:</strong> 41% in student support, 18% in administration, 13% in leadership, 10% First Nations learners, 3% in teaching or training, and 15% in other areas (e.g., management, program development, finance, or communications).</li>
+        <li><strong>Identity:</strong> 79% identified as First Nations and 21% as non-First Nations.</li>
+      </ul>
+
+      <h2 class="subhead">Data Analysis</h2>
+      <p>All qualitative data from interviews, focus groups, and questionnaires were thematically analyzed in line with the research questions to identify common themes, patterns, and regional priorities, while maintaining participant confidentiality. The analysis was informed by community engagement and validated with stakeholders to ensure findings aligned with community priorities. This multi-method, community-grounded approach provided a balanced understanding of broader challenges and local innovations, ensuring the final strategy, recommendations, and resources are evidence-based, culturally grounded, and actionable for First Nations communities across Ontario.</p>
+      <p>The findings are presented across four key sections:</p>
+      <div class="callout">
+        <ul>
+          <li>Best Practices and Interventions</li>
+          <li>Resource Creation and Engagement</li>
+          <li>Community and Regional Perspectives</li>
+          <li>Effective Initiatives and Strategies</li>
+        </ul>
+      </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 4: FINDINGS ══ -->
+<div id="findings" class="section-marker">
+  <div class="section-marker-inner">
+    <div class="section-num">4</div>
+    <div class="section-title-wrap">
+      <div class="section-eyebrow">Section Four</div>
+      <div class="section-name">Findings</div>
+    </div>
+  </div>
+</div>
+<section class="content-section">
+  <div class="container">
+
+    <div class="aos">
+      <h2 class="subhead" style="margin-top:0.5rem;">Best Practices &amp; Interventions</h2>
+      <p>This section outlines key best practices and interventions that enhance support for First Nations learners during educational transitions. Participants highlighted that the most effective supports are grounded in strong, sustained relationships and culturally responsive, community-led approaches. Whether transitioning into high school, post-secondary, or the workforce, learners benefit from consistent advocacy, coordinated wraparound services, and clear, structured guidance. These approaches are most effective when they are culturally grounded, relationship-based, and designed to strengthen belonging and trust.</p>
+
+      <p>The following sub-sections include:</p>
+      <ul>
+        <li>Sustained Relational Support Throughout Educational Transitions</li>
+        <li>Comprehensive Well-Being and Wraparound Supports</li>
+        <li>Structured Supports for Smooth Educational Transitions</li>
+        <li>Indigenous Spaces and Culturally Responsive Supports</li>
+        <li>Fostering Personal Responsibility and Resilience in Learners</li>
+        <li>Proactive Support Through Early Educational Assessments</li>
+      </ul>
+
+      <h3 class="subhead2">Sustained Relational Support Throughout Educational Transitions</h3>
+      <p>Ongoing, consistent, and continuous relational support is essential in ensuring students experience seamless transitions and sustained success throughout their educational journey. This support is strengthened through the collaborative efforts of graduation coaches, student success facilitators, pathway workers, guidance staff, Indigenous student advocates, and First Nations community education coordinators. Their familiarity with students over time helps build trust, maintain stability, and create a cohesive support network. Key practices include establishing a clear point of contact at the destination school, providing regular check-ins and one-on-one meetings, and fostering open, honest, and consistent communication with parents. Although these staff are intended to provide wholistic support to students, they often have to balance relationship-based, individualized support with administrative requirements to track and report student progress for sponsorship purposes&#8212;creating a tension between care and compliance. Nonetheless, maintaining strong relationships and coordinated communication ensures that students feel supported both academically and personally throughout their transitions.</p>
+
+      <div class="pull-quote">
+        <blockquote>&#8220;I think it&#8217;s really important that education departments, funders, or urban Indigenous centers have a point of contact with whatever school or place that the student is transitioning into next [...] having that contact back and forth &#x2026;, that&#8217;s how my students are successful, because I have eyes on them.&#8221;</blockquote>
+        <cite>First Nations Leadership Staff</cite>
+      </div>
+
+      <h3 class="subhead2">Comprehensive Well-Being and Wraparound Supports</h3>
+      <p>Wholistic, wraparound supports focus on meeting students&#8217; academic, social, emotional, and cultural needs through a coordinated, community-driven approach. These supports prioritize building a strong sense of community, providing consistent advocacy, and offering ongoing follow-up to ensure students remain connected to the resources they need. Central to this approach is a clear referral process for mental health and wellness services, including support for grieving, addiction, and other personal challenges.</p>
+      <p>Practical resources, such as food and snacks, help reduce barriers, while student-centred practices ensure that each learner&#8217;s strengths, goals, and lived experiences guide the support they receive. Celebrating successes, acknowledging diverse life paths, and considering home life, social environments, and broader support systems all contribute to a more comprehensive and culturally responsive framework. Tailoring strategies to the unique needs of each community ensures interventions remain relevant, meaningful, and effective.</p>
+
+      <h3 class="subhead2">Structured Supports for Smooth Educational Transitions</h3>
+      <p>Formalized structures for education transitions provide clear, coordinated, and culturally responsive pathways to help students navigate each stage of their academic journey. Orientation activities introduce young learners to school routines, while programs beginning as early as Grade 8 support course selection and early conversations about post-secondary education. Schools also host application nights, orientation days, and workshops to guide students through processes such as the Ontario Student Assistance Program (OSAP), bursary applications, and required paperwork. Hands-on supports (including help with budgeting, laundry, and navigating public transit), paired with practical incentives, help students build essential life skills. On-campus visits and tours reduce anxiety and connect learners to Indigenous student services, while transition or pre-entry programs ease culture shock and provide institution-specific preparation. Exchange programs, college-readiness initiatives, and welcoming events further build confidence, readiness, and a sense of belonging from the start.</p>
+
+      <div class="pull-quote">
+        <blockquote>&#8220;We give them a $50 grocery card and tell them they have to write a meal plan for that week, and then we take them to the grocery store &#x2026; one of the ways we get them to attend is we provide them with incentives. So, at the end of the program, they get a laundry hamper full of supplies for when they move away.&#8221;</blockquote>
+        <cite>First Nations Student Support Staff</cite>
+      </div>
+
+      <h3 class="subhead2">Indigenous Spaces and Culturally Responsive Supports</h3>
+      <p>Indigenous spaces play a vital role in supporting students as they navigate the ongoing impacts of colonization and engage in their individual healing journeys. Indigenous student centres and Indigenous support workers create environments where learners feel a sense of belonging &#8212; offering physical spaces and familiar faces that are especially important for students leaving their home communities for the first time. These spaces foster self-awareness and cultural grounding while providing access to counselling services, including those offered by Knowledge Keepers who carry traditional perspectives and teachings. Embedding Indigenous social workers within schools ensures students have advocates who understand their experiences and can relate to their cultural and personal contexts. These supports help students navigate both personal and systemic challenges, such as triggers, trauma, and incidents of racism, while fostering emotional safety and cultural connection. Collectively, these structures promote healing, resilience, and a deeper sense of identity for First Nations learners.</p>
+
+      <h3 class="subhead2">Fostering Personal Responsibility and Resilience in Learners</h3>
+      <p>Teaching learners about personal responsibility and resilience from a young age helps them build the foundations to navigate future challenges with confidence. This includes fostering critical thinking and self-advocacy using cultural frameworks such as the Medicine Wheel to guide problem-solving and reflection. Students benefit from learning how to adapt to change by drawing on personal experiences, developing strategies to cope with homesickness, and understanding when and how to seek help early. Exposure and experience are especially important for learners from smaller or more remote communities, where cultural, environmental, and contextual differences can influence how transitions unfold. Field trips, cultural activities, and maintaining consistent expectations regarding school attendance help students build readiness and confidence as they transition to different educational settings. Practical skills such as checking and responding to emails and navigating transportation for placements also help students prepare for future academic and career pathways.</p>
+
+      <div class="pull-quote">
+        <blockquote>&#8220;We&#8217;ve always said, education is healing and healing is education. So, it is the impact that our cultural advisor and the way that we teach brings in a huge impact, and you&#8217;ll see it if they&#8217;re ready for it.&#8221;</blockquote>
+        <cite>First Nations Leadership Staff</cite>
+      </div>
+
+      <h3 class="subhead2">Proactive Support Through Early Educational Assessments</h3>
+      <p>Early educational assessments help identify learning challenges, while proactive support ensures students receive timely accommodations and resources. Encouraging learners to voice the areas where they need support helps schools respond effectively and put appropriate accommodations in place. Early education and career planning, beginning in middle and high school, allows students to explore pathways that align with their interests, strengths, and long-term goals. Guiding learners toward programs and careers that bring them happiness and fulfillment increases their likelihood of staying committed and completing their chosen path. Providing informed support with course selection further ensures that students are on the right track academically and feel confident navigating future transitions.</p>
+    </div>
+
+    <div class="aos aos-delay-1">
+      <h2 class="subhead">Resource Creation &amp; Engagement</h2>
+      <p>This section begins by presenting participants&#8217; perspectives on effective resource creation and development to support First Nations learners during key educational transitions. It also highlights their insights on strategies for sharing information about post-secondary programs, career pathways, and available supports with learners and families. Participants emphasized that resources are most effective when culturally relevant, community-specific, and age-appropriate. Digital tools, interactive guides, checklists, and toolkits help learners navigate transitions with greater confidence. Centralized hubs and coordinated outreach from schools, community organizations, and Knowledge Keepers improve access to timely and relevant information.</p>
+
+      <p>The following sub-sections include:</p>
+      <ul>
+        <li>Culturally Relevant, Community-Specific Student Resources</li>
+        <li>Resources Built Through Partnership and Collaboration</li>
+        <li>Engaging, Age-Appropriate, and Community-Informed Resources</li>
+        <li>Maintained and Updated Central Hub for Transition Resources</li>
+        <li>Clear, Coordinated, and Accessible Information for Learners</li>
+        <li>Strategies for Sharing Information with Students and Families</li>
+      </ul>
+
+      <h3 class="subhead2">Culturally Relevant, Community-Specific Student Resources</h3>
+      <p>Community-specific and culturally relevant resources support learners during educational transitions by grounding the process in their identities, needs, and experiences. These include check-in forms, guides for post-secondary applications and bursaries, financial literacy and time management tools, and checklists or visual timelines that support students throughout the transition process. Supports for childcare and funding help learners with families navigate complex systems. Culturally relevant materials, such as local language resources, life-after-high-school presentations, toolkits, apps, and digital guides in First Nations languages and English, help learners feel seen and connected. Institution-specific guides provide information on navigating campus resources, including libraries, wellness supports, and student services. Thoughtfully designed physical and digital resources support learners and strengthen their confidence as they navigate their educational pathways.</p>
+
+      <div class="pull-quote">
+        <blockquote>&#8220;They worked directly with the community&#8217;s education directors, directly with community, asking the people directly, utilizing evidence-based practices, what is it that you need to be successful? Then created resources based directly off of what the community is saying, and were responsive to needs, I think that is really helpful.&#8221;</blockquote>
+        <cite>First Nations Program Development Staff</cite>
+      </div>
+
+      <h3 class="subhead2">Resources Built Through Partnership and Collaboration</h3>
+      <p>Collaborative resources created by multiple organizations and agencies offer learners coordinated support in both print and digital formats. Partnerships between schools, community organizations, and service providers have produced workbooks on key topics, including boarding homes, mental health, city life, and harm reduction. These often emerge from collaborative processes such as student safety meetings. Availability differs by organization, with some materials still offered in print and growing interest in making them accessible online. Their use is not always consistent, highlighting the need for greater awareness and promotion. To support educators, a resource guide can help teachers integrate the workbooks into student learning, and education platforms are exploring ways to bring these materials online. Collaborative efforts also include apps that provide guidance on service locations (e.g., community or wellness services), culturally relevant mental health resources, and educational supports. Together, these initiatives provide learners with accessible, meaningful, and user-friendly resources that reflect their needs and contexts.</p>
+
+      <h3 class="subhead2">Engaging, Age-Appropriate, and Community-Informed Resources</h3>
+      <p>Designing effective educational resources requires tailoring materials to the needs and interests of each age group while presenting cultural content in ways that are appropriate and meaningful for learners at different stages. For children, interactive, story-based, visually rich tools offered in First Nations languages create engaging and culturally meaningful learning experiences. Youth respond best to dynamic digital approaches such as social media reels, mentorship apps, and culturally grounded career or transition guides that reflect their lived experiences. Adults benefit from flexible digital or printable resources, as well as evening workshops and practical toolkits that respect work and family responsibilities. Across all ages, there is a strong need for engaging and visually appealing educational materials, from graphic novels that highlight career and learning pathways to interactive digital tools and games. Integrating Indigenous learning tools strengthens relevance and impact, including practices such as using wampum in storytelling and embedding Grandfather Teachings and Medicine Wheel teachings into course content. Central to these approaches is ensuring that resources are community-driven, culturally grounded, and developed collaboratively.</p>
+
+      <div class="pull-quote">
+        <blockquote>&#8220;There&#8217;s different apps and platforms, and you got to reach kids where they&#8217;re at, as opposed to thinking about all ages, and perhaps a flyer, sharing and presenting to community, sharing with leadership, and all the different platforms. I think communication is really one of the key strategies to ensuring success and a good outcome.&#8221;</blockquote>
+        <cite>First Nations Education Manager</cite>
+      </div>
+
+      <h3 class="subhead2">Maintained and Updated Central Hub for Transition Resources</h3>
+      <p>There is a strong need for a centralized, province-wide First Nations education platform that brings together clear, easy-to-navigate information on post-secondary programs, funding options, and support services. Learners and families often struggle to find simplified, accessible information, particularly when navigating complex sites such as government webpages, highlighting the importance of a user-friendly hub. Such a platform should actively promote bursary and scholarship opportunities and provide clear details on key application and funding deadlines. The platform could also host webinars, share best practices, and feature videos with Elders&#8217; guidance to help make educational transitions more relatable and culturally grounded. To remain effective, the platform must be maintained with consistent updates and reliable outreach, ensuring that users can trust the information provided. Resources that remain static, such as information sheets or PDFs that are not updated, quickly lose relevance and effectiveness. For organizations to sustain this effort, they require both the capacity and a clear plan for annual updates and ongoing communication so that materials stay current and continue to reach learners.</p>
+
+      <h3 class="subhead2">Clear, Coordinated, and Accessible Information for Learners</h3>
+      <p>Ensuring learners receive and understand key information requires clear, well-coordinated communication strategies that are accessible across multiple channels. Many learners struggle to keep up with email communication and need consistent reminders, making it essential to use a variety of media and tools to share important updates. Effective approaches include text messages, phone calls, active use of social media platforms (especially Facebook and Instagram), and online platforms, websites, and apps. Community newsletters, brochures, posters, billboards, and in-person events and conferences also play a vital role in reaching diverse audiences. Within schools, sharing information among staff and maintaining visible resource spaces helps reinforce awareness. Across all methods, strong community outreach and active promotion are essential to ensure that resources are not only available but actually used. Ultimately, learners benefit most when the right information is provided at the right time, through channels that meet their preferences and needs.</p>
+
+      <div class="pull-quote">
+        <blockquote>&#8220;My post-secondary worker helped me apply for funding and reminded me of scholarships and bursaries that helped me purchase school supplies and printing. I do not learn well online and need things printed on paper.&#8221;</blockquote>
+        <cite>First Nations Post-Secondary Learner</cite>
+      </div>
+
+      <h3 class="subhead2">Strategies for Sharing Information with Students and Families</h3>
+      <p>Effective outreach requires varied, ongoing communication methods to ensure that youth, parents, caregivers and Knowledge Keepers receive information in ways that resonate with them. Using multiple modes and platforms helps reach learners of different ages and ensures that information is accessible and clear. This matters for families who may feel hesitant or unsure about the education system, as receiving information in different ways can make it easier for them to engage. Outreach examples include social media posts on platforms like Facebook and Instagram, as well as community events, school site visits, and home visits to share information directly. Hosting information sessions about post-secondary options and requirements, along with career and skilled trade fairs such as Ontario youth apprenticeship events, supports informed decision-making. &#8220;Career circles,&#8221; where First Nations professionals and alumni share their experiences, help make pathways relatable and inspiring. Targeted outreach to rural and remote areas is also essential to close information gaps, and virtual meetings offer a valuable way to connect geographically distant communities.</p>
+    </div>
+
+    <div class="aos aos-delay-2">
+      <h2 class="subhead">Community &amp; Regional Perspectives</h2>
+      <p>This section presents participants&#8217; perspectives on the challenges and gaps in their communities and regions that affect First Nations learners during educational transitions. Participants highlighted barriers related to financial and housing support, limited staffing and professional development, and uneven access to technology and digital resources. Geographic isolation, transportation difficulties, and gaps in program availability further complicate learners&#8217; participation and success. Community-based initiatives, regional collaboration, and policy adjustments, such as flexible entry requirements and recognition of prior learning, were identified as critical strategies for addressing these gaps and supporting more equitable educational pathways.</p>
+
+      <p>The following sub-sections include:</p>
+      <ul>
+        <li>Challenges in Accessing Financial and Housing Support</li>
+        <li>Resource Limitations Affecting Staff and Growth Opportunities</li>
+        <li>Bridging the Digital Divide and Expanding Technical Support</li>
+        <li>Addressing Geographical Disparities Through Regional Collaboration</li>
+        <li>Supporting Learners Through In-Community Initiatives</li>
+        <li>Eliminating Entry Barriers Through Policy and Practice Changes</li>
+      </ul>
+
+      <h3 class="subhead2">Challenges in Accessing Financial and Housing Support</h3>
+      <p>Learners face significant challenges when seeking financial assistance and securing stable housing, making it essential to provide clear, supportive guidance throughout the process. Many students struggle with funding delays and a lack of transparency in funding formulas, which creates uncertainty and can disrupt their ability to plan for school. Support is also needed to help students reduce their reliance on part-time work so they can focus on their studies. Creative models can also be explored, such as U.S. recruitment approaches that offer scholarships for attending orientation weekends. Existing funding often falls short of covering living expenses, prompting some programs to ease financial pressures by reducing textbook requirements or by offering program credit cards to help students apply for post-secondary education. Housing remains a major challenge, especially for learners with children, due to high costs and limited availability. Some high school students who rely on boarding homes struggle to manage their own accommodations and meal plans. Partnerships with organizations can play a valuable role in filling gaps and providing additional support for both funding and housing needs.</p>
+
+      <div class="pull-quote">
+        <blockquote>&#8220;My program is four years long. I must apply every year, and this is not a guarantee that the funding will be available. In my case there is an allowance cost, however this all goes towards rent, all other living expenses are not covered.&#8221;</blockquote>
+        <cite>First Nations Post-Secondary Learner</cite>
+      </div>
+
+      <h3 class="subhead2">Resource Limitations Affecting Staff and Growth Opportunities</h3>
+      <p>Limited funding for staffing and professional development poses significant challenges to effective learner support. Many programs face growing caseloads but lack sufficient support staff, underscoring the need for additional on-site personnel to assist students and navigate transitions. Roles that build strong relationships and deepen understanding within communities are particularly important. Stable and consistent funding is critical; when resources for student supports, programming, and key staff positions (including transition coordinators, education assistants, and graduation coaches) are limited or inconsistent, programs cannot expand or sustain their impact. Teacher retention is another challenge, as high turnover disrupts program continuity and erodes trust. Strengthening pathways that recruit, support, and retain First Nations teachers is an essential strategy. Professional development is also necessary to enhance the skills of instructors and support staff, particularly in areas like emotional resilience, and to provide mentorship opportunities that strengthen staff capacity and effectiveness in guiding learners.</p>
+
+      <h3 class="subhead2">Bridging the Digital Divide and Expanding Technical Support</h3>
+      <p>Access to technology remains a major barrier for many learners, particularly in isolated or low-income areas. Ensuring equitable access and reliable technical support is therefore critical for meaningful participation in learning. Reliable internet, digital devices, and technology training are often limited, preventing students and families from completing applications or participating fully in online learning. Providing laptops or loaner devices can help improve accessibility, while ongoing support ensures learners can use these tools effectively. Staying current with new technology is also essential, including learning digital tools such as Outlook and other Microsoft applications, and helping students use free Office resources and student portals. Tutorials and guides on using online learning platforms and submitting projects digitally support learners in navigating today&#8217;s digital learning environment. For younger learners, technology is already part of everyday life. To translate that familiarity into effective learning, they need strong digital literacy and dependable technical support.</p>
+
+      <div class="pull-quote">
+        <blockquote>&#8220;I tell all my students take a computer course find out how to do Microsoft Word Excel, whatever software program you can&#8217;t just rely on notepad [...] somehow, some way you got to get a computer, first and foremost, whether it&#8217;s a laptop or a desktop.&#8221;</blockquote>
+        <cite>First Nations Admin and Student Support Staff</cite>
+      </div>
+
+      <h3 class="subhead2">Addressing Geographical Disparities Through Regional Collaboration</h3>
+      <p>Supporting learners from distant or remote areas presents significant challenges, highlighting the need for tailored strategies and regional collaboration. Many communities lack local high schools, creating major gaps in access. For students near the U.S. border, transportation barriers and identification requirements at border crossings add further challenges. Bringing post-secondary programs directly to remote communities can improve accessibility and address these gaps. Tracking student progress across systems is also difficult. Challenges include inconsistent access to Individual Education Plans (IEPs), delays or gaps in information-sharing due to release-of-information requirements, and the lack of comprehensive learner profiles that follow students through transitions. Urban or off-reserve learners face additional barriers, as they often do not receive the same supports as on-reserve students. Establishing home-based hubs in cities staffed by community members (as well as community houses like those in Thunder Bay) can help students access guidance and resources, build a sense of connection, reduce isolation, and support smoother educational transitions.</p>
+
+      <h3 class="subhead2">Supporting Learners Through In-Community Initiatives</h3>
+      <p>Delivering programs directly within communities is critical for improving accessibility and supporting learners who face geographic or logistical barriers. Exploring the feasibility of offering adult education programming and General Educational Development (GED) exams locally can help learners remain connected to their communities while pursuing their education. Indigenous Institutes play a central role in delivering in-community, culturally grounded post-secondary and adult education programming. These Institutes often work in partnership with First Nations to uphold jurisdiction and integrate Indigenous ways of knowing. Expanding existing programs through Indigenous Institutes and other community-based partnerships, including select university collaborations, offers flexible learning opportunities. One example is Queen&#8217;s University&#8217;s Personal Support Worker program delivered through the Weeneebayko Health Education Campus in Moosonee, Ontario. These include part-time, evening, and asynchronous courses that accommodate diverse student needs. Establishing service agreements with school boards is also essential, as strong relationships with universities and secondary schools support program delivery and ensure that Indigenous ways of knowing are meaningfully integrated into the curriculum.</p>
+
+      <div class="pull-quote">
+        <blockquote>&#8220;One of the things that we have done is we&#8217;ve started a push to have post-secondary in community. So, we have a partnership with Queen&#8217;s University, and it&#8217;s 100% in community, except for three weeks where the students have to go to Queen&#8217;s University in the summer.&#8221;</blockquote>
+        <cite>First Nations Administration Staff</cite>
+      </div>
+
+      <h3 class="subhead2">Eliminating Entry Barriers Through Policy and Practice Changes</h3>
+      <p>Reducing barriers to education requires rethinking program practices and policies to create more accessible pathways for learners. Program entry requirements often vary across colleges, underscoring the need to streamline processes and offer flexibility to meet diverse student needs. Recognizing the value of multiple pathways, including trades and post-secondary education, can increase awareness of opportunities and support informed decision-making. Beyond academic grades, recognizing community involvement, cultural engagement, and participation in clubs, teams, or leadership activities provides a fuller picture of a learner&#8217;s strengths. Prior Learning Assessment and Recognition (PLAR) is particularly effective in recognizing life experience and informal learning. Additionally, removing strict deadlines for accessing emergency funds ensures learners can receive timely support when needed, further reducing barriers to participation and success.</p>
+    </div>
+
+    <div class="aos aos-delay-3">
+      <h2 class="subhead">Effective Initiatives &amp; Strategies</h2>
+      <p>This section presents participants&#8217; perspectives on initiatives and strategies that have the greatest potential to support First Nations learners during educational transitions. Mentorship, experiential learning, culturally grounded programs, and peer networks were highlighted as most impactful. Ongoing, accessible supports available at key transition points (such as internships, co-op placements, and cultural activities) help learners build confidence, skills, and a strong sense of identity. Community-based and culturally relevant approaches foster engagement and resilience. Regional and provincial networks for frontline workers ensure coordinated guidance, supporting both short- and long-term success.</p>
+
+      <p>The following sub-sections include:</p>
+      <ul>
+        <li>Building Success Through Mentorship and Support Networks</li>
+        <li>Experiential Learning and Youth-Centered Programs</li>
+        <li>Cultural Programs and Activities to Support Student Transitions</li>
+        <li>Regional and Provincial Networks for Frontline Support Workers</li>
+        <li>Alternative Learning Methods Grounded in Culture</li>
+        <li>Advancing Sovereignty, Capacity, and Systemic Change</li>
+      </ul>
+
+      <h3 class="subhead2">Building Success Through Mentorship and Support Networks</h3>
+      <p>Mentorship programs and supportive systems play a crucial role in helping learners navigate educational pathways, particularly for first-generation students whose families may not fully understand or support post-secondary education. Identifying First Nations mentors who have completed higher education helps build engagement, trust, and stable support networks, while emphasizing emotional humility and cultural sensitivity. Peer networks also provide practical experience, encouragement, and guidance to overcome barriers. Role models who incorporate cultural values into their mentorship can inspire learners and reinforce a sense of identity and belonging. Overall, people-centered support mechanisms that prioritize relationships and culturally grounded guidance are essential for fostering success and resilience among learners.</p>
+
+      <div class="pull-quote">
+        <blockquote>&#8220;The biggest help for Indigenous learners&#8217; education transitions would be ongoing cultural mentorship paired with hands-on opportunities &#8212; like paid internships tied to our communities (e.g., Indigenous education or environmental roles). Peer networks, connecting current learners with Indigenous grads, also matter; they share real, relatable tips no generic guide can.&#8221;</blockquote>
+        <cite>First Nations Post-Secondary Learner</cite>
+      </div>
+
+      <h3 class="subhead2">Experiential Learning and Youth-Centered Programs</h3>
+      <p>Youth-focused programs and experiential learning opportunities are essential for helping learners build life skills, coping strategies, and career readiness. However, many of these programs are either unavailable or only offered on a short-term basis. Programs that integrate First Nations languages, traditions, land-based learning, and community identity play a vital role in strengthening cultural connections, boosting confidence, and reinforcing a sense of belonging. Internships and co-op placements further enhance student development by strengthening networks and creating pathways to future opportunities. Hands-on experiences (particularly those rooted in culturally relevant or community-related fields) help learners apply their skills, explore career interests, and connect their education to real-world contexts in meaningful ways. These programs also foster resilience and independence, preparing learners to navigate challenges both within and beyond their communities.</p>
+
+      <h3 class="subhead2">Cultural Programs and Activities to Support Student Transitions</h3>
+      <p>Cultural activities and programs are essential for supporting learners&#8217; transitions by strengthening cultural identity and fostering a sense of belonging. Involving cultural advisors helps support healing, while cultural immersion programs and the inclusion of cultural curricula strengthen students&#8217; sense of identity. Traditional teachings and activities, such as year-round events, opening and closing sessions with prayer and ceremony, lunch-and-learns, and opportunities for students to discuss concerns, provide consistent engagement and support. Cultural gatherings that connect youth with Knowledge Keepers and link older and younger students further promote intergenerational learning and mentorship. However, coordination and access to Knowledge Keepers, and cultural advisors are often limited by funding and logistical barriers, highlighting the need for dedicated resources to sustain essential cultural support.</p>
+
+      <div class="pull-quote">
+        <blockquote>&#8220;A lot of our learners, even if they&#8217;ve lived in community, haven&#8217;t had an opportunity to hear a lot of their teachings. We hear at times, it&#8217;s just not something that their family is talking about &#x2026; so it&#8217;s something that they really appreciate. I think that&#8217;s really helpful.&#8221;</blockquote>
+        <cite>First Nations Leadership Staff</cite>
+      </div>
+
+      <h3 class="subhead2">Community and Provincial Networks for Frontline Support Workers</h3>
+      <p>A community and/or provincial network for frontline education workers helps foster collaboration, share best practices, and provide mutual support. Such networks help develop and improve resources that directly benefit learners while creating opportunities for workers to engage in decision-making processes and advocate for effective supports. A supportive component of this network is a student-centred working group, which brings together organizations and agencies (such as police departments and health centres) to meet quarterly, discuss emerging issues, and address concerns. These networks also provide professional development opportunities, ensuring frontline workers are equipped with the skills and knowledge needed to respond effectively to student needs. By connecting frontline workers across regions, these networks strengthen the overall support system for learners and ensure that challenges are addressed collaboratively and proactively.</p>
+
+      <h3 class="subhead2">Alternative Learning Methods Grounded in Culture</h3>
+      <p>Offering culturally relevant and alternative pathways for learning is key to supporting First Nations learners and enhancing post-secondary engagement. Accrediting Indigenous-focused programs through partnerships between colleges and First Nations communities helps expand program offerings and availability, while smaller cohort sizes foster stronger relationships and individualized support. Indigenous Institutes in Ontario provide another meaningful and culturally grounded avenue for post-secondary education. Successful high school programs often include hands-on, skills-based learning (e.g., building tiny homes and earning practical certifications) and cultural programming, such as language classes that support fluency. These approaches ensure that learners gain both academic knowledge and cultural grounding in ways that resonate and meet labour market needs of their communities.</p>
+
+      <div class="pull-quote">
+        <blockquote>&#8220;One of the things that they found a lot of success in is a program called Landing Success [...] it&#8217;s like land-based learning, but they get one high school credit, so they start off with a high school credit. And we found that that&#8217;s really helpful, and it&#8217;s really encouraging. Because of the land-based learning, they usually get a good mark.&#8221;</blockquote>
+        <cite>First Nations Student Support Staff</cite>
+      </div>
+
+      <h3 class="subhead2">Advancing Sovereignty, Capacity, and Systemic Change</h3>
+      <p>Promoting sovereignty and capacity within First Nations communities means ensuring that communities lead decision-making about what best supports their learners. With a growing First Nations demographic, institutions have an opportunity to prioritize meaningful investment in First Nations learners. Community leaders play a vital role in framing education as an investment in the future, fostering hope and driving change. Sharing developed resources, tools, and administrative approaches related to education and post-secondary supports can strengthen impact, although funding instability can make long-term planning difficult. Coordinating resources, rather than duplicating them, strengthens collaboration by bringing partners together to plan and share responsibility. Aligning community strategic plans with student pathways also builds local capacity, introduces new career options, and leads to tangible credentials. This approach encourages learners to stay in or return to their communities, ensuring education directly supports local development and self-determination.</p>
+
+      <div class="pull-quote">
+        <blockquote>&#8220;One of the things that we have done is we&#8217;ve started a push to have post-secondary in community. So, we have a partnership with Queen&#8217;s University, and it&#8217;s 100% in community, except for three weeks where the students have to go to Queen&#8217;s University in the summer.&#8221;</blockquote>
+        <cite>First Nations Administration Staff</cite>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 5: DISCUSSION ══ -->
+<div id="discussion" class="section-marker">
+  <div class="section-marker-inner">
+    <div class="section-num">5</div>
+    <div class="section-title-wrap">
+      <div class="section-eyebrow">Section Five</div>
+      <div class="section-name">Discussion</div>
+    </div>
+  </div>
+</div>
+<section class="content-section">
+  <div class="container">
+    <div class="aos">
+      <h2 class="subhead" style="margin-top:0.5rem;">Key Insights</h2>
+      <p>This discussion brings together insights from community engagement and situates them within the existing literature. The literature provides a foundation of best practices, and participants&#8217; perspectives show how these can be translated into approaches that reflect wise, community-informed practices for supporting First Nations learners through educational transitions in Ontario. Themes such as early outreach, mentorship, family and community engagement, and culturally inclusive environments are consistent with the literature and help shape approaches grounded in Indigenous knowledge.</p>
+
+      <h3 class="subhead2">Early Outreach and Continuous Support</h3>
+      <p>Participants consistently emphasized the importance of early, proactive, and sustained support throughout educational transitions. This theme (reflected in ongoing support, wraparound services, and continuity of mentorship) highlights that learners thrive when relationships and services follow them across educational levels. Orientation programs, consistent communication, and step-by-step guidance were described as vital to reducing anxiety and building confidence. These findings echo research emphasizing the importance of early intervention and continuity in promoting Indigenous learners&#8217; retention and engagement (Restoule et al., 2013). The integration of wraparound and longitudinal supports not only addresses academic needs but also fosters trust and a sense of belonging through consistent relationships.</p>
+
+      <h3 class="subhead2">Communication and Information Sharing</h3>
+      <p>Effective communication emerged as both a challenge and a critical success factor. Participants described the need for relational and culturally grounded communication strategies that combine in-person engagement, community organization, and parental involvement. Consistent with the literature, communication was most effective when it occurred through trusted community-based networks rather than impersonal institutional channels (Hill-MacDonald, 2011). Clear, timely, and accessible information about programs, funding, and transitions remains essential. As evidenced by the findings and prior research, community partnerships and transparent communication help bridge systemic gaps and promote equitable access to information.</p>
+
+      <h3 class="subhead2">Family and Community Engagement</h3>
+      <p>The findings reaffirm that family, Elders, and community members play a crucial role in supporting learners&#8217; success. Participants described the need for centralized resources, outreach, and awareness initiatives, as well as access to technology that connects families with educational pathways. The literature similarly identifies family and community engagement as central to First Nations student achievement and persistence, particularly when learning environments honour intergenerational relationships and local knowledge (Archibald et al., 2010). The inclusion of digital and hybrid outreach strategies reflects an evolution of these principles in current contexts, where technology can extend but not replace community connection.</p>
+
+      <h3 class="subhead2">Holistic Student Support Services</h3>
+      <p>The study&#8217;s findings clearly show that First Nations learners benefit from a holistic model of support that integrates academic, emotional, mental health, and practical needs. Participants linked healing and education, noting that well-being and cultural connection are foundational to learning. This aligns with Indigenous pedagogical frameworks emphasizing the interconnectedness of mind, body, spirit, and community (People for Education, 2016). Furthermore, access to financial and practical supports such as housing, childcare, and transportation was identified as critical to equitable participation, reinforcing the view that social determinants of education profoundly affect academic success.</p>
+
+      <h3 class="subhead2">Culturally Inclusive Environments</h3>
+      <p>Consistent with prior literature, participants identified culturally inclusive and safe environments as central to learning and belonging. Themes such as Indigenous Knowledge integration, land-based learning, and Indigenous representation reflect approaches that help build culturally grounded environments, which in turn support greater engagement and achievement. Access to Elders, Knowledge Keepers, and Indigenous educators helps sustain cultural connection and bring Indigenous perspectives into educational systems. The integration of Indigenous worldviews, languages, and land-based practices supports both thinking skills and emotional growth (Rainbow District School Board, 2010). Similarly, participants emphasized that representation and inclusive practices cultivate authentic relationships and mutual accountability within institutions.</p>
+
+      <h3 class="subhead2">Mentorship and Knowledge Transfer</h3>
+      <p>Mentorship emerged as a key theme, with participants describing the transformative impact of peer mentors, student support, and professional role models. These relationships supported learners&#8217; confidence, reduced isolation, and provided everyday navigation skills. The literature shows that Indigenous mentorship models grounded in cultural values support identity affirmation and strengthen learner persistence in their educational journeys (Hill-MacDonald, 2011). Participants also emphasized staff mentorship and strong teacher recruitment and retention, noting that stable, supported educators help maintain continuity in relationships, programming, and student support. Policy and research frequently identify long-term investment in these roles as necessary to sustain this continuity (Archibald et al., 2010).</p>
+
+      <h3 class="subhead2">Multiple Pathways and Bridging Programs</h3>
+      <p>Findings under this theme highlight the need for flexible and responsive educational pathways, including bridging programs, alternative learning routes, and recognition of prior learning. Participants valued opportunities to access education in community settings and through partnerships between First Nations and post-secondary institutions. These approaches align with the literature that emphasizes Indigenous self-determination in education and the recognition of diverse knowledge systems as legitimate forms of learning (Archibald et al., 2010). Bridging programs and flexible accreditation mechanisms support lifelong learning, enabling equitable participation for adult and non-traditional learners.</p>
+
+      <h3 class="subhead2">Systemic Barriers and Structural Gaps</h3>
+      <p>Participants also identified persistent systemic barriers, including financial instability, housing shortages, childcare gaps, and policy inconsistencies. These findings align with longstanding concerns in the literature regarding inequitable funding models, jurisdictional complexity, and institutional mistrust (Chiefs of Ontario, 2023). Despite localized successes, participants emphasized that sustainable funding, coordinated policy frameworks, and accountability measures remain critical for structural change. Addressing these barriers requires systemic reform that centers Indigenous leadership in decision-making and resource allocation.</p>
+
+      <h3 class="subhead2">Findings and Broader Implications</h3>
+      <p>Many of the themes emerging from this study reinforce what the literature has long established &#8212; culturally grounded, relationship-based, and wholistic approaches are most effective for supporting First Nations learners. However, the findings also extend the literature by illustrating how digital access, flexible program delivery, and proactive mentorship continuity are becoming increasingly relevant in contemporary educational contexts. The convergence between participant perspectives and existing research highlights that while the principles of Indigenous education remain consistent, their implementation must adapt to changing learner needs and systemic realities.</p>
+
+      <h2 class="subhead">Limitations</h2>
+      <p>The project&#8217;s qualitative approach provided descriptive insights rather than statistical generalizations. Although engagement reflected diverse regional perspectives, it was not exhaustive. Not all 133 First Nations communities in Ontario could be reached within the project timeline, reflecting the study&#8217;s scope and time limitations. Continued engagement would be valuable to deepen understanding across additional communities. Diversity among First Nations, including language, governance, educational partnerships, and regional realities, means strategies must remain flexible and responsive to local priorities. Although participants shared rich lived experiences, further community-specific research across Turtle Island could deepen understanding of how these insights vary across different contexts.</p>
+
+      <h2 class="subhead">Future Directions</h2>
+      <p>Building on the present findings, future research should explore longitudinal and comparative approaches to better understand how early outreach, mentorship, and wholistic supports influence long-term outcomes for First Nations learners. Investigating the role of digital and hybrid learning models, including online mentorship and virtual cultural programming, will help identify effective strategies for accessibility and continuity alongside community-based initiatives. Future work may examine the relationship between emotional, spiritual, and health-related supports and academic success, as well as strategies for the meaningful integration of Elders, Knowledge Keepers, and community members within established frameworks.</p>
+      <p>Addressing systemic barriers requires research on policy, funding, and institutional accountability, with Indigenous leadership playing a central role in designing and evaluating sustainable reforms. Prioritizing knowledge mobilization through co-created interventions with families, communities, and educators will enhance relevance and sustainability. Evaluating these collaborative models can inform the development of scalable, culturally grounded support frameworks. These frameworks can adapt to evolving learner and system needs and help ensure support is provided across the entire educational journey.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 6: RECOMMENDATIONS ══ -->
+<div id="recommendations" class="section-marker">
+  <div class="section-marker-inner">
+    <div class="section-num">6</div>
+    <div class="section-title-wrap">
+      <div class="section-eyebrow">Section Six</div>
+      <div class="section-name">Recommendations</div>
+    </div>
+  </div>
+</div>
+<section class="content-section">
+  <div class="wide-container">
+
+    <div class="goal-block aos">
+      <div class="goal-header">
+        <div class="goal-num">Goal 1</div>
+        <h3>Support Learners Through Key Educational Transitions</h3>
+      </div>
+      <div class="rec-list">
+        <div class="rec-item"><div class="rec-num-cell"><span>1</span></div><div class="rec-content"><div class="rec-title">Strengthen Relationship-Based and Culturally Grounded Supports</div><p class="rec-body">Ensure consistent, long-term relational support across all transitions, supported by coordinated roles (graduation coaches, Indigenous advocates, pathway workers) and strong communication with learners.</p></div></div>
+        <div class="rec-item"><div class="rec-num-cell"><span>2</span></div><div class="rec-content"><div class="rec-title">Expand Holistic, Wraparound Services</div><p class="rec-body">Provide comprehensive academic, emotional, cultural, and practical supports, including mental health services, basic needs supports, and individualized transition planning.</p></div></div>
+        <div class="rec-item"><div class="rec-num-cell"><span>3</span></div><div class="rec-content"><div class="rec-title">Develop Structured, Culturally Responsive Transition Programs</div><p class="rec-body">Implement orientation programs, life-skills supports, and transition activities for elementary, secondary, and post-secondary learners that integrate Indigenous teachings, languages, and community knowledge.</p></div></div>
+        <div class="rec-item"><div class="rec-num-cell"><span>4</span></div><div class="rec-content"><div class="rec-title">Implement Early Assessments and Pathway Planning</div><p class="rec-body">Introduce early identification of learning needs and proactive education/career planning beginning in middle school to guide learners toward successful, culturally aligned pathways.</p></div></div>
+      </div>
+    </div>
+
+    <div class="goal-block aos aos-delay-1">
+      <div class="goal-header">
+        <div class="goal-num">Goal 2</div>
+        <h3>Promote Post-Secondary and Lifelong Learning</h3>
+      </div>
+      <div class="rec-list">
+        <div class="rec-item"><div class="rec-num-cell"><span>5</span></div><div class="rec-content"><div class="rec-title">Highlight Multiple, Culturally Relevant Pathways</div><p class="rec-body">Elevate awareness of pathways that include trades, land-based programs, and post-secondary options through Indigenous Institutes and colleges or universities, and present them in ways that honour First Nations values, strengths, and community priorities.</p></div></div>
+        <div class="rec-item"><div class="rec-num-cell"><span>6</span></div><div class="rec-content"><div class="rec-title">Expand Experiential, Land-Based, and Hands-On Learning</div><p class="rec-body">Increase opportunities for internships, co-op placements, land-based learning, and skill-building experiences rooted in local community contexts, supporting confidence, identity, and real-world readiness.</p></div></div>
+        <div class="rec-item"><div class="rec-num-cell"><span>7</span></div><div class="rec-content"><div class="rec-title">Strengthen Mentorship Rooted in Community and Culture</div><p class="rec-body">Develop mentor networks of Elders, alumni, community professionals, and peers to support new and first-generation learners, and strengthen belonging and cultural identity.</p></div></div>
+      </div>
+    </div>
+
+    <div class="goal-block aos aos-delay-2">
+      <div class="goal-header">
+        <div class="goal-num">Goal 3</div>
+        <h3>Strengthen Partnerships Across Education Systems</h3>
+      </div>
+      <div class="rec-list">
+        <div class="rec-item"><div class="rec-num-cell"><span>8</span></div><div class="rec-content"><div class="rec-title">Build Community and Provincial Coordination Networks</div><p class="rec-body">Support networks that connect frontline workers, Indigenous education departments, schools, Indigenous Institutes, and post-secondary institutions to share best practices and align supports.</p></div></div>
+        <div class="rec-item"><div class="rec-num-cell"><span>9</span></div><div class="rec-content"><div class="rec-title">Improve Coordination of Supports Across Institutions</div><p class="rec-body">Establish shared learner profiles, transition protocols, and collaborative onboarding to ensure students experience seamless, culturally safe transitions between systems.</p></div></div>
+        <div class="rec-item"><div class="rec-num-cell"><span>10</span></div><div class="rec-content"><div class="rec-title">Create a Centralized, Accessible Resource Hub</div><p class="rec-body">Develop a province-wide, regularly updated online hub that provides clear information on programs, funding, services, deadlines, and culturally grounded transition resources.</p></div></div>
+      </div>
+    </div>
+
+    <div class="goal-block aos aos-delay-3">
+      <div class="goal-header">
+        <div class="goal-num">Goal 4</div>
+        <h3>Inform Policy for Funding and Program Delivery</h3>
+      </div>
+      <div class="rec-list">
+        <div class="rec-item"><div class="rec-num-cell"><span>11</span></div><div class="rec-content"><div class="rec-title">Advocate for Stable, Adequate, and Flexible Funding</div><p class="rec-body">Secure long-term funding for key support roles, programming, emergency needs, childcare, and culturally relevant services that align with community needs and realities.</p></div></div>
+        <div class="rec-item"><div class="rec-num-cell"><span>12</span></div><div class="rec-content"><div class="rec-title">Address Financial, Housing, and Digital Barriers Systemically</div><p class="rec-body">Advocate for transparent funding formulas, expanded student housing options, improved Internet and device access, and digital literacy supports, especially for rural and remote learners.</p></div></div>
+        <div class="rec-item"><div class="rec-num-cell"><span>13</span></div><div class="rec-content"><div class="rec-title">Support Flexible, Barrier-Reducing Policies</div><p class="rec-body">Promote alternative admissions, Prior Learning Assessment and Recognition (PLAR), community-based program delivery, and simplified institutional processes that reduce systemic barriers.</p></div></div>
+        <div class="rec-item"><div class="rec-num-cell"><span>14</span></div><div class="rec-content"><div class="rec-title">Strengthen Indigenous Governance and Community Capacity</div><p class="rec-body">Advance First Nations sovereignty in education by supporting community-led decision-making, capacity building, and the growth of Indigenous Institutes and Indigenous-led programs.</p></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SECTION 7: CONCLUSION ══ -->
+<div id="conclusion" class="section-marker">
+  <div class="section-marker-inner">
+    <div class="section-num">7</div>
+    <div class="section-title-wrap">
+      <div class="section-eyebrow">Section Seven</div>
+      <div class="section-name">Conclusion</div>
+    </div>
+  </div>
+</div>
+<section class="content-section">
+  <div class="container">
+    <div class="aos">
+      <p style="font-size:clamp(1.1rem,2.5vw,1.25rem);font-weight:400;line-height:1.85;color:var(--ink);">Education is a lifelong journey that begins in community and extends through every stage of life. As participants in this study emphasized, learning encompasses more than academics; it is deeply connected to identity, belonging, and purpose. First Nations learners thrive when they are supported holistically, with attention to their spiritual, emotional, physical, and intellectual needs.</p>
+      <p>This research illustrates how culturally grounded, relational, and wholistic supports &#8212; including mentorship, family and community engagement, and inclusive learning environments &#8212; strengthen learners&#8217; engagement, confidence, and overall well-being.</p>
+      <p>The findings demonstrate that First Nations communities across Ontario are driving innovative initiatives informed by learner experience and grounded in cultural identity. Meaningful educational change occurs when communities guide the design and implementation of supports, blending traditional knowledge with contemporary strategies. By adopting the strategies, resources, and advocacy highlighted in this study, the Chiefs of Ontario and First Nations can continue to strengthen pathways that uphold self-determination, foster collective success, and support the lifelong learning of future generations.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ REFERENCES ══ -->
+<div id="references" style="background:var(--mist);padding:4rem 1.5rem;">
+  <div class="container">
+    <div class="aos">
+      <div class="red-divider"></div>
+      <h2 class="subhead" style="margin-top:0;">References</h2>
+      <p style="font-size:0.9rem;line-height:1.7;">Archibald, J., Pidgeon, M., &amp; Hawkey, C. (2010). <em>Aboriginal Transitions: Undergraduate to Graduate (Phase I Final Report).</em> <a href="https://aboriginallearning.ca/wp-content/uploads/2015/02/UBC-Aboriginal-Transitions.pdf" style="color:var(--red);">aboriginallearning.ca</a></p>
+      <p style="font-size:0.9rem;line-height:1.7;">Chiefs of Ontario. (2023). <em>Chiefs of Ontario Post-Secondary Engagement Report.</em> <a href="https://education.chiefs-of-ontario.org/wp-content/uploads/2023/09/24-01-09-ON-PSE_Engagement_Final_Report-V5.pdf" style="color:var(--red);">education.chiefs-of-ontario.org</a></p>
+      <p style="font-size:0.9rem;line-height:1.7;">Hill-MacDonald, L. A. (2011). <em>Aboriginal Student Transitions Project.</em> <a href="https://oneca.com/wp-content/uploads/2012/01/Aboriginal-student-transitions-FINAL-031911.pdf" style="color:var(--red);">oneca.com</a></p>
+      <p style="font-size:0.9rem;line-height:1.7;">People for Education. (2016). <em>Moving Toward Reconciliation in Ontario&#8217;s Publicly Funded Schools.</em> <a href="https://peopleforeducation.ca/wp-content/uploads/2017/07/Indigenous-Education-2016.pdf" style="color:var(--red);">peopleforeducation.ca</a></p>
+      <p style="font-size:0.9rem;line-height:1.7;">Rainbow District School Board. (2010). <em>Aanjiiwin: Transition Supports for First Nation, M&#233;tis and Inuit Students.</em> <a href="https://www.rainbowschools.ca/wp-content/uploads/2016/09/Transitions_June_2010.pdf" style="color:var(--red);">rainbowschools.ca</a></p>
+      <p style="font-size:0.9rem;line-height:1.7;">Restoule, J.-P., Mashford-Pringle, A., Chacaby, M., Smillie, C., Brunette, C., &amp; Russel, G. (2013). Supporting Successful Transitions to Post-Secondary Education for Indigenous Students: Lessons from an institutional ethnography in Ontario, Canada. <em>International Indigenous Policy Journal, 4</em>(4). <a href="https://ojs.lib.uwo.ca/index.php/iipj/article/view/7418/6062" style="color:var(--red);">ojs.lib.uwo.ca</a></p>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+// ── Progress bar ──────────────────────────────────────────────
+const bar = document.getElementById('progress');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  bar.style.width = Math.min(pct, 100) + '%';
+});
+
+// ── Active pill highlighting ───────────────────────────────────
+const pills = document.querySelectorAll('.cat-pill');
+const sectionIds = Array.from(pills).map(p => p.getAttribute('href').replace('#', ''));
+function updateActivePill() {
+  let activeId = sectionIds[0];
+  for (const id of sectionIds) {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top <= 120) activeId = id;
+  }
+  pills.forEach(p => {
+    const href = p.getAttribute('href').replace('#', '');
+    p.classList.toggle('active', href === activeId);
+  });
+}
+window.addEventListener('scroll', updateActivePill);
+updateActivePill();
+
+// ── Animate on scroll ─────────────────────────────────────────
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.aos').forEach(el => observer.observe(el));
+
+// ── Animated bar chart ────────────────────────────────────────
+const barObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.bar-fill').forEach(b => {
+        const w = b.style.width;
+        b.style.width = '0%';
+        requestAnimationFrame(() => requestAnimationFrame(() => { b.style.width = w; }));
+      });
+      barObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.bar-chart').forEach(el => barObserver.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,287 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* COO Brand Colors */
+  --color-coo-red: oklch(0.44 0.22 25);
+  --color-coo-red-dark: oklch(0.34 0.18 22);
+  --color-coo-red-light: oklch(0.95 0.02 25);
+  --color-coo-red-faint: oklch(0.98 0.01 25);
+  --color-coo-ink: oklch(0.15 0.005 80);
+  --color-coo-stone: oklch(0.35 0.005 80);
+  --color-coo-mist: oklch(0.97 0.003 80);
+  --color-coo-sand: oklch(0.94 0.008 80);
+  --color-coo-warm-white: oklch(0.99 0.002 80);
+  --color-coo-border: oklch(0.91 0.008 80);
+
+  /* Font families */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-serif: 'Source Serif 4', Georgia, serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+}
+
+:root {
+  --radius: 0.25rem;
+  --background: oklch(0.99 0.002 80);
+  --foreground: oklch(0.15 0.005 80);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.15 0.005 80);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.15 0.005 80);
+  --primary: oklch(0.44 0.22 25);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: oklch(0.97 0.003 80);
+  --secondary-foreground: oklch(0.35 0.005 80);
+  --muted: oklch(0.94 0.008 80);
+  --muted-foreground: oklch(0.5 0.005 80);
+  --accent: oklch(0.94 0.008 80);
+  --accent-foreground: oklch(0.15 0.005 80);
+  --destructive: oklch(0.44 0.22 25);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.91 0.008 80);
+  --input: oklch(0.91 0.008 80);
+  --ring: oklch(0.44 0.22 25);
+  --chart-1: oklch(0.44 0.22 25);
+  --chart-2: oklch(0.34 0.18 22);
+  --chart-3: oklch(0.35 0.005 80);
+  --chart-4: oklch(0.97 0.003 80);
+  --chart-5: oklch(0.15 0.005 80);
+  --sidebar: oklch(0.99 0.002 80);
+  --sidebar-foreground: oklch(0.15 0.005 80);
+  --sidebar-primary: oklch(0.44 0.22 25);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.94 0.008 80);
+  --sidebar-accent-foreground: oklch(0.15 0.005 80);
+  --sidebar-border: oklch(0.91 0.008 80);
+  --sidebar-ring: oklch(0.44 0.22 25);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    -webkit-tap-highlight-color: transparent;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 17px;
+    line-height: 1.75;
+    color: #1a1a18;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', Georgia, serif;
+    color: #0f0f0d;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+
+  /* COO Brand Button */
+  .coo-btn {
+    display: inline-block;
+    background-color: #BB0A12;
+    color: white;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 14px 36px;
+    border-radius: 0;
+    border: none;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.25s ease, transform 0.15s ease;
+    cursor: pointer;
+  }
+
+  .coo-btn:hover {
+    background-color: #8B0009;
+    color: white;
+    transform: translateY(-1px);
+  }
+
+  .coo-btn-outline {
+    display: inline-block;
+    background-color: transparent;
+    color: #BB0A12;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 12px 34px;
+    border-radius: 0;
+    border: 2px solid #BB0A12;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.25s ease;
+    cursor: pointer;
+  }
+
+  .coo-btn-outline:hover {
+    background-color: #BB0A12;
+    color: white;
+  }
+
+  /* Lesson content styles */
+  .lesson-content h1,
+  .lesson-content h2,
+  .lesson-content h3 {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+
+  .lesson-content iframe {
+    max-width: 100%;
+  }
+
+  .lesson-content img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Mobile-specific overrides */
+  @media (max-width: 639px) {
+    body {
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .coo-btn {
+      padding: 12px 24px;
+      font-size: 0.75rem;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .coo-btn-outline {
+      padding: 10px 22px;
+      font-size: 0.75rem;
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .lesson-content {
+      font-size: 15px;
+      line-height: 1.65;
+    }
+
+    .lesson-content h2 {
+      font-size: 20px;
+    }
+
+    .lesson-content h3 {
+      font-size: 18px;
+    }
+
+    .lesson-content p {
+      margin-bottom: 1em;
+    }
+
+    .lesson-content ul,
+    .lesson-content ol {
+      padding-left: 1.25rem;
+    }
+  }
+
+  /* Tablet tweaks */
+  @media (min-width: 640px) and (max-width: 767px) {
+    .coo-btn {
+      padding: 13px 30px;
+      font-size: 0.78rem;
+    }
+  }
+}

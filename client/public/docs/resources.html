@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Programs &amp; Resources — First Nations Education Transitions</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&amp;family=DM+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<style>
+/* ══ DESIGN SYSTEM ══════════════════════════════ */
+:root {
+  --red:        #BB0A12;
+  --red-dark:   #8B0009;
+  --red-light:  #f5e8e8;
+  --red-faint:  #fdf4f4;
+  --black:      #0f0f0d;
+  --ink:        #1a1a18;
+  --stone:      #3d3d39;
+  --mist:       #f7f6f2;
+  --sand:       #ede9e0;
+  --warm-white: #fdfcf9;
+  --border:     #e2ddd5;
+  --display:    'Playfair Display', Georgia, serif;
+  --serif:      'Source Serif 4', Georgia, serif;
+  --sans:       'DM Sans', system-ui, sans-serif;
+  --wide-w:     1120px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--serif); background: var(--warm-white); color: var(--ink); line-height: 1.75; }
+
+/* ══ NAV ══════════════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  background: rgba(253,252,249,0.97); backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border); height: 56px;
+  display: flex; align-items: center;
+}
+.nav-inner {
+  width: 100%; max-width: var(--wide-w); margin: 0 auto; padding: 0 2.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { font-family: var(--display); font-size: 0.85rem; color: var(--red-dark); font-weight: 700; text-decoration: none; letter-spacing: 0.01em; }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-family: var(--sans); font-size: 0.75rem; font-weight: 500; color: var(--stone); text-decoration: none; letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover { color: var(--red); }
+
+/* ══ HERO ══════════════════════════════════════ */
+.hero {
+  position: relative; overflow: hidden;
+  background: var(--warm-white);
+  border-bottom: 3px solid var(--red);
+  padding: calc(56px + 5rem) 3rem 5rem;
+  min-height: 460px;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 75% 40%, rgba(187,10,18,0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 5% 90%, rgba(237,233,224,0.7) 0%, transparent 50%);
+}
+
+.hero-inner { max-width: var(--wide-w); margin: 0 auto; position: relative; z-index: 1; }
+.hero-top { max-width: 54%; }
+.hero-eyebrow {
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--red);
+  display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1.25rem;
+}
+.hero-eyebrow::before { content: ''; display: block; width: 28px; height: 2px; background: var(--red); flex-shrink: 0; }
+.hero-title {
+  font-family: var(--display); font-size: clamp(2.1rem, 4vw, 3.4rem);
+  font-weight: 900; line-height: 1.08; color: var(--black); margin-bottom: 1.4rem;
+}
+.hero-title em { font-style: italic; color: var(--red-dark); display: block; }
+.hero-sub {
+  font-family: var(--serif); font-size: 1.05rem; line-height: 1.85;
+  color: var(--stone); margin-bottom: 2rem; max-width: 500px;
+}
+.hero-meta {
+  display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap;
+}
+.hero-count {
+  background: var(--red); color: white;
+  font-family: var(--sans); font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.4rem 1rem; border-radius: 2px;
+}
+.hero-credit { font-family: var(--sans); font-size: 0.8rem; color: var(--stone); }
+.hero-credit a { color: var(--red); text-decoration: none; font-weight: 500; }
+.hero-credit a:hover { text-decoration: underline; }
+.hero-watermark {
+  position: absolute; right: 5%; bottom: 10%;
+  width: 40%; max-width: 480px; opacity: 0.15;
+  pointer-events: none; user-select: none;
+}
+
+/* ══ ABOUT STRIP ══════════════════════════════ */
+.about-strip { background: var(--red); padding: 3.5rem 2.5rem; position: relative; overflow: hidden; }
+.about-strip::before {
+  content: '';
+  position: absolute; right: -2rem; top: 50%; transform: translateY(-50%);
+  width: 300px; height: 300px; border-radius: 50%;
+  background: rgba(255,255,255,0.04); pointer-events: none;
+}
+.about-inner { max-width: var(--wide-w); margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
+.about-block h3 { font-family: var(--display); font-size: 1.05rem; font-style: italic; color: rgba(255,255,255,0.6); margin-bottom: 0.65rem; }
+.about-block p { font-family: var(--serif); font-size: 0.95rem; color: rgba(255,255,255,0.88); line-height: 1.82; }
+.living-tag {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25);
+  font-family: var(--sans); font-size: 0.68rem; font-weight: 600;
+  letter-spacing: 0.1em; text-transform: uppercase; color: white;
+  padding: 0.3rem 0.8rem; border-radius: 2px; margin-bottom: 0.8rem;
+}
+.living-tag::before { content: '●'; font-size: 0.5rem; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+/* ══ CATEGORY NAV ══════════════════════════════ */
+.cat-nav {
+  background: var(--mist); border-bottom: 1px solid var(--border);
+  padding: 1.25rem 2.5rem;
+  position: sticky; top: 0; z-index: 90;
+}
+.cat-nav-inner { max-width: var(--wide-w); margin: 0 auto; display: grid; grid-template-columns: repeat(5, auto); gap: 0.45rem; align-items: center; justify-content: center; }
+.cat-nav-label { font-family: var(--sans); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--stone); margin-right: 0.5rem; text-align: center; margin-bottom: 0.5rem; display: block; }
+.cat-pill {
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 500;
+  letter-spacing: 0.03em; color: var(--stone);
+  background: white; border: 1px solid var(--border);
+  padding: 0.3rem 0.9rem; border-radius: 20px;
+  text-decoration: none; transition: all 0.18s; white-space: nowrap;
+  display: flex; align-items: center; gap: 0.35rem;
+}
+.cat-pill:hover { background: var(--red); color: white; border-color: var(--red); transform: translateY(-1px); box-shadow: 0 3px 10px rgba(187,10,18,0.2); }
+.cat-pill .pill-num { font-size: 0.6rem; opacity: 0.6; font-weight: 600; }
+
+/* ══ MAIN ══════════════════════════════════════ */
+.main { max-width: var(--wide-w); margin: 0 auto; padding: 0 2.5rem 6rem; }
+
+/* ══ CATEGORY SECTION ══════════════════════════ */
+.cat-section {
+  padding: 5rem 0 3rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.cat-section:last-child { border-bottom: none; }
+
+
+
+.cat-header {
+  display: flex; align-items: baseline; gap: 1rem;
+  margin-bottom: 0.6rem; position: relative; z-index: 1;
+}
+.cat-num {
+  font-family: var(--sans); font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.12em; color: var(--red); text-transform: uppercase;
+  background: var(--red-faint); border: 1px solid var(--red-light);
+  padding: 0.2rem 0.65rem; border-radius: 2px; flex-shrink: 0;
+}
+.cat-title {
+  font-family: var(--display); font-size: clamp(1.5rem, 2.8vw, 2.1rem);
+  font-weight: 700; color: var(--black); position: relative; z-index: 1;
+}
+/* Animated red underline on cat-title */
+.cat-title::after {
+  content: ''; display: block; height: 2px;
+  background: var(--red); width: 0;
+  transition: width 0.5s ease; margin-top: 0.3rem;
+}
+.cat-section.visible .cat-title::after { width: 48px; }
+
+.cat-desc {
+  font-family: var(--serif); font-size: 0.95rem; color: var(--stone);
+  line-height: 1.82; margin-bottom: 2rem;
+  border-left: 3px solid var(--red-light); padding-left: 1.1rem;
+  position: relative; z-index: 1;
+}
+
+/* ══ RESOURCE CARDS ══════════════════════════ */
+.resource-grid { display: grid; grid-template-columns: 1fr; gap: 0; position: relative; z-index: 1; }
+
+.resource-card {
+  display: grid; grid-template-columns: 280px 1fr;
+  border: 1px solid var(--border); border-bottom: none;
+  background: white; position: relative;
+  transition: background 0.15s, box-shadow 0.2s, transform 0.2s;
+  overflow: hidden;
+}
+.resource-card::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px; background: var(--red); transform: scaleY(0); transform-origin: bottom;
+  transition: transform 0.25s ease;
+}
+.resource-card:hover::before { transform: scaleY(1); transform-origin: top; }
+.resource-card:hover { background: var(--red-faint); box-shadow: 0 4px 20px rgba(187,10,18,0.07); transform: translateX(2px); }
+
+.resource-card:first-child { border-radius: 4px 4px 0 0; }
+.resource-card:last-child { border-bottom: 1px solid var(--border); border-radius: 0 0 4px 4px; }
+.resource-card:only-child { border-radius: 4px; border-bottom: 1px solid var(--border); }
+
+.resource-name {
+  padding: 1.3rem 1.5rem; border-right: 1px solid var(--border);
+  font-family: var(--display); font-size: 0.93rem; font-weight: 700;
+  color: var(--red-dark); line-height: 1.4;
+  display: flex; flex-direction: column; justify-content: center; gap: 0.4rem;
+}
+.non-indigenous {
+  font-family: var(--sans); font-size: 0.66rem; font-weight: 500;
+  letter-spacing: 0.04em; color: var(--stone);
+  background: var(--sand); border: 1px solid var(--border);
+  padding: 0.15rem 0.55rem; border-radius: 2px;
+  display: inline-block; width: fit-content;
+}
+.resource-desc {
+  padding: 1.3rem 1.5rem;
+  font-family: var(--serif); font-size: 0.9rem; color: var(--ink); line-height: 1.78;
+}
+
+/* ══ BACK TO TOP ══════════════════════════════ */
+.back-top {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--sans); font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--stone); text-decoration: none;
+  margin-top: 2rem; padding: 0.5rem 1rem;
+  border: 1px solid var(--border); border-radius: 2px;
+  background: white; transition: all 0.18s;
+  position: relative; z-index: 1;
+}
+.back-top:hover { color: var(--red); border-color: var(--red); background: var(--red-faint); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(187,10,18,0.1); }
+.back-top svg { transition: transform 0.2s; }
+.back-top:hover svg { transform: translateY(-2px); }
+
+
+
+
+/* ══ FOOTNOTE ══════════════════════════════════ */
+.footnote-bar { background: var(--sand); border-top: 1px solid var(--border); padding: 1.5rem 2.5rem; }
+.footnote-bar-inner { max-width: var(--wide-w); margin: 0 auto; }
+.footnote-bar p { font-family: var(--sans); font-size: 0.8rem; color: var(--stone); }
+
+/* ══ FEEDBACK ══════════════════════════════════ */
+.feedback-section {
+  background: var(--red); padding: 5rem 2.5rem; text-align: center;
+  position: relative; overflow: hidden;
+}
+.feedback-section::before {
+  content: '';
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  width: 600px; height: 600px; border-radius: 50%;
+  background: rgba(255,255,255,0.04); pointer-events: none;
+}
+.feedback-section::after {
+  content: '←→';
+  position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  font-family: var(--display); font-size: 16rem; font-weight: 900;
+  color: rgba(255,255,255,0.03); pointer-events: none; white-space: nowrap;
+  letter-spacing: -0.05em;
+}
+.feedback-inner { position: relative; z-index: 1; }
+.feedback-section h2 { font-family: var(--display); font-size: 2rem; color: white; margin-bottom: 0.75rem; font-style: italic; }
+.feedback-section p { font-family: var(--serif); font-size: 1rem; color: rgba(255,255,255,0.82); max-width: 480px; margin: 0 auto 2rem; line-height: 1.8; }
+.feedback-btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: white; color: var(--red-dark);
+  font-family: var(--sans); font-size: 0.82rem; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 1rem 2.5rem; border-radius: 2px; text-decoration: none;
+  transition: all 0.2s; box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+.feedback-btn:hover { background: var(--sand); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+
+/* ══ FOOTER ══════════════════════════════════ */
+
+
+
+
+.footer-logos img:hover { opacity: 1; }
+
+
+/* ══ AOS ══════════════════════════════════════ */
+.aos { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.aos.visible { opacity: 1; transform: none; }
+
+/* ══ FLOATING BACK TO TOP BUTTON ══════════════ */
+#floatTop {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 500;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--red); color: white; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(187,10,18,0.35);
+  opacity: 0; transform: translateY(10px) scale(0.9);
+  transition: all 0.25s ease; pointer-events: none;
+}
+#floatTop.show { opacity: 1; transform: none; pointer-events: all; }
+#floatTop:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(187,10,18,0.4); }
+
+/* ══ RESPONSIVE ══════════════════════════════ */
+@media (max-width: 780px) {
+  .hero-top { max-width: 100%; }
+  .hero-watermark, .hero::after, 
+  .about-inner { grid-template-columns: 1fr; gap: 2rem; }
+  .resource-card { grid-template-columns: 1fr; }
+  .resource-name { border-right: none; border-bottom: 1px solid var(--border); }
+  .cat-nav { display: none; }
+}
+
+/* ═══ COO HERO HEADER ═══ */
+.coo-hero {
+  background: #fdfcf9;
+  position: relative;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+  border-bottom: 3px solid #BB0A12;
+}
+.coo-hero-canvas {
+  position: absolute; inset: 0; opacity: 0.9;
+  background:
+    radial-gradient(ellipse 60% 50% at 85% 50%, rgba(224,223,217,0.55) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(187,10,18,0.05) 0%, transparent 60%);
+}
+.coo-hero-watermark {
+  position: absolute; right: 5%; bottom: 10%;
+  width: 40%; max-width: 480px; opacity: 0.18;
+  pointer-events: none; user-select: none;
+}
+.coo-hero-content {
+  position: relative; z-index: 2;
+  max-width: 1100px; margin: 0 auto; width: 100%;
+  padding: 3rem 3rem 3.5rem;
+}
+.coo-hero-eyebrow {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.7rem; font-weight: 600;
+  color: #BB0A12; letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem;
+}
+.coo-hero-eyebrow::before {
+  content: ''; display: block; width: 32px; height: 2px; background: #BB0A12;
+}
+.coo-hero-title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 4.5vw, 3.6rem);
+  font-weight: 900; line-height: 1.08; color: #1a1a18;
+  letter-spacing: -0.02em; max-width: 18ch;
+  margin-bottom: 0;
+}
+.coo-hero-title em {
+  font-style: italic; color: #3d3d39;
+  display: block; font-size: 0.72em; font-weight: 400;
+  margin-bottom: 0.15em;
+}
+.coo-hero-divider {
+  width: 60px; height: 3px; background: #BB0A12; margin: 1.5rem 0;
+}
+.coo-hero-vision {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.05rem; font-weight: 300;
+  color: #3d3d39; max-width: 52ch; line-height: 1.75;
+  font-style: italic;
+}
+.coo-hero-presented {
+  padding-top: 2rem;
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 0.72rem;
+  color: #3d3d39; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.coo-hero-presented a { color: #1a1a18; text-decoration: none; transition: color 0.2s; }
+.coo-hero-presented a:hover { color: #BB0A12; }
+@media (max-width: 640px) {
+  .coo-hero-watermark {
+  position: absolute; right: 5%; bottom: 10%;
+  width: 40%; max-width: 480px; opacity: 0.18;
+  pointer-events: none; user-select: none;
+}
+.coo-hero-content { padding: 2rem 1.5rem 2.5rem; }
+  .coo-hero-title { font-size: clamp(1.6rem, 6vw, 2.4rem); }
+}
+
+</style>
+</head>
+<body>
+<section class="coo-hero">
+  <div class="coo-hero-canvas"></div>
+  <img class="coo-hero-watermark" src="data:image/png;base64,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" alt="">
+  <div class="coo-hero-content">
+    <div class="coo-hero-eyebrow">Chiefs of Ontario</div>
+    <h1 class="coo-hero-title">
+      <em>Programs &amp; Support</em>
+      Resources Directory
+    </h1>
+    <div class="coo-hero-divider"></div>
+    <p class="coo-hero-vision">A comprehensive directory of programs, services, and supports available to First Nations learners and communities across Ontario.</p>
+    <div class="coo-hero-presented">
+      A <a href="https://chiefs-of-ontario.org" target="_blank">Chiefs of Ontario</a> initiative, conducted by <a href="https://mentee.ca" target="_blank">Mentee</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- HERO -->
+
+<!-- CATEGORY NAV -->
+<div class="cat-nav">
+<span class="cat-nav-label">Jump to</span>
+<div class="cat-nav-inner">
+<a class="cat-pill" href="#career"><span class="pill-num">01</span> Career Exploration</a>
+<a class="cat-pill" href="#courses"><span class="pill-num">02</span> Courses &amp; Handbooks</a>
+<a class="cat-pill" href="#community"><span class="pill-num">03</span> Community Supports</a>
+<a class="cat-pill" href="#financial"><span class="pill-num">04</span> Financial Literacy</a>
+<a class="cat-pill" href="#mentorship"><span class="pill-num">05</span> Mentorship</a>
+<a class="cat-pill" href="#orientation"><span class="pill-num">06</span> Orientation Events</a>
+<a class="cat-pill" href="#pathways"><span class="pill-num">07</span> Post-Secondary</a>
+<a class="cat-pill" href="#skills"><span class="pill-num">08</span> Skills Training</a>
+<a class="cat-pill" href="#guides"><span class="pill-num">09</span> Transition Guides</a>
+<a class="cat-pill" href="#wellness"><span class="pill-num">10</span> Wellness</a>
+</div>
+</div>
+<!-- MAIN -->
+<div class="main">
+<!-- 01 CAREER EXPLORATION -->
+<div class="cat-section aos" id="career">
+<div class="cat-header">
+<span class="cat-num">01</span>
+<h2 class="cat-title">Career Exploration</h2>
+</div>
+<p class="cat-desc">Career exploration resources help learners understand career options, labour market trends, and pathways before making education or training decisions. These may include workshops, online tools, career talks, and experiential learning opportunities.</p>
+<div class="resource-grid">
+
+
+
+
+
+
+<div class="resource-card">
+<div class="resource-name">First Nations Career Role Models (2015)</div>
+<div class="resource-desc">First Nations Education Steering Committee (FNESC) provides a career exploration resource that supports educators with Indigenous role model content, classroom activities, and culturally grounded learning materials that help students explore pathways and build confidence.</div>
+</div><div class="resource-card">
+<div class="resource-name">Future Pathways Fireside Chats</div>
+<div class="resource-desc">Future Pathways offers a free online video library featuring 300+ interviews with First Nations, Métis, and Inuit role models. Students can explore real career journeys by field or community, reflect through discussion prompts, and build inspiration and confidence through stories, teachings, and practical advice from Indigenous leaders across Turtle Island.</div>
+</div><div class="resource-card">
+<div class="resource-name">Future Ready Youth<span class="non-indigenous">★ Not Indigenous-specific</span></div>
+<div class="resource-desc">First Work delivers an Ontario workforce development initiative supporting youth transitions from school to career through partnership-based programming, employability supports, and pathway development resources. This resource is not Indigenous-specific, though First Nations learners may still find it helpful.</div>
+</div><div class="resource-card">
+<div class="resource-name">Holland Self-Directed Search</div>
+<div class="resource-desc">Holland Self-Directed Search provides a research-based career assessment that helps students match their interests and personality to education and career pathways using the RIASEC model (Holland Codes), with personalized results that support exploration, goal setting, and career planning.</div>
+</div><div class="resource-card">
+<div class="resource-name">Lexia Digital Literacy Learning</div>
+<div class="resource-desc">Lexia offers literacy programming that supports schools with science of reading-aligned programs, professional learning, and embedded assessments to strengthen reading skills, close literacy gaps, and improve outcomes for students across all ages and grade levels.</div>
+</div><div class="resource-card">
+<div class="resource-name">Post-Secondary Education Career Portal</div>
+<div class="resource-desc">The Ministry of Colleges and Universities, Research Excellence and Security (MCURES) offers an interactive online tool to strengthen and protect Ontario’s current and future workforce by helping incoming students plan their career, find a job, and explore other post-secondary institutions by finding education and career support.</div>
+</div></div>
+<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
+</div>
+<!-- 02 COURSES & HANDBOOKS -->
+<div class="cat-section aos" id="courses">
+<div class="cat-header">
+<span class="cat-num">02</span>
+<h2 class="cat-title">Courses &amp; Handbooks</h2>
+</div>
+<p class="cat-desc">Courses and handbooks are resources designed to support learners through key education and career transitions. They may include guided curricula, facilitator resources, digital modules, or practical tools focused on topics such as post-secondary readiness, career planning, funding navigation, wellness, and self-advocacy.</p>
+<div class="resource-grid">
+
+
+
+<div class="resource-card">
+<div class="resource-name">NAN Student Handbook (2024)</div>
+<div class="resource-desc">Nishnawbe Aski Nation (NAN) provides a student transition handbook app created to support First Nations learners moving into post-secondary, with practical tools, study and time-management tips, financial aid info, cultural supports, and links to community resources.</div>
+</div><div class="resource-card">
+<div class="resource-name">Strengthening Pathways for First Nations Learners (2026)</div>
+<div class="resource-desc">Mentee worked with the Chiefs of Ontario to develop a course that strengthens culturally grounded approaches to supporting First Nations learners through key education transitions. The course uses narrative modules, curated videos, discussion prompts, and ready-to-use activities focused on belonging, readiness, independence, wellness, self-advocacy, and building networks of support.</div>
+</div><div class="resource-card">
+<div class="resource-name">Taking Steps to Increase my Success in Post-Secondary</div>
+<div class="resource-desc">ONECA provides a program to support Indigenous women and adult learners who are considering college, university, trades, or other post-secondary pathways, offering guidance that helps learners take their first steps with confidence.</div>
+</div></div>
+<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
+</div>
+<!-- 03 COMMUNITY SUPPORTS -->
+<div class="cat-section aos" id="community">
+<div class="cat-header">
+<span class="cat-num">03</span>
+<h2 class="cat-title">Community Supports</h2>
+</div>
+<p class="cat-desc">Community supports include First Nation education offices, Indigenous employment services, friendship centres, and local organizations that provide one-on-one guidance, advocacy, referrals, and navigation support across learner transition pathways.</p>
+<div class="resource-grid">
+
+
+
+
+
+
+<div class="resource-card">
+<div class="resource-name">Aboriginal Post-Secondary Information Program (APSIP)</div>
+<div class="resource-desc">APSIP offers a network of Indigenous post-secondary recruiters across Ontario and Quebec that helps Indigenous learners explore programs, campus supports, services, and pathways into college, university, and Indigenous Institutes.</div>
+</div><div class="resource-card">
+<div class="resource-name">Employment Ontario — Provincial Supports<span class="non-indigenous">★ Not Indigenous-specific</span></div>
+<div class="resource-desc">The Government of Ontario provides Employment Ontario as a main access point for employment supports, job training, and career counselling services that support learner transitions into work or further education. This resource is not Indigenous-specific, though First Nations learners may still find it helpful.</div>
+</div><div class="resource-card">
+<div class="resource-name">Indigenous Employment &amp; Training Supports</div>
+<div class="resource-desc">Anishnabeg Outreach Employment &amp; Training Inc. provides Indigenous-led employment and training supports that help learners and job seekers build skills, access funded programs, and navigate pathways into work, education, and career development.</div>
+</div><div class="resource-card">
+<div class="resource-name">Ontario Federation of Indigenous Friendship Centres (OFIFC)</div>
+<div class="resource-desc">OFIFC supports a province-wide network of Friendship Centres providing culturally safe programs and services that can include youth supports, education navigation, referrals, and transition assistance.</div>
+</div><div class="resource-card">
+<div class="resource-name">Ontario Native Women's Association (ONWA)</div>
+<div class="resource-desc">ONWA provides culturally grounded programs and services that support wraparound needs for Indigenous learners and families during major life and education transitions.</div>
+</div><div class="resource-card">
+<div class="resource-name">Regional Multicultural Youth Council<span class="non-indigenous">★ Not Indigenous-specific</span></div>
+<div class="resource-desc">The Multicultural Association of Northwestern Ontario supports a youth-led organization and drop-in centre in Thunder Bay that provides a safe space, resources, and support for children and youth, including homework help, computers, workshops, and community activities that build belonging and leadership. This resource is not Indigenous-specific, though First Nations learners may still find it helpful.</div>
+</div></div>
+<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
+</div>
+<!-- 04 FINANCIAL LITERACY -->
+<div class="cat-section aos" id="financial">
+<div class="cat-header">
+<span class="cat-num">04</span>
+<h2 class="cat-title">Financial Literacy</h2>
+</div>
+<p class="cat-desc">Financial literacy resources support learners in building practical skills related to budgeting, saving, financial planning, and understanding the costs connected to education and independent living. These tools can help reduce barriers and strengthen learner readiness during key transitions.</p>
+<div class="resource-grid">
+
+
+
+<div class="resource-card">
+<div class="resource-name">Financial Wellness for Indigenous Peoples</div>
+<div class="resource-desc">RBC offers a free online course supporting financial literacy skill-building, including budgeting, saving, protecting money, borrowing basics, and long-term planning.</div>
+</div><div class="resource-card">
+<div class="resource-name">Indigenous Financial Wellness</div>
+<div class="resource-desc">AFOA Canada provides a financial wellness learning resource supporting Indigenous individuals and communities with education on budgeting, spending, saving, investing, and long-term financial decision-making.</div>
+</div><div class="resource-card">
+<div class="resource-name">Indigenous Peoples' Money and Youth</div>
+<div class="resource-desc">The Canadian Foundation for Economic Education (CFEE) offers a financial literacy learning program designed to build practical money skills for Indigenous youth through foundational learning on budgeting, saving, and everyday financial decisions.</div>
+</div></div>
+<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
+</div>
+<!-- 05 MENTORSHIP & PEER SUPPORT -->
+<div class="cat-section aos" id="mentorship">
+<div class="cat-header">
+<span class="cat-num">05</span>
+<h2 class="cat-title">Mentorship &amp; Peer Support</h2>
+</div>
+<p class="cat-desc">Mentorship programs connect learners with peers, professionals, Elders, or role models who provide one-on-one or group guidance. These supports help build confidence, strengthen identity, and ease transitions across education and career pathways.</p>
+<div class="resource-grid">
+
+
+
+
+
+
+<div class="resource-card">
+<div class="resource-name">Generation 4 Equality Youth Engagement Project</div>
+<div class="resource-desc">The Native Women's Association of Canada offers a youth initiative that provides tools, resources, and supports to help Indigenous youth advance education, leadership, and career pathways.</div>
+</div><div class="resource-card">
+<div class="resource-name">IMN-O Summer Institute (2025)</div>
+<div class="resource-desc">The Indigenous Mentorship Network of Ontario (IMN-O) hosts an annual Summer Institute that brings Indigenous graduate students, community researchers, and mentors together for connection, mentorship, skill-building, and confidence-building across academic and career pathways.</div>
+</div><div class="resource-card">
+<div class="resource-name">Indigenous Mentorship Network of Ontario (IMN-O)</div>
+<div class="resource-desc">IMN-O is a network for Indigenous scholars, learners, and researchers in the health and well-being sector, offering mentorship opportunities and community-building supports that help participants navigate academic and professional transitions.</div>
+</div><div class="resource-card">
+<div class="resource-name">Indigenous Summer Mentorship Program</div>
+<div class="resource-desc">The University of Toronto Mississauga offers a mentorship-based program supporting Indigenous high school students with early post-secondary exploration, identity development, connection to Indigenous student mentors, and transition planning.</div>
+</div><div class="resource-card">
+<div class="resource-name">Influence Mentoring</div>
+<div class="resource-desc">Influence Mentoring’s goal is to create better opportunities for Indigenous post-secondary students and to raise mentor awareness of Indigenous issues, culture, and history. Any Indigenous post-secondary student can participate in the mentoring program from anywhere in Canada.</div>
+</div><div class="resource-card">
+<div class="resource-name">Niijii Indigenous Mentorship Program</div>
+<div class="resource-desc">Lakehead University provides a hands-on mentorship program connecting Indigenous youth with Lakehead University students through classroom visits, activities, and cultural learning that builds confidence and supports post-secondary pathways.</div>
+</div></div>
+<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
+</div>
+<!-- 06 ORIENTATION EVENTS & ACTIVITIES -->
+<div class="cat-section aos" id="orientation">
+<div class="cat-header">
+<span class="cat-num">06</span>
+<h2 class="cat-title">Orientation Events &amp; Activities</h2>
+</div>
+<p class="cat-desc">Orientation events and activities are often annual or seasonal opportunities that support learners through career exploration, community connection, and practical readiness. These initiatives may include career fairs, campus orientations, summer institutes, and experiential learning events delivered in-person or virtually.</p>
+<div class="resource-grid">
+
+
+
+
+
+
+<div class="resource-card">
+<div class="resource-name">DFC Orientation "Amazing Race" Activity (2025)</div>
+<div class="resource-desc">Dennis Franklin Cromarty High School shares a news story highlighting student experiences and practical advice for adjusting to life in Thunder Bay, including navigating the city, finding community supports, staying safe, and building confidence during the transition to school away from home.</div>
+</div><div class="resource-card">
+<div class="resource-name">Gaǫdadęihwahni:ya:s Transition Program</div>
+<div class="resource-desc">McMaster University offers a two-week summer transition program supporting Indigenous students entering their first year through community-building, cultural safety, confidence-building, and campus readiness before classes begin.</div>
+</div><div class="resource-card">
+<div class="resource-name">Mississaugas of the Credit Career Fair (2025)</div>
+<div class="resource-desc">Mississaugas of the Credit First Nation offers an annual, free online career fair connecting students, job seekers, and community members with mining industry employers across Canada. Participants can explore job and training opportunities, attend webinars, connect with recruiters, and upload resumes for employer review.</div>
+</div><div class="resource-card">
+<div class="resource-name">Oneida Annual Youth Career Fair (2025)</div>
+<div class="resource-desc">Oneida Nation of the Thames hosts a youth-focused career awareness event designed to connect First Nations students with post-secondary programs, training pathways, and employers through interactive booths, information sharing, and direct conversations with recruiters and organizations.</div>
+</div><div class="resource-card">
+<div class="resource-name">Summer Indigenous Institute</div>
+<div class="resource-desc">Nipissing University offers a two-week transition program for Indigenous students entering their first year of university, designed to support academic readiness, orientation, and strong relationship-based connection before the semester begins.</div>
+</div><div class="resource-card">
+<div class="resource-name">Western Mini University Program</div>
+<div class="resource-desc">Western University hosts a week-long summer camp for Indigenous youth (ages 11–17), offering hands-on learning, cultural teachings, and a campus-based experience through workshops, activities, mentors, and exploration of post-secondary and career pathways.</div>
+</div></div>
+<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
+</div>
+<!-- 07 POST-SECONDARY PATHWAYS -->
+<div class="cat-section aos" id="pathways">
+<div class="cat-header">
+<span class="cat-num">07</span>
+<h2 class="cat-title">Post-Secondary Pathways</h2>
+</div>
+<p class="cat-desc">Post-secondary pathway resources support learners in exploring entry points into college, university, apprenticeships, and Indigenous Institutes. These may include bridging and preparatory programs, transition-year initiatives, and certificate programs that strengthen academic readiness, connection, and success.</p>
+<div class="resource-grid">
+
+
+
+
+
+
+
+
+
+
+
+<div class="resource-card">
+<div class="resource-name">Academic Bridging Program — Woodsworth College<span class="non-indigenous">★ Not Indigenous-specific</span></div>
+<div class="resource-desc">The University of Toronto (Woodsworth College) offers a bridging pathway that supports learners who want preparation before entering university-level study, with a focus on academic readiness and confidence. This resource is not Indigenous-specific, though First Nations learners may still find it helpful.</div>
+</div><div class="resource-card">
+<div class="resource-name">Indigenous Institutes Consortium (IIC Ontario)</div>
+<div class="resource-desc">The IIC Ontario represents a provincial network of seven out of the nine Indigenous Institutes across Ontario, supporting Indigenous-led learning pathways, training programs, and wraparound supports.</div>
+</div><div class="resource-card">
+<div class="resource-name">Indigenous Institutes in Ontario</div>
+<div class="resource-desc">The government of Ontario provides an overview of Indigenous Institutes recognized under provincial regulation, supporting Indigenous-led post-secondary learning, training pathways, and student success.</div>
+</div><div class="resource-card">
+<div class="resource-name">Indigenous Transition Year Program (ITYP)</div>
+<div class="resource-desc">Lakehead University offers an eight-month preparatory program for First Nations, Métis, and Inuit learners who need academic preparation to become eligible for admission in a culturally supportive environment.</div>
+</div><div class="resource-card">
+<div class="resource-name">Maawndoo Kinoomaagasiwin – Get SET (Skills, Education and Training)</div>
+<div class="resource-desc">Kenjgewin Teg offers this program serving learners who have goals to successfully transition to employment, post-secondary, apprenticeship, secondary school, and increased independence.</div>
+</div><div class="resource-card">
+<div class="resource-name">Ontario Learn and Stay Grant<span class="non-indigenous">★ Not Indigenous-specific</span></div>
+<div class="resource-desc">The Government of Ontario offers a grant covering tuition, books, and education costs for students in eligible post-secondary programs tied to in-demand careers. This resource is not Indigenous-specific, though First Nations learners may still find it helpful.</div>
+</div><div class="resource-card">
+<div class="resource-name">OntarioLearn</div>
+<div class="resource-desc">OntarioLearn is a collection of shared online post-secondary courses in North America. All 24 of Ontario’s publicly-funded colleges, along with 2 Indigenous Institutes and 1 Support Organization, work together in OntarioLearn to offer easy access to a wide variety of high-quality courses, programs and services online.</div>
+</div><div class="resource-card">
+<div class="resource-name">Professional Studies Certificate Program</div>
+<div class="resource-desc">Outside Looking In (OLI) offers a certificate program that supports Indigenous youth transitioning from high school into post-secondary education or employment through mentorship, skills development, and pathway planning.</div>
+</div><div class="resource-card">
+<div class="resource-name">Summer Bridge Camp for Indigenous Students</div>
+<div class="resource-desc">Loyalist College offers a bridge-style transition experience supporting Indigenous learners through culturally safe connection, relationship-building, and readiness supports for successful entry into college.</div>
+</div><div class="resource-card">
+<div class="resource-name">Transitions to Post-Secondary Education — Program A107<span class="non-indigenous">★ Not Indigenous-specific</span></div>
+<div class="resource-desc">George Brown College offers a free supportive program that helps learners build readiness for post-secondary education and employment goals for those facing barriers and benefiting from structured transition support. This resource is not Indigenous-specific, though First Nations learners may still find it helpful.</div>
+</div><div class="resource-card">
+<div class="resource-name">University Consortium Year 1 Program</div>
+<div class="resource-desc">Six Nations Polytechnic offers a one-year, community-based university preparation program where students complete first-year courses in a culturally grounded environment, with transferrable credits and transition support into partner universities.</div>
+</div></div>
+<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
+</div>
+<!-- 08 SKILLS TRAINING -->
+<div class="cat-section aos" id="skills">
+<div class="cat-header">
+<span class="cat-num">08</span>
+<h2 class="cat-title">Skills Training Initiatives</h2>
+</div>
+<p class="cat-desc">Skills training initiatives are programs designed to support learners as they transition between education, training, and employment. These initiatives may include bridge-to-work programs, paid internships, cohort-based learning, mentorship, employability skills development, and sector-specific technical training.</p>
+<div class="resource-grid">
+
+
+
+
+
+
+
+<div class="resource-card">
+<div class="resource-name">Bridge to Employment</div>
+<div class="resource-desc">Indigenous Sport &amp; Wellness Ontario offers a paid workforce development program supporting Indigenous participants across Ontario through career readiness training and pathways including technology/coding, health and wellness, and trades/green building.</div>
+</div><div class="resource-card">
+<div class="resource-name">First Nations and Inuit Skills Link Program</div>
+<div class="resource-desc">Indigenous Services Canada provides a national program supporting First Nations and Inuit youth through funded employability skills development, work experience opportunities, and career exploration supports.</div>
+</div><div class="resource-card">
+<div class="resource-name">Indigenous Student Internship Program</div>
+<div class="resource-desc">CGI offers a paid internship program for Indigenous post-secondary students, providing hands-on experience, mentorship, and skill development to support transitions into technology and professional careers.</div>
+</div><div class="resource-card">
+<div class="resource-name">Indigenous Youth Policy School</div>
+<div class="resource-desc">Indigenous Youth Roots offers a tuition-free, nine-month program supporting youth ages 18–29 through cohort learning, mentorship, and leadership development focused on policy, civic engagement, and community pathways.</div>
+</div><div class="resource-card">
+<div class="resource-name">IndigiTECH Program</div>
+<div class="resource-desc">Indigenous Friends Association offers a free 12-week online training program that supports Indigenous learners in building career pathways in technology through technical training, mentorship, and paid internship opportunities.</div>
+</div><div class="resource-card">
+<div class="resource-name">Trades Exploration Program</div>
+<div class="resource-desc">Six Nations Polytechnic offers a full-time, 7-week tuition-free program that provides learners the opportunity to explore various trades. The program is designed for individuals interested in pursuing a career in skilled trades but unsure what field to specialize in.</div>
+</div><div class="resource-card">
+<div class="resource-name">Try a Trade – Home Renovation &amp; Preventive Maintenance</div>
+<div class="resource-desc">Oshki-Pimache-O-Win: The Wenjack Education Institute, in partnership with Confederation College, offers a 6-week hands-on Try a Trade program focused on practical skills for home maintenance and as a gateway to the skilled trades.</div>
+</div></div>
+<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
+</div>
+<!-- 09 TRANSITION GUIDES -->
+<div class="cat-section aos" id="guides">
+<div class="cat-header">
+<span class="cat-num">09</span>
+<h2 class="cat-title">Transition Guides</h2>
+</div>
+<p class="cat-desc">Transition guides are practical, research-informed resources designed to support learners through key educational and life transitions. These may include planning tools, research reports, and system-level frameworks that strengthen coordination between institutions, families, and communities.</p>
+<div class="resource-grid">
+
+
+
+
+
+
+
+
+<div class="resource-card">
+<div class="resource-name">Aanjiiwin Transition Guide (2010)</div>
+<div class="resource-desc">Rainbow District School Board provides a practical transition guide with strategies and supports to help First Nation, Métis, and Inuit students transition successfully between schools and into post-secondary or work, with a focus on cultural safety, relationship-building, and individualized planning.</div>
+</div><div class="resource-card">
+<div class="resource-name">Aboriginal Student Transitions Project (2011)</div>
+<div class="resource-desc">ONECA provides a research project focused on improving Indigenous student transitions into post-secondary by identifying key needs like communication, funding support, culturally relevant services, and ongoing guidance.</div>
+</div><div class="resource-card">
+<div class="resource-name">AES Student Transitions Protocol</div>
+<div class="resource-desc">Kinoomaadziwin Education Body provides a guiding protocol outlining roles, timelines, and best practices to support Anishnabek Education System (AES) student transitions across key stages, grounded in relationship-building, privacy, and student well-being.</div>
+</div><div class="resource-card">
+<div class="resource-name">Indigenous Education in Ontario (2025)</div>
+<div class="resource-desc">The Government of Ontario provides an overview of Indigenous education commitments, priorities, and system supports that can help organizations strengthen coordination, partnership planning, and transition supports.</div>
+</div><div class="resource-card">
+<div class="resource-name">ONECA Resource Collection</div>
+<div class="resource-desc">ONECA provides a collection of practical tools, guides, and research to support Indigenous student success, including transition resources, wellness and mental health materials, and education counselling supports.</div>
+</div><div class="resource-card">
+<div class="resource-name">Transitions Hub and Toolkits</div>
+<div class="resource-desc">ONECA offers a transition resource hub supporting First Nations, Métis, and Inuit learners with practical tools, printable toolkits (including budgeting supports), and referrals that strengthen education pathways.</div>
+</div><div class="resource-card">
+<div class="resource-name">Walk in Our Moccasins Project (2010)</div>
+<div class="resource-desc">ONECA provides a research report on Aboriginal Education Counsellors in Ontario that documents roles, challenges, and training needs, and highlights practices that support Indigenous student retention, transitions, and graduation.</div>
+</div><div class="resource-card">
+<div class="resource-name">Youth in Transition: A Resource Guide for Youth and Workers (2022)</div>
+<div class="resource-desc">Association of Native Child and Family Services Agencies of Ontario (ANCFSAO) offers a guide supporting Indigenous youth transitioning from child welfare systems into adulthood, focused on practical navigation, wraparound supports, and building stability and independence.</div>
+</div></div>
+<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
+</div>
+<!-- 10 WELLNESS & HOLISTIC SUPPORTS -->
+<div class="cat-section aos" id="wellness">
+<div class="cat-header">
+<span class="cat-num">10</span>
+<h2 class="cat-title">Wellness &amp; Holistic Supports</h2>
+</div>
+<p class="cat-desc">Wellness and holistic supports help learners maintain balance across mental, emotional, physical, and cultural well-being. These resources may include counselling, cultural supports, wellness programs, and tools that strengthen resilience and support successful transitions.</p>
+<div class="resource-grid">
+
+
+
+
+
+
+
+<div class="resource-card">
+<div class="resource-name">Centre for Innovation in Campus Mental Health — CICMH<span class="non-indigenous">★ Not Indigenous-specific</span></div>
+<div class="resource-desc">CICMH provides tools, training, and resources to strengthen campus mental health supports and service coordination, including content relevant to Indigenous learner transitions and accessibility planning. This resource is not Indigenous-specific, though First Nations learners may still find it helpful.</div>
+</div><div class="resource-card">
+<div class="resource-name">Enaadmaagemgad Enizha’yaayin</div>
+<div class="resource-desc">Kenjgewin Teg offers this innovative six-week program designed to empower and equip students aged 18 and older with a diverse range of foundational skills, enabling their success in future educational endeavors. Participants should have an appreciation for the practices and traditional knowledge of Anishinabek culture and a genuine desire to pursue comprehensive well-being encompassing the physical, emotional, mental, and spiritual aspects.</div>
+</div><div class="resource-card">
+<div class="resource-name">First Nations Clinicians Network</div>
+<div class="resource-desc">Noojimo Health offers an Indigenous-owned virtual mental health clinic providing culturally safe counselling and wellness support with Indigenous care providers, including individual, family, and group sessions, with NIHB direct billing available for eligible clients.</div>
+</div><div class="resource-card">
+<div class="resource-name">Institutional Wellness Digital Toolkit</div>
+<div class="resource-desc">The IIC offers a culturally grounded wellness toolkit with guiding questions and practical tools to help institutions strengthen holistic supports for Indigenous learners.</div>
+</div><div class="resource-card">
+<div class="resource-name">Pathways to Wellness Online Resource for Indigenous Students</div>
+<div class="resource-desc">The IIC offers an online wellness course that combines Indigenous knowledge, reflection, and practical activities to help students build holistic wellness plans during post-secondary transitions.</div>
+</div><div class="resource-card">
+<div class="resource-name">Supporting Indigenous Students in Their Transition (2022)</div>
+<div class="resource-desc">CICMH provides a recorded webinar featuring APSIP that highlights accessibility and student support services at colleges, universities, and polytechnics across Ontario and Quebec, and shares how Indigenous representatives support learners through their educational journeys and transitions.</div>
+</div><div class="resource-card">
+<div class="resource-name">Supporting Indigenous Students with their Transition into Post-Secondary (2026)</div>
+<div class="resource-desc">CICMH and IIC offers a webinar highlighting tools and culturally grounded approaches to support Indigenous learners during transitions into post-secondary education.</div>
+</div></div>
+</div>
+</div><!-- /main -->
+<!-- FOOTNOTE -->
+<div class="footnote-bar">
+<div class="footnote-bar-inner">
+<p>★ Indicates the resource is not Indigenous-specific. First Nations learners may still find it helpful.</p>
+</div>
+</div>
+<!-- FEEDBACK -->
+<div class="feedback-section">
+<div class="feedback-inner">
+<h2>Share a Resource</h2>
+<p>This is a living document. As programs change and new resources emerge, your input helps keep this collection current and relevant for educators, learners, and communities.</p>
+<a class="feedback-btn" href="#">
+<svg fill="none" height="14" stroke="currentColor" stroke-width="2.5" viewbox="0 0 24 24" width="14"><path d="M12 5v14M5 12l7 7 7-7"></path></svg>
+      Share Feedback or Add a Resource
+    </a>
+</div>
+</div>
+
+<!-- Floating back to top -->
+<button id="floatTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="18"><path d="M18 15l-6-6-6 6"></path></svg>
+</button>
+<script>
+// AOS
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.06 });
+document.querySelectorAll('.aos').forEach(el => obs.observe(el));
+
+// Anchor scroll with offset
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', function(e) {
+    const id = this.getAttribute('href');
+    if (id === '#') return;
+    const target = document.querySelector(id);
+    if (target) {
+      e.preventDefault();
+      const offset = 125;
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - offset, behavior: 'smooth' });
+    }
+  });
+});
+
+// Floating back-to-top visibility
+const floatBtn = document.getElementById('floatTop');
+window.addEventListener('scroll', () => {
+  floatBtn.classList.toggle('show', window.scrollY > 400);
+}, { passive: true });
+</script>
+</body>
+</html>
