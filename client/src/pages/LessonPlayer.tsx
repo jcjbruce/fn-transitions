@@ -5,7 +5,7 @@
 
 import { useParams, Link, useLocation } from "wouter";
 import { useState, useEffect, useCallback, useRef } from "react";
-import { COURSE, ALL_LESSONS, getLessonBySlug, getLessonIndex, getPrevLesson, getNextLesson } from "@/data/courseData";
+import { COURSE, ALL_LESSONS, ALL_NAVIGABLE, getLessonBySlug, getLessonIndex, getPrevLesson, getNextLesson } from "@/data/courseData";
 import { getLessonContent } from "@/data/lessonContent";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
@@ -17,7 +17,6 @@ const MODULE_COLORS: Record<string, { dot: string; text: string; bg: string }> =
   "module-3": { dot: "#c4442a", text: "#8a2e1a", bg: "#fef8f5" },
   "module-4": { dot: "#7a3d2e", text: "#5c2e22", bg: "#f8f5f0" },
   "module-5": { dot: "#4a3528", text: "#3d2e22", bg: "#f5f5f0" },
-  "module-6": { dot: "#2a6b5a", text: "#1d4a3f", bg: "#f0f5f5" },
 };
 
 const DEFAULT_MODULE_COLOR = { dot: "#4a3528", text: "#3d2e22", bg: "#f5f5f0" };
@@ -85,7 +84,8 @@ export default function LessonPlayer() {
   const progressPercent = totalLessons > 0 ? Math.round((completedCount / totalLessons) * 100) : 0;
   const isCompleted = completedLessons.includes(slug);
 
-  const moduleColor = lesson?.moduleId ? (MODULE_COLORS[lesson.moduleId] || DEFAULT_MODULE_COLOR) : MODULE_COLORS["module-1"];
+  const FOUNDATION_COLOR = { dot: "#8a7e72", text: "#5c4f42", bg: "#f5f2ed" };
+  const moduleColor = lesson?.type === 'foundation' ? FOUNDATION_COLOR : lesson?.moduleId ? (MODULE_COLORS[lesson.moduleId] || DEFAULT_MODULE_COLOR) : MODULE_COLORS["module-1"];
 
   const markComplete = useCallback(() => {
     setCompletedLessons(prev => {
@@ -150,12 +150,27 @@ export default function LessonPlayer() {
             </span>
           </div>
 
-          <Link href="/courses/transitions">
-            <span className="text-xs sm:text-sm cursor-pointer flex items-center gap-1 transition-colors" style={{ color: "#a09a90", fontFamily: "'DM Sans', sans-serif" }}>
-              <BookOpen className="w-4 h-4" />
-              <span className="hidden sm:inline">Program Overview</span>
-            </span>
-          </Link>
+          <div className="flex items-center gap-3 sm:gap-4">
+            <Link href="/courses/transitions/lessons">
+              <span className="text-xs sm:text-sm cursor-pointer flex items-center gap-1 transition-colors" style={{ color: "#a09a90", fontFamily: "'DM Sans', sans-serif" }}
+                onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
+                onMouseLeave={e => (e.currentTarget.style.color = "#a09a90")}
+              >
+                <ChevronLeft className="w-4 h-4" />
+                <span className="hidden sm:inline">All Lessons</span>
+              </span>
+            </Link>
+            <div className="hidden sm:block w-px h-5" style={{ background: "rgba(255,255,255,0.15)" }} />
+            <Link href="/courses/transitions">
+              <span className="text-xs sm:text-sm cursor-pointer flex items-center gap-1 transition-colors" style={{ color: "#a09a90", fontFamily: "'DM Sans', sans-serif" }}
+                onMouseEnter={e => (e.currentTarget.style.color = "#fff")}
+                onMouseLeave={e => (e.currentTarget.style.color = "#a09a90")}
+              >
+                <BookOpen className="w-4 h-4" />
+                <span className="hidden sm:inline">Program Overview</span>
+              </span>
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -219,6 +234,62 @@ export default function LessonPlayer() {
                   </span>
                 </div>
               </Link>
+
+              {/* Foundations */}
+              <div className="mb-4">
+                <div className="flex items-center gap-2 px-3 mb-2">
+                  <div
+                    className="w-5 h-5 rounded-full flex items-center justify-center shrink-0"
+                    style={{ background: "#f0ebe4", border: "1.5px solid #8a7e72" }}
+                  >
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#8a7e72" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                    </svg>
+                  </div>
+                  <span className="text-xs font-bold uppercase tracking-wider" style={{ fontFamily: "'DM Sans', sans-serif", color: "#8a7e72" }}>
+                    Foundations
+                  </span>
+                </div>
+                <div className="space-y-1 ml-3 pl-3" style={{ borderLeft: "2px solid rgba(138,126,114,0.15)" }}>
+                  {COURSE.foundations.map((f, fIdx) => {
+                    const isActive = slug === f.slug;
+                    const isDone = completedLessons.includes(f.slug);
+                    return (
+                      <Link key={f.slug} href={`/lessons/${f.slug}`} onClick={() => setDrawerOpen(false)}>
+                        <div
+                          className="flex items-center gap-2.5 px-3 py-2 rounded-sm cursor-pointer transition-colors"
+                          style={{
+                            background: isActive ? "#f5f2ed" : "transparent",
+                            border: isActive ? "1px solid rgba(138,126,114,0.3)" : "1px solid transparent",
+                          }}
+                        >
+                          <div
+                            className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0"
+                            style={
+                              isDone
+                                ? { background: "#8a7e72", color: "#fff" }
+                                : { border: "2px solid #8a7e72", color: "#8a7e72" }
+                            }
+                          >
+                            {isDone ? <Check className="w-3 h-3" /> : fIdx + 1}
+                          </div>
+                          <span
+                            className="text-xs sm:text-sm leading-tight"
+                            style={{
+                              fontFamily: "'DM Sans', sans-serif",
+                              fontWeight: isActive ? 700 : 400,
+                              color: isActive ? "#5c4f42" : "#3d3d39",
+                            }}
+                          >
+                            {f.title}
+                          </span>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
 
               {/* Modules */}
               {COURSE.modules.map((module, moduleIdx) => {
@@ -300,8 +371,15 @@ export default function LessonPlayer() {
                   </span>
                 </>
               )}
-              <span>/</span>
-              <span className="font-medium" style={{ color: "#3d3d39" }}>Lesson {lessonIndex + 1} of {totalLessons}</span>
+              {lesson.type === 'foundation' && (
+                <>
+                  <span>/</span>
+                  <span style={{ color: '#8a7e72' }}>Foundations</span>
+                </>
+              )}
+              {lessonIndex >= 0 && (
+                <><span>/</span><span className="font-medium" style={{ color: "#3d3d39" }}>Lesson {lessonIndex + 1} of {totalLessons}</span></>
+              )}
             </div>
 
             <h1
@@ -321,7 +399,7 @@ export default function LessonPlayer() {
                 className="inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-sm"
                 style={{ fontFamily: "'DM Sans', sans-serif", background: moduleColor.bg, color: moduleColor.text }}
               >
-                {lesson.type === "intro" ? "Introduction" : lesson.type === "overview" ? "Module Overview" : lesson.type === "chapter" ? "Story Chapter" : "Activities & Tools"}
+                {lesson.type === "intro" ? "Introduction" : lesson.type === "foundation" ? "Foundation" : lesson.type === "overview" ? "Module Overview" : lesson.type === "chapter" ? "Story Chapter" : "Activities & Tools"}
               </span>
               {isCompleted && (
                 <span
@@ -349,33 +427,38 @@ export default function LessonPlayer() {
         {/* Bottom Navigation */}
         <div className="border-t" style={{ borderColor: "#e2ddd5", background: "#fff" }}>
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-            {/* Mark Complete */}
-            {!isCompleted && (
-              <div className="mb-6 text-center">
-                {!hasScrolledEnough && (
-                  <p className="text-xs mb-3" style={{ color: "#8a7e72", fontFamily: "'DM Sans', sans-serif" }}>
-                    Scroll through the lesson content to unlock completion.
-                  </p>
-                )}
+            {/* Mark Complete + Back to All Lessons — same row */}
+            <div className="mb-6 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+              {!hasScrolledEnough && !isCompleted && (
+                <p className="w-full text-center text-xs mb-0" style={{ color: "#8a7e72", fontFamily: "'DM Sans', sans-serif" }}>
+                  Scroll through the lesson content to unlock completion.
+                </p>
+              )}
+              <Link href="/courses/transitions/lessons">
+                <span
+                  className="inline-flex items-center gap-2 px-6 py-2.5 text-sm font-semibold uppercase tracking-wider border-2 transition-all duration-200 hover:bg-[#1a1a18] hover:text-white hover:border-[#1a1a18] cursor-pointer"
+                  style={{ fontFamily: "'DM Sans', sans-serif", color: "#1a1a18", borderColor: "#1a1a18", borderRadius: 2 }}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  Back to All Lessons
+                </span>
+              </Link>
+              {!isCompleted ? (
                 <button
                   onClick={markComplete}
                   disabled={!hasScrolledEnough}
-                  className="inline-flex items-center gap-2 px-8 py-3.5 font-bold text-white text-sm uppercase tracking-wider transition-all duration-200 hover:shadow-lg active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
+                  className="inline-flex items-center gap-2 px-6 sm:px-8 py-3 font-bold text-white text-sm uppercase tracking-wider transition-all duration-200 hover:shadow-lg active:scale-[0.98] disabled:opacity-40 disabled:cursor-not-allowed"
                   style={{ fontFamily: "'DM Sans', sans-serif", background: "#BB0A12", borderRadius: 2 }}
                 >
                   <Check className="w-4 h-4" />
                   Mark Complete & Continue
                 </button>
-              </div>
-            )}
-
-            {isCompleted && (
-              <div className="mb-6 text-center">
+              ) : (
                 <span className="inline-flex items-center gap-1.5 text-sm font-semibold" style={{ fontFamily: "'DM Sans', sans-serif", color: "#BB0A12" }}>
                   <Check className="w-4 h-4" /> Lesson Completed
                 </span>
-              </div>
-            )}
+              )}
+            </div>
 
             {/* Prev / Next Navigation */}
             <div className="flex items-stretch gap-3 sm:gap-4">

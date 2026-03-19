@@ -92,15 +92,15 @@ export default function Home() {
               </p>
 
               <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center">
-                <FntButton href="/course">
-                  REVIEW THE EDUCATION TRANSITIONS COURSE
+                <FntButton href="/courses/transitions">
+                  REVIEW THE EDUCATION TRANSITIONS PROGRAM
                 </FntButton>
                 <FntButton
                   href="https://qualtricsxm2byv8fx2j.qualtrics.com/jfe/form/SV_0NVS54g9mILIMfA"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  SUBMIT FEEDBACK ON THE COURSE
+                  SUBMIT FEEDBACK ON THE PROGRAM
                 </FntButton>
               </div>
             </div>
@@ -126,7 +126,7 @@ export default function Home() {
                   lineHeight: 1.7,
                 }}
               >
-                The programs and resources document is a living document that includes information on career exploration, courses and handbooks, community supports, financial literacy, orientation events &amp; activities, post-secondary pathways, skills training initiatives, transition guides and wellness and holistic supports.
+                The programs and resources document is a living document that includes information on career exploration, learning resources and handbooks, community supports, financial literacy, orientation events &amp; activities, post-secondary pathways, skills training initiatives, transition guides and wellness and holistic supports.
               </p>
 
               <div className="flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center">

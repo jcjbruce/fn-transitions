@@ -8,6 +8,7 @@ import SiteFooter from "@/components/SiteFooter";
 import FntButton from "@/components/FntButton";
 import FntAccordion from "@/components/FntAccordion";
 import { useState, useEffect, useRef } from "react";
+import { X, Download } from "lucide-react";
 
 const COURSE_HERO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/dbdnf9YxmUznohGAsnbG3a/coo_course_hero2-mvowcqJvE8k52fP27jwkpZ.webp";
 const COURSE_ABOUT = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/dbdnf9YxmUznohGAsnbG3a/coo_course_about2-ZvuwW3dWF5aKP2WQmqdy8D.webp";
@@ -94,10 +95,65 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
   );
 }
 
+const PDF_URL = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/dbdnf9YxmUznohGAsnbG3a/HonouringMyJourney_231a132e.pdf";
+
 export default function CourseOverview() {
+  const [showPdfPreview, setShowPdfPreview] = useState(false);
+
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: "#fdfcf9" }}>
       <SiteHeader />
+
+      {/* PDF Preview Modal */}
+      {showPdfPreview && (
+        <div
+          className="fixed inset-0 z-[9999] flex items-center justify-center"
+          style={{ backgroundColor: "rgba(0,0,0,0.85)" }}
+          onClick={() => setShowPdfPreview(false)}
+        >
+          <div
+            className="relative w-[95vw] h-[92vh] max-w-[1100px] flex flex-col rounded-sm overflow-hidden"
+            style={{ backgroundColor: "#1a1a18" }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal header */}
+            <div className="flex items-center justify-between px-5 py-3" style={{ backgroundColor: "#252520", borderBottom: "1px solid rgba(255,255,255,0.1)" }}>
+              <h3 className="text-white text-sm font-bold uppercase tracking-wider" style={{ fontFamily: "'DM Sans', sans-serif" }}>
+                Honouring My Journey
+              </h3>
+              <div className="flex items-center gap-3">
+                <a
+                  href={PDF_URL}
+                  download="Honouring My Journey.pdf"
+                  className="inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-white border border-white/30 transition-all hover:bg-white hover:text-[#1a1a18] rounded-sm"
+                  style={{ fontFamily: "'DM Sans', sans-serif" }}
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  Download
+                </a>
+                <button
+                  onClick={() => setShowPdfPreview(false)}
+                  className="text-white/60 hover:text-white transition-colors cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+            {/* PDF preview via Google Docs Viewer */}
+            <div className="flex-1 w-full relative">
+              <div className="absolute inset-0 flex items-center justify-center" style={{ zIndex: 1 }}>
+                <div className="text-white/40 text-sm" style={{ fontFamily: "'DM Sans', sans-serif" }}>Loading preview...</div>
+              </div>
+              <iframe
+                src={`https://docs.google.com/gview?url=${encodeURIComponent(PDF_URL)}&embedded=true`}
+                className="w-full h-full relative"
+                title="Honouring My Journey"
+                style={{ border: "none", zIndex: 2 }}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       <main className="flex-1">
         {/* ===== HERO — Full-width with learning circle image, LEFT-aligned text ===== */}
@@ -127,7 +183,7 @@ export default function CourseOverview() {
                     className="uppercase tracking-[0.2em] mb-3 text-[11px] sm:text-[13px] font-semibold"
                     style={{ fontFamily: "'DM Sans', sans-serif", color: "#e8a0a3" }}
                   >
-                    Chiefs of Ontario &middot; Online Course
+                    Chiefs of Ontario &middot; Online Program
                   </p>
                   <h1
                     className="font-bold leading-[1.08] mb-5"
@@ -152,8 +208,15 @@ export default function CourseOverview() {
                   </p>
                   <div className="flex flex-wrap items-center gap-4">
                     <FntButton href="/courses/transitions/lessons">
-                      TAKE THE COURSE
+                      BEGIN THE JOURNEY
                     </FntButton>
+                    <button
+                      onClick={() => setShowPdfPreview(true)}
+                      className="inline-flex items-center gap-2 px-8 py-3.5 font-bold text-sm uppercase tracking-wider border-2 border-white text-white transition-all duration-200 hover:bg-white hover:text-[#1a1a18] cursor-pointer"
+                      style={{ fontFamily: "'DM Sans', sans-serif", borderRadius: 2 }}
+                    >
+                      HONOURING MY JOURNEY
+                    </button>
                     <span
                       style={{
                         fontFamily: "'DM Sans', sans-serif",
@@ -178,7 +241,7 @@ export default function CourseOverview() {
                 className="text-center uppercase tracking-[0.2em] mb-2 text-[11px] sm:text-[12px] font-semibold"
                 style={{ fontFamily: "'DM Sans', sans-serif", color: "#BB0A12" }}
               >
-                Course Structure
+                Program Structure
               </p>
               <h2
                 className="font-bold text-center mb-3"
@@ -277,7 +340,7 @@ export default function CourseOverview() {
                   className="uppercase tracking-[0.2em] mb-2 text-[11px] sm:text-[12px] font-semibold"
                   style={{ fontFamily: "'DM Sans', sans-serif", color: "#BB0A12" }}
                 >
-                  About This Course
+                  About This Program
                 </p>
                 <h2
                   className="font-bold mb-5"
@@ -334,7 +397,7 @@ export default function CourseOverview() {
                 className="text-center uppercase tracking-[0.2em] mb-2 text-[11px] sm:text-[12px] font-semibold"
                 style={{ fontFamily: "'DM Sans', sans-serif", color: "#BB0A12" }}
               >
-                Why Take This Course
+                Why This Matters
               </p>
               <h2
                 className="font-bold text-center mb-8"
@@ -361,7 +424,7 @@ export default function CourseOverview() {
                 className="uppercase tracking-[0.2em] mb-2 text-[11px] sm:text-[12px] font-semibold"
                 style={{ fontFamily: "'DM Sans', sans-serif", color: "#e8a0a3" }}
               >
-                Course Content
+                What You'll Explore
               </p>
               <h2
                 className="font-bold mb-4"
@@ -468,7 +531,7 @@ export default function CourseOverview() {
                 Start the program and explore five modules of story-based learning, practical activities, and tools for supporting First Nations learners.
               </p>
               <FntButton href="/courses/transitions/lessons">
-                TAKE THE COURSE
+                BEGIN THE JOURNEY
               </FntButton>
             </FadeIn>
           </div>

@@ -1,11 +1,11 @@
-// FNT Course Data - Supporting First Nations Learner Transitions
-// LearnDash-style course structure
+// FNT Program Data - Supporting First Nations Learner Transitions
+// Program structure with foundations + 5 modules
 
 export interface Lesson {
   id: string;
   slug: string;
   title: string;
-  type: 'intro' | 'overview' | 'chapter' | 'activities';
+  type: 'intro' | 'overview' | 'chapter' | 'activities' | 'foundation';
   moduleId: string | null;
 }
 
@@ -15,10 +15,20 @@ export interface Module {
   lessons: Lesson[];
 }
 
+export interface FoundationTopic {
+  id: string;
+  slug: string;
+  title: string;
+  subtitle: string;
+  type: 'foundation';
+  moduleId: null;
+}
+
 export interface CourseData {
   title: string;
   slug: string;
   intro: Lesson;
+  foundations: FoundationTopic[];
   modules: Module[];
 }
 
@@ -32,6 +42,48 @@ export const COURSE: CourseData = {
     type: 'intro',
     moduleId: null,
   },
+  foundations: [
+    {
+      id: 'foundation-1',
+      slug: 'lesson-6-1-educator-accountability',
+      title: 'Walking the Talk: Accountability in Practice',
+      subtitle: 'Challenging educators to move beyond training toward meaningful, sustained action.',
+      type: 'foundation',
+      moduleId: null,
+    },
+    {
+      id: 'foundation-2',
+      slug: 'lesson-6-2-community-engagement-strategies',
+      title: 'Building Authentic Partnerships',
+      subtitle: 'Strategies for genuine collaboration between education systems and First Nations communities.',
+      type: 'foundation',
+      moduleId: null,
+    },
+    {
+      id: 'foundation-3',
+      slug: 'lesson-6-3-disabilities-and-accommodations',
+      title: 'Knowing Your Rights & Supports',
+      subtitle: 'Understanding IEPs, accommodations, and accessibility services for learners.',
+      type: 'foundation',
+      moduleId: null,
+    },
+    {
+      id: 'foundation-4',
+      slug: 'lesson-6-4-budgeting-and-financial-literacy',
+      title: 'Managing Your Money',
+      subtitle: 'Practical budgeting, income planning, and financial awareness for learners in transition.',
+      type: 'foundation',
+      moduleId: null,
+    },
+    {
+      id: 'foundation-5',
+      slug: 'lesson-6-5-finding-funding',
+      title: 'Building Your Bursary Basket',
+      subtitle: 'Finding and applying for bursaries, scholarships, grants, and other funding sources.',
+      type: 'foundation',
+      moduleId: null,
+    },
+  ],
   modules: [
     {
       id: 'module-1',
@@ -78,28 +130,33 @@ export const COURSE: CourseData = {
         { id: 'lesson-5-3', slug: 'lesson-5-3-activities-tools-planning-your-pathway', title: 'Lesson 5.3 — Activities & Tools: Planning Your Pathway', type: 'activities', moduleId: 'module-5' },
       ],
     },
-    {
-      id: 'module-6',
-      title: 'MODULE 6 — EDUCATOR & LEARNER RESOURCES',
-      lessons: [
-        { id: 'lesson-6-1', slug: 'lesson-6-1-educator-accountability', title: 'Lesson 6.1 — Educator Accountability', type: 'overview', moduleId: 'module-6' },
-        { id: 'lesson-6-2', slug: 'lesson-6-2-community-engagement-strategies', title: 'Lesson 6.2 — First Nations Community Engagement Strategies', type: 'overview', moduleId: 'module-6' },
-        { id: 'lesson-6-3', slug: 'lesson-6-3-disabilities-and-accommodations', title: 'Lesson 6.3 — Disabilities & Accommodations', type: 'overview', moduleId: 'module-6' },
-        { id: 'lesson-6-4', slug: 'lesson-6-4-budgeting-and-financial-literacy', title: 'Lesson 6.4 — Budgeting & Financial Literacy', type: 'overview', moduleId: 'module-6' },
-        { id: 'lesson-6-5', slug: 'lesson-6-5-finding-funding', title: 'Lesson 6.5 — Finding Funding: Building Your Bursary Basket', type: 'overview', moduleId: 'module-6' },
-      ],
-    },
   ],
 };
 
-// Flat list of all lessons in order
+// Flat list of all lessons in order (intro + module lessons only — foundations are separate)
 export const ALL_LESSONS: Lesson[] = [
   COURSE.intro,
   ...COURSE.modules.flatMap(m => m.lessons),
 ];
 
+// Foundation topics are accessible via the lesson player but not counted in progress
+export const FOUNDATION_LESSONS: Lesson[] = COURSE.foundations.map(f => ({
+  id: f.id,
+  slug: f.slug,
+  title: f.title,
+  type: 'foundation' as const,
+  moduleId: null,
+}));
+
+// Combined list for the lesson player (so foundation slugs still resolve)
+export const ALL_NAVIGABLE: Lesson[] = [
+  COURSE.intro,
+  ...FOUNDATION_LESSONS,
+  ...COURSE.modules.flatMap(m => m.lessons),
+];
+
 export function getLessonBySlug(slug: string): Lesson | undefined {
-  return ALL_LESSONS.find(l => l.slug === slug);
+  return ALL_NAVIGABLE.find(l => l.slug === slug);
 }
 
 export function getLessonIndex(slug: string): number {
@@ -107,11 +164,11 @@ export function getLessonIndex(slug: string): number {
 }
 
 export function getPrevLesson(slug: string): Lesson | undefined {
-  const idx = getLessonIndex(slug);
-  return idx > 0 ? ALL_LESSONS[idx - 1] : undefined;
+  const idx = ALL_NAVIGABLE.findIndex(l => l.slug === slug);
+  return idx > 0 ? ALL_NAVIGABLE[idx - 1] : undefined;
 }
 
 export function getNextLesson(slug: string): Lesson | undefined {
-  const idx = getLessonIndex(slug);
-  return idx < ALL_LESSONS.length - 1 ? ALL_LESSONS[idx + 1] : undefined;
+  const idx = ALL_NAVIGABLE.findIndex(l => l.slug === slug);
+  return idx < ALL_NAVIGABLE.length - 1 ? ALL_NAVIGABLE[idx + 1] : undefined;
 }

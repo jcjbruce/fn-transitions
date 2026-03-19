@@ -50,7 +50,7 @@ const siteResources = [
   { title: "Research Report", desc: "Research findings and analysis on education transitions for First Nations communities.", href: "/report" },
   { title: "Best Practices", desc: "Evidence-based practices for supporting First Nations learners through educational transitions.", href: "/best-practices" },
   { title: "Programs & Resources", desc: "A directory of programs and resources available to support First Nations education transitions.", href: "/resources" },
-  { title: "Online Program", desc: "A story-based, experiential course with 5 modules, 16 lessons, and hands-on activities.", href: "/courses/transitions" },
+  { title: "Online Program", desc: "A story-based, experiential program with 5 modules, 16 lessons, and hands-on activities.", href: "/courses/transitions" },
 ];
 
 function useInView(threshold = 0.15) {

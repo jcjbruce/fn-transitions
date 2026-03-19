@@ -31,7 +31,7 @@ export default function LeafletMap({
       minZoom: 4,
       maxZoom: 18,
       dragging: true,
-      scrollWheelZoom: true,
+      scrollWheelZoom: false,
       attributionControl: false,
     });
 

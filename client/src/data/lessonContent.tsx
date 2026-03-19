@@ -2,7 +2,6 @@
 // Each lesson returns a JSX element with the full content
 
 import React from "react";
-import { Link } from "wouter";
 import OntarioMap from "@/components/OntarioMap";
 
 // ─── Shared Styles ─────────────────────────────────────────────────────────────
@@ -29,21 +28,11 @@ const Em = ({ children }: { children: React.ReactNode }) => (
 );
 const ActivityLink = ({ href, children }: { href?: string; children: React.ReactNode }) => {
   const isInternal = href?.startsWith("/");
-  if (isInternal && href) {
-    return (
-      <Link
-        href={href}
-        className="inline-flex items-center gap-1 text-[#C2703E] hover:text-[#8B4513] font-semibold underline"
-      >
-        {children}
-      </Link>
-    );
-  }
   return (
     <a
       href={href || "#"}
-      target={href && href !== "#" ? "_blank" : undefined}
-      rel="noopener noreferrer"
+      target={isInternal ? undefined : (href && href !== "#" ? "_blank" : undefined)}
+      rel={isInternal ? undefined : "noopener noreferrer"}
       className="inline-flex items-center gap-1 text-[#C2703E] hover:text-[#8B4513] font-semibold underline"
     >
       {children}
@@ -719,10 +708,10 @@ const Lesson53 = () => (
   </div>
 );
 
-// ─── LESSON 6.1 — EDUCATOR ACCOUNTABILITY ──────────────────────────────────────
+// ─── FOUNDATION: EDUCATOR ACCOUNTABILITY ──────────────────────────────────────
 const Lesson61 = () => (
   <div>
-    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Lesson 6.1 — Educator Accountability</h1>
+    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Educator Accountability</h1>
     <div className="bg-amber-50 border border-amber-200 rounded p-4 mb-6">
       <p className="font-bold text-amber-800 mb-2">Beyond the Training</p>
       <P>This section challenges educators to move beyond initial learning and remain accountable for the First Nations students they serve. Accountability is not a one-time commitment — it is an ongoing practice that requires reflection, action, and a willingness to be uncomfortable.</P>
@@ -765,10 +754,10 @@ const Lesson61 = () => (
   </div>
 );
 
-// ─── LESSON 6.2 — COMMUNITY ENGAGEMENT STRATEGIES ──────────────────────────────
+// ─── FOUNDATION: COMMUNITY ENGAGEMENT STRATEGIES ──────────────────────────────
 const Lesson62 = () => (
   <div>
-    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Lesson 6.2 — First Nations Community Engagement Strategies</h1>
+    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Community Engagement Strategies</h1>
     <div className="bg-green-50 border border-green-200 rounded p-4 mb-6">
       <p className="font-bold text-green-800 mb-2">Building Authentic Partnerships</p>
       <P>This section provides practical strategies for educators to engage meaningfully with local First Nations communities. It encourages embracing Indigenous pedagogy and moving beyond surface-level support toward genuine collaboration.</P>
@@ -817,10 +806,10 @@ const Lesson62 = () => (
   </div>
 );
 
-// ─── LESSON 6.3 — DISABILITIES & ACCOMMODATIONS ────────────────────────────────
+// ─── FOUNDATION: DISABILITIES & ACCOMMODATIONS ────────────────────────────────
 const Lesson63 = () => (
   <div>
-    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Lesson 6.3 — Disabilities & Accommodations</h1>
+    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Disabilities & Accommodations</h1>
     <div className="bg-blue-50 border border-blue-200 rounded p-4 mb-6">
       <p className="font-bold text-blue-800 mb-2">Understanding Your Rights and Supports</p>
       <P>This section covers learning disabilities and accommodations in post-secondary settings. Whether you are a learner navigating these systems for the first time or an educator supporting students, this information will help you understand the processes, rights, and resources available.</P>
@@ -872,10 +861,10 @@ const Lesson63 = () => (
   </div>
 );
 
-// ─── LESSON 6.4 — BUDGETING & FINANCIAL LITERACY ───────────────────────────────
+// ─── FOUNDATION: BUDGETING & FINANCIAL LITERACY ───────────────────────────────
 const Lesson64 = () => (
   <div>
-    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Lesson 6.4 — Budgeting & Financial Literacy</h1>
+    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Budgeting & Financial Literacy</h1>
     <div className="bg-purple-50 border border-purple-200 rounded p-4 mb-6">
       <p className="font-bold text-purple-800 mb-2">Managing Money at Post-Secondary</p>
       <P>This section covers the basics of budgeting, understanding credit, and practical tips for making your money last through a semester. Financial literacy is a life skill that supports your independence and reduces stress during your education journey.</P>
@@ -941,10 +930,10 @@ const Lesson64 = () => (
   </div>
 );
 
-// ─── LESSON 6.5 — FINDING FUNDING ──────────────────────────────────────────────
+// ─── FOUNDATION: FINDING FUNDING ──────────────────────────────────────────────
 const Lesson65 = () => (
   <div>
-    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Lesson 6.5 — Finding Funding: Building Your Bursary Basket</h1>
+    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 sm:mb-6">Finding Funding: Building Your Bursary Basket</h1>
     <div className="bg-teal-50 border border-teal-200 rounded p-4 mb-6">
       <p className="font-bold text-teal-800 mb-2">There Is Money Available</p>
       <P>Many students do not realize how much funding is available to support their education. This section helps you understand the different types of funding, where to find opportunities, and how to prepare strong applications.</P>

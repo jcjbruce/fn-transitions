@@ -1,5 +1,5 @@
 // CourseLessons - COO Branding
-// Course pathway page with module details and lesson cards
+// Program pathway page with foundations, module details and lesson cards
 // Colors: Red #BB0A12, warm white #fdfcf9, sand #E0DFD9, ink #1a1a18
 // Fonts: Playfair Display (headings), Source Serif 4 (body), DM Sans (UI)
 
@@ -15,7 +15,6 @@ const MODULE_COLORS: Record<string, { bg: string; border: string; dot: string; t
   "module-3": { bg: "#fef8f5", border: "#c4442a", dot: "#c4442a", text: "#8a2e1a" },
   "module-4": { bg: "#f8f5f0", border: "#7a3d2e", dot: "#7a3d2e", text: "#5c2e22" },
   "module-5": { bg: "#f5f5f0", border: "#4a3528", dot: "#4a3528", text: "#3d2e22" },
-  "module-6": { bg: "#f0f5f5", border: "#2a6b5a", dot: "#2a6b5a", text: "#1d4a3f" },
 };
 
 const DEFAULT_MODULE_COLOR = { bg: "#f5f5f0", border: "#4a3528", dot: "#4a3528", text: "#3d2e22" };
@@ -25,6 +24,7 @@ const LESSON_TYPE_LABELS: Record<string, string> = {
   chapter: "Story Chapter",
   activities: "Activities & Tools",
   intro: "Introduction",
+  foundation: "Foundation",
 };
 
 function useInView(threshold = 0.15) {
@@ -129,51 +129,7 @@ export default function CourseLessons() {
         </div>
       </section>
 
-      {/* ===== PATHWAY PROGRESS DOTS ===== */}
-      <section style={{ background: "#E0DFD9" }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-          {/* Grid layout: 21 dots split into even rows */}
-          {/* Large screens: 1 row of 21, Medium: 2 rows (11+10), Small: 3 rows (7+7+7) */}
-          {/* Use CSS grid with fixed columns per breakpoint */}
-          <style>{`
-              .progress-dots-grid {
-                display: grid !important;
-                gap: 8px 4px;
-                justify-items: center;
-                align-items: center;
-              }
-              /* Mobile: 7 columns (3 rows of 7) */
-              .progress-dots-grid { grid-template-columns: repeat(7, 1fr); }
-              /* Tablet: 11 columns (2 rows) */
-              @media (min-width: 640px) { .progress-dots-grid { grid-template-columns: repeat(11, 1fr); } }
-              /* Desktop: all 21 in one row */
-              @media (min-width: 1024px) { .progress-dots-grid { grid-template-columns: repeat(21, 1fr); } }
-          `}</style>
-          <div className="progress-dots-grid">
-            {ALL_LESSONS.map((lesson, idx) => {
-              const isCompleted = completedLessons.includes(lesson.slug);
-              const moduleColor = lesson.moduleId ? (MODULE_COLORS[lesson.moduleId] || DEFAULT_MODULE_COLOR) : MODULE_COLORS["module-1"];
-              return (
-                <Link key={lesson.slug} href={`/lessons/${lesson.slug}`}>
-                  <div className="flex items-center justify-center group cursor-pointer">
-                    <div
-                      className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-[10px] sm:text-xs font-bold transition-all duration-200 group-hover:scale-110"
-                      style={{
-                        background: isCompleted ? moduleColor.dot : "transparent",
-                        border: `2px solid ${isCompleted ? moduleColor.dot : "#c4c0b8"}`,
-                        color: isCompleted ? "#fff" : "#8a7e72",
-                      }}
-                      title={lesson.title}
-                    >
-                      {isCompleted ? "\u2713" : idx + 1}
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+
 
       {/* ===== MODULES DETAIL ===== */}
       <section className="px-4 sm:px-6 py-14 sm:py-20" style={{ backgroundColor: "#fdfcf9" }}>
@@ -226,6 +182,96 @@ export default function CourseLessons() {
           </Link>
         </div>
 
+        {/* ===== FOUNDATIONS SECTION ===== */}
+        <div className="max-w-4xl mx-auto mb-12">
+          <FadeIn>
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-2">
+                <div
+                  className="w-10 h-10 sm:w-12 sm:h-12 rounded-full flex items-center justify-center shrink-0"
+                  style={{ background: "#f0ebe4", border: "2px solid #8a7e72" }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8a7e72" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                  </svg>
+                </div>
+                <div>
+                  <h2
+                    className="font-bold"
+                    style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(18px, 2.5vw, 22px)", color: "#1a1a18" }}
+                  >
+                    Foundations
+                  </h2>
+                  <p className="text-xs" style={{ fontFamily: "'DM Sans', sans-serif", color: "#8a7e72" }}>
+                    Key themes to explore before diving into the modules
+                  </p>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
+
+          <div className="space-y-3">
+            {COURSE.foundations.map((topic, i) => (
+              <FadeIn key={topic.id} delay={i * 0.06}>
+                <Link href={`/lessons/${topic.slug}`}>
+                  <div
+                    className="group rounded-sm p-4 sm:p-5 border transition-all duration-200 hover:shadow-md cursor-pointer"
+                    style={{
+                      background: completedLessons.includes(topic.slug) ? "#f5f2ed" : "#fff",
+                      borderColor: completedLessons.includes(topic.slug) ? "#c4b89e" : "#e8e2d8",
+                    }}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div
+                        className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 text-xs font-bold"
+                        style={{
+                          background: completedLessons.includes(topic.slug) ? "#8a7e72" : "transparent",
+                          border: `2px solid ${completedLessons.includes(topic.slug) ? "#8a7e72" : "#d4cfc6"}`,
+                          color: completedLessons.includes(topic.slug) ? "#fff" : "#8a7e72",
+                          fontFamily: "'DM Sans', sans-serif",
+                        }}
+                      >
+                        {completedLessons.includes(topic.slug) ? "\u2713" : i + 1}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap mb-0.5">
+                          <span
+                            className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider"
+                            style={{ fontFamily: "'DM Sans', sans-serif", color: "#8a7e72" }}
+                          >
+                            Foundation
+                          </span>
+                          {completedLessons.includes(topic.slug) && (
+                            <span
+                              className="text-[10px] sm:text-xs text-white px-1.5 py-0.5 rounded-full font-medium"
+                              style={{ fontFamily: "'DM Sans', sans-serif", background: "#8a7e72" }}
+                            >
+                              Done
+                            </span>
+                          )}
+                        </div>
+                        <h4
+                          className="font-semibold group-hover:text-[#BB0A12] transition-colors leading-snug"
+                          style={{ fontFamily: "'DM Sans', sans-serif", fontSize: "clamp(14px, 1.6vw, 16px)", color: "#1a1a18" }}
+                        >
+                          {topic.title}
+                        </h4>
+                        <p className="text-xs mt-0.5" style={{ fontFamily: "'Source Serif 4', serif", color: "#8a7e72" }}>
+                          {topic.subtitle}
+                        </p>
+                      </div>
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity shrink-0" style={{ color: "#BB0A12" }}>
+                        &rarr;
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+
         {/* Modules */}
         <div className="max-w-4xl mx-auto">
           <div className="space-y-8 sm:space-y-10">
@@ -260,7 +306,7 @@ export default function CourseLessons() {
                     </div>
 
                     {/* Lesson Cards */}
-                    <div className="space-y-3 ml-5 sm:ml-6 pl-5 sm:pl-6" style={{ borderLeft: `3px solid ${colors.border}22` }}>
+                    <div className="space-y-3 ml-5 sm:ml-6 pl-5 sm:pl-6" style={{ borderLeft: `2px solid ${colors.border}22` }}>
                       {module.lessons.map((lesson) => {
                         const isCompleted = completedLessons.includes(lesson.slug);
                         return (
