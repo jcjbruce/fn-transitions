@@ -837,11 +837,7 @@ nav {
 <h2>Share a Resource</h2>
 <p>This is a living document. As programs change and new resources emerge, your input helps keep this collection current and relevant for educators, learners, and communities.</p>
 <div id="feedbackFormWrap">
-<form class="feedback-form" id="feedbackForm" action="https://formsubmit.co/info@mentee.ca" method="POST">
-  <input type="hidden" name="_subject" value="New Resource Suggestion — FNT Directory">
-  <input type="hidden" name="_captcha" value="false">
-  <input type="hidden" name="_template" value="table">
-  <input type="hidden" name="_next" value="https://mentee.site/docs/resources.html#submit-resource">
+<form class="feedback-form" id="feedbackForm">
   <div class="form-row">
     <div>
       <label for="fb-name">Your Name</label>
@@ -855,7 +851,7 @@ nav {
   <label for="fb-resource">Resource Name</label>
   <input type="text" id="fb-resource" name="resource_name" placeholder="e.g. Indigenous Mentorship Network" required>
   <label for="fb-url">Resource URL</label>
-  <input type="text" id="fb-url" name="resource_url" value="https://www." placeholder="https://www.example.ca/resource">
+  <input type="text" id="fb-url" name="resource_url" placeholder="https://www.example.ca/resource">
   <label for="fb-notes">Additional Notes (optional)</label>
   <textarea id="fb-notes" name="notes" placeholder="Brief description or why this resource is helpful..."></textarea>
   <div style="text-align:center; margin-top:0.5rem;">
@@ -866,10 +862,6 @@ nav {
   </div>
 </form>
 </div>
-<div class="feedback-success" id="feedbackSuccess">
-  <h3>Thank you!</h3>
-  <p>Your resource suggestion has been sent. We appreciate your contribution to keeping this directory current.</p>
-</div>
 </div>
 </div>
 <script>
@@ -878,16 +870,20 @@ nav {
   if(!form) return;
   form.addEventListener('submit', function(e){
     e.preventDefault();
-    var data = new FormData(form);
-    fetch(form.action, { method:'POST', body:data, headers:{'Accept':'application/json'} })
-    .then(function(r){
-      document.getElementById('feedbackFormWrap').style.display='none';
-      document.getElementById('feedbackSuccess').style.display='block';
-    })
-    .catch(function(){
-      document.getElementById('feedbackFormWrap').style.display='none';
-      document.getElementById('feedbackSuccess').style.display='block';
-    });
+    var name = document.getElementById('fb-name').value;
+    var email = document.getElementById('fb-email').value;
+    var resource = document.getElementById('fb-resource').value;
+    var url = document.getElementById('fb-url').value;
+    var notes = document.getElementById('fb-notes').value;
+    var subject = encodeURIComponent('New Resource Suggestion — FNT Directory');
+    var body = encodeURIComponent(
+      'Name: ' + name + '\n' +
+      'Email: ' + email + '\n' +
+      'Resource: ' + resource + '\n' +
+      'URL: ' + url + '\n' +
+      (notes ? 'Notes: ' + notes + '\n' : '')
+    );
+    window.location.href = 'mailto:info@mentee.ca?subject=' + subject + '&body=' + body;
   });
 })();
 </script>
