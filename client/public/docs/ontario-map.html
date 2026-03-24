@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Ontario First Nations Map</title>
+
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<!-- MarkerCluster CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"/>
+
+<style>
+	html,body { height:100%; width:100%; margin:0; font-family:system-ui, -apple-system, "Segoe UI", Roboto, Arial; }
+	#map { height:100%; width:100%; }
+
+	/* map title */
+	.map-title h1 { font-size: 17px;     font-weight: 600;     margin: 0px;     padding: 2px 6px;     text-align: center;     line-height: 1.2;     color: white;     background: #2f4c7a;     }
+	.leaflet-control.map-title {	position: absolute; 	top: 6px; 	left: 50%;	transform: translateX(-50%); background: rgba(255, 255, 255, 1);     padding: 6px;     border-radius: 8px;     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);     width: fit-content;      margin-left: 10px;     transition: 0.25s ease; }
+
+	/* logo */
+	.leaflet-control.logo-with-toggle {     background: rgba(255, 255, 255, 1);    padding: 0px 6px;     border-radius: 8px;     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);   display: flex;   align-items: center;   gap: 8px;   cursor: default; }
+	.logo-with-toggle img {   width: 130px;   height: auto; }
+	.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {     border: 0px solid rgba(0, 0, 0, 0.2);     background-clip: padding-box;     box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+	.leaflet-touch .leaflet-control-zoom-in, .leaflet-touch .leaflet-control-zoom-out {     color: #2f4c7a; }
+	.leaflet-bar a {border-bottom: 1px solid #2c4f8733;}
+	.leaflet-touch .leaflet-bar a:first-child {     border-top-left-radius: 4px;     border-top-right-radius: 4px; }
+	.leaflet-touch .leaflet-bar a:last-child {     border-bottom-left-radius: 4px;     border-bottom-right-radius: 4px; }
+	.leaflet-top .leaflet-control {     margin-top: 6px; }
+
+	/* popup */
+	.fn-popup { font-size:14px; line-height:1.35; max-width:320px; }
+	.fn-popup h3 { font-size: 16px; margin: 0;     font-weight: 700;     color: #ffffff;     border-bottom: 1px solid blue;     background: #2f4c7a;     padding: 4px 10px;}
+	.fn-popup .field { margin:6px 0; }
+	.fn-popup .field strong { display:inline-block; width:120px; font-weight:600; color:#333; }
+	.fn-popup a.profile-link { display:inline-block; margin-top:10px; color:#0066cc; text-decoration:none; }
+	.leaflet-popup-content-wrapper { border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,0.12); }
+	.leaflet-popup-content { margin:8px 10px; }
+	.leaflet-container a.leaflet-popup-close-button {     color: #ffffff;     text-decoration: none;     background: #2f4c7ac2;     border: 1px solid white; }
+
+	/* circles */
+	.fn-circle {     display:flex; align-items:center; justify-content:center;     border-radius:50%;     border:1px solid rgba(27,59,111,0.95);     background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(235,243,255,0.9));     box-shadow:0 2px 8px rgba(0,0,0,0.15);     text-align:center; cursor:pointer; user-select:none;     transform:translate(-50%,-50%);   }
+	.fn-small { width:20px; height:20px; border-width:1px; }
+	.fn-medium { width:35px; height:35px; border-width:1px; }
+	.fn-large { width:46px; height:46px; border-width:1px; }
+	.fn-small .pop-text { font-size: clamp(9px, 2.4vw, 11px); font-weight:700; color:#1b3b6f; }
+	.fn-medium .pop-text { font-size: clamp(11px, 3.2vw, 14px); font-weight:700; color:#1b3b6f; }
+	.fn-large .pop-text { font-size: clamp(12px, 4.0vw, 18px); font-weight:700; color:#1b3b6f; }
+
+	/* Custom cluster icon */
+	.custom-cluster {   display:flex;   align-items:center;   justify-content:center;   width:30px;   height:30px;   border-radius:50%;   background:rgba(27,59,111,0.9);   color:#fff;   font-size:28px;   font-weight:700;   box-shadow:0 0 10px rgba(0,0,0,0.25);   cursor:pointer;   transition:transform 0.2s ease; }
+	.custom-cluster:hover {   transform:scale(1.15);   background:rgba(27,59,111,1); }
+	.cluster-symbol {   line-height:1;   user-select:none; }
+
+	/* map description */
+	.desc-box { max-width: 360px;     font-size: 13px;     line-height: 1.3;   display: none;      background: rgba(255, 255, 255, 1);     padding: 6px;     border-radius: 8px;     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);     }
+	.desc-box.show {   display: block;   animation: fadeIn 0.25s ease; }
+	.desc-box span {     display: block;     margin-top: 5px; }
+	.leaflet-control.desc-toggle, .leaflet-control.desc-box {     background: rgba(255, 255, 255, 1);     padding: 6px;     border-radius: 8px;     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);   font-family: system-ui, sans-serif; }
+	.desc-toggle {   display: flex;   align-items: center;   gap: 6px;   cursor: pointer;   user-select: none;   font-size: 14px;   font-weight: 500;   width: 130px;   justify-content: space-between; }
+	.desc-toggle.blink {   animation: blinkAnim 1.6s infinite; }
+
+	/* animation */
+	@keyframes blinkAnim {
+		0%   { opacity: 1; }
+		50%  { opacity: 0.55; }
+		100% { opacity: 1; }
+	}
+	@keyframes fadeIn {
+		from { opacity: 0; transform: translateY(6px); }
+		to   { opacity: 1; transform: translateY(0); }
+	}
+
+	/* for mobile */
+	@media (max-width:480px) {
+		.fn-small { width:20px; height:20px; border-width:1px; }
+		.fn-medium { width:30px; height:30px; border-width:1px; }
+		.fn-large { width:40px; height:40px; border-width:1px; }
+		.fn-popup { max-width:90vw; font-size:13px; }
+	}
+	@media (max-width: 600px) {
+		.leaflet-control.map-info {width: 82%; max-width: none; left: 0 !important; transform: none; margin: 4px; }
+		.map-info h1 { font-size: 16px; 	  }
+		.desc-box { max-width: 85%; }
+	}
+</style>
+</head>
+<body>
+	<div id="map"></div>
+
+	<!-- Leaflet JS -->
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" nonce="Njk0NTMyMDc3LDIwMTY1NjM5ODQ="></script>
+	<!-- MarkerCluster JS -->
+	<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" nonce="Njk0NTMyMDc3LDIwMTY1NjM5ODQ="></script>
+
+	<script nonce="Njk0NTMyMDc3LDIwMTY1NjM5ODQ=">
+
+		// google sheets query
+		const spreadsheetUrl = 'https://sheets.googleapis.com/v4/spreadsheets/1ihOeQ08L3-kinwq0W0MgFh6ULk65JjeEyS0WpXW6q6U/values/Sheet1?alt=json&key=AIzaSyA_yG0zsX4tybGK-Jie_iUPZQOruzqODxY';
+
+		// Initialize map
+		const map = L.map('map', { minZoom: 3, maxZoom: 18, zoomSnap: 0.5, zoomControl: false, attributionControl: false }).setView([48.71077134974411, -85.40147973300583], 5.5);
+		L.control.attribution({ prefix: '<a href="https://leafletjs.com" target="_blank">Leaflet</a>' }).addTo(map);
+		L.control.zoom({ position: 'topright' }).addTo(map);
+
+		// base map layer 
+		L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+			attribution: 'Tiles &copy; Esri'
+		}).addTo(map);
+
+		// Create cluster group
+		const markersCluster = L.markerClusterGroup({
+			showCoverageOnHover: false,
+			maxClusterRadius: 25,
+			spiderLegPolylineOptions: {opacity: 0},
+			disableClusteringAtZoom: 14,
+			iconCreateFunction: function (cluster) {
+				return L.divIcon({
+				html: `
+					<div class="custom-cluster" title="Zoom in to explore">
+					<div class="cluster-symbol">+</div>
+					</div>
+				`,
+				className: '',
+				iconSize: [50, 50]
+				});
+			}
+		});
+		map.addLayer(markersCluster);
+
+		// Helpers
+		function arrayToObjects(values) {
+		  if (!values || values.length < 2) return [];
+		  const headers = values[0].map(h => String(h).trim());
+		  return values.slice(1).map(row => {
+			const obj = {};
+			headers.forEach((h, i) => obj[h] = row[i] || '');
+			return obj;
+		  });
+		}
+		function sizeClassForPopulation(pop) {
+		  const n = Number(String(pop).replace(/[, ]+/g,'')) || 0;
+		  if (n <= 400) return 'fn-small';
+		  if (n <= 1500) return 'fn-medium';
+		  return 'fn-large';
+		};
+
+		// generate popup content
+		function createPopupHTML(item) {
+		  const fields = [
+			['Population','Population'],
+			['Total_On_Reserve','Total On Reserve'],
+			['Total_Off_Reserve','Total Off Reserve'],
+			['Address','Address'],
+			['City','City'],
+			['Postal_Code','Postal Code'],
+			['Province','Province'],
+			['Number','Number']
+		  ];
+		  const esc = s => String(s||'').replace(/[&<>]/g, t=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[t]));
+		  let html = `<div class="fn-popup"><h3>${esc(item.First_Nation_Name||'')}</h3>`;
+		  fields.forEach(([k,l])=>{ if(item[k]) html+=`<div class="field"><strong>${l}:</strong> ${esc(item[k])}</div>`; });
+		  if (item.Profiles) {
+			let href = item.Profiles;
+			if (!/^https?:\/\//i.test(href)) href = 'https://' + href;
+			html += `<a class="profile-link" href="${esc(href)}" target="_blank" rel="noopener">Profile / More info</a>`;
+		  }
+		  html += '</div>';
+		  return html;
+		};
+
+		// create marker icon
+		function createDivIcon(population, sizeClass) {
+		  return L.divIcon({
+			html: `<div class="fn-circle ${sizeClass}"><div class="pop-text">${population}</div></div>`,
+			className: '',
+			iconSize: null,
+			popupAnchor: [0, -24]
+		  });
+		}
+
+		// Fetch data and build markers
+		fetch(spreadsheetUrl)
+		  .then(r => r.json())
+		  .then(data => {
+			const items = arrayToObjects(data.values);
+			const latlngs = [];
+			items.forEach(item => {
+			  const lat = parseFloat(item.lat);
+			  const lon = parseFloat(item.lon);
+			  if (!isFinite(lat) || !isFinite(lon)) return;
+			  const sizeClass = sizeClassForPopulation(item.Total_On_Reserve);
+			  const icon = createDivIcon(item.Total_On_Reserve, sizeClass);
+			  const marker = L.marker([lat, lon], { icon, offset:[0, -30]  });
+			  marker.bindPopup(createPopupHTML(item), {
+                autoPan: true,
+                autoPanPaddingTopLeft: [0, 65] 
+              });
+			  markersCluster.addLayer(marker);
+			  latlngs.push([lat, lon]);
+			});
+
+		  })
+		  .catch(err => console.error('Error loading spreadsheet:', err));
+
+		// map title 
+		const InfoControl = L.Control.extend({
+			onAdd: function() {
+				const container = L.DomUtil.create('div', 'map-title');
+				container.innerHTML = `<h1>First Nations Communities in Ontario: On-Reserve Population Map</h1>`;
+				return container;
+			},
+			onRemove() {}
+		});
+		const info = new InfoControl({ position: 'topleft' });
+		map.addControl(info);
+		const mapContainer = map.getContainer();
+		const titleEl = document.querySelector('.map-title');
+		mapContainer.appendChild(titleEl);
+
+		// logo
+        const LogoWithToggle = L.Control.extend({
+            options: { position: 'bottomleft' },
+            onAdd: function() {
+                const container = L.DomUtil.create('div', 'leaflet-control logo-with-toggle');
+                container.innerHTML = `
+                    <a href="https://mentee.ca" target="_blank" rel="noopener" style="display:block;line-height:0;">
+                        <img src="https://ik.imagekit.io/mapper/25/logo.png" alt="Logo">
+                    </a>
+                `;
+                L.DomEvent.disableClickPropagation(container);
+                return container;
+            }
+        });
+        map.addControl(new LogoWithToggle());
+
+		// show/hide button
+		const DescToggle = L.Control.extend({
+			options: { position: 'bottomleft' },
+			onAdd: function() {
+				const btn = L.DomUtil.create('div', 'leaflet-control desc-toggle blink');
+				btn.innerHTML = `
+					<span class="desc-label">Hide Description</span>
+					<span class="desc-arrow">▼</span>
+				`;
+				L.DomEvent.disableClickPropagation(btn);
+				return btn;
+			}
+		});
+		map.addControl(new DescToggle());
+
+		// map description
+		const DescBox = L.Control.extend({
+			options: { position: 'bottomleft' },
+			onAdd: function() {
+				const box = L.DomUtil.create('div', 'leaflet-control desc-box show');
+				box.innerHTML = `
+					<strong>Map Description</strong></br>
+						<span>This interactive map displays First Nations communities across Ontario. 
+						Each bubble marks the location of a community, and the number inside shows its on-reserve population. 
+						Selecting a bubble opens a pop-up with the community name and additional details. 
+						This map is designed to provide a clear reference for understanding the distribution and population of First Nations communities across Ontario.</span>
+				`;
+				L.DomEvent.disableClickPropagation(box);
+				return box;
+			}
+		});
+		map.addControl(new DescBox());
+
+		// show - hide description
+		setTimeout(() => {
+			const toggle = document.querySelector('.desc-toggle');
+			const label  = document.querySelector('.desc-label');
+			const arrow  = document.querySelector('.desc-arrow');
+			const box    = document.querySelector('.desc-box');
+			let open = true;
+			toggle.onclick = () => {
+				open = !open;
+				if (open) {
+					box.classList.add('show');
+					toggle.classList.remove('blink');
+					label.textContent = "Hide Description";
+					arrow.textContent = "▼";
+				} else {
+					box.classList.remove('show');
+					label.textContent = "Show Description";
+					arrow.textContent = "▲";
+					toggle.classList.add('blink');
+				}
+			};
+		}, 250);
+
+	</script>
+</body>
+</html>
