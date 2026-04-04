@@ -4,14 +4,14 @@
 
 import { useState, useEffect } from "react";
 import { Maximize2, Minimize2 } from "lucide-react";
-
-const MAP_URL = "/docs/ontario-map.html";
+import { ONTARIO_MAP_IFRAME_SRC } from "@/config/ontarioMap";
 
 interface OntarioMapProps {
   className?: string;
+  src?: string;
 }
 
-export default function OntarioMap({ className = "" }: OntarioMapProps) {
+export default function OntarioMap({ className = "", src = ONTARIO_MAP_IFRAME_SRC }: OntarioMapProps) {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function OntarioMap({ className = "" }: OntarioMapProps) {
           </div>
           <div className="flex-1">
             <iframe
-              src={MAP_URL}
+              src={src}
               className="w-full h-full"
               style={{ border: "none" }}
               title="Ontario First Nations Map - Fullscreen"
@@ -62,7 +62,7 @@ export default function OntarioMap({ className = "" }: OntarioMapProps) {
       <div className={`relative ${className}`}>
         <div className="relative rounded-lg overflow-hidden" style={{ height: "500px" }}>
           <iframe
-            src={MAP_URL}
+            src={src}
             className="w-full h-full"
             style={{ border: "none" }}
             title="Ontario First Nations Communities Map"

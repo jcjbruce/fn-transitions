@@ -4,15 +4,20 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Maximize2, Minimize2 } from "lucide-react";
-
-const MAP_URL = "/docs/ontario-map.html";
+import { ONTARIO_MAP_IFRAME_SRC } from "@/config/ontarioMap";
 
 interface OntarioMapEmbedProps {
   className?: string;
   height?: string;
+  /** Override default from `@/config/ontarioMap` (e.g. only on the landing page). */
+  src?: string;
 }
 
-export default function OntarioMapEmbed({ className = "", height = "600px" }: OntarioMapEmbedProps) {
+export default function OntarioMapEmbed({
+  className = "",
+  height = "600px",
+  src = ONTARIO_MAP_IFRAME_SRC,
+}: OntarioMapEmbedProps) {
   const [isFullscreen, setIsFullscreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -54,7 +59,7 @@ export default function OntarioMapEmbed({ className = "", height = "600px" }: On
           </div>
           <div className="flex-1">
             <iframe
-              src={MAP_URL}
+              src={src}
               className="w-full h-full"
               style={{ border: "none" }}
               title="Ontario First Nations Map - Fullscreen"
@@ -68,7 +73,7 @@ export default function OntarioMapEmbed({ className = "", height = "600px" }: On
       <div ref={containerRef} className={`relative ${className}`}>
         <div className="relative rounded-lg overflow-hidden" style={{ height }}>
           <iframe
-            src={MAP_URL}
+            src={src}
             className="w-full h-full"
             style={{ border: "none" }}
             title="Ontario First Nations Communities Map"
