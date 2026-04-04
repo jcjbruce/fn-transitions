@@ -45,7 +45,7 @@ const faqItems = [
   {
     title: "Who developed this program and what informed its design?",
     content:
-      (<span>The program was developed by <a href="https://mentee.ca" target="_blank" rel="noopener noreferrer" style={{ color: "#BB0A12", textDecoration: "underline" }}>Mentee</a>, drawing on extensive experience working alongside First Nations learners, families, educators, and community partners across Ontario. Its design reflects a commitment to culturally grounded practice, relationship-based learning, and supporting the real-world needs that students and support teams encounter during transitions.</span>),
+      (<span>The program was developed by <a href="https://mentee.ca" target="_blank" rel="noopener noreferrer" style={{ color: "#BB0A12", textDecoration: "underline" }}>Mentee</a> and Chiefs of Ontario, drawing on extensive experience working alongside First Nations learners, families, educators, and community partners across Ontario. Its design reflects a commitment to culturally grounded practice, relationship-based learning, and supporting the real-world needs that students and support teams encounter during transitions.</span>),
   },
   {
     title: "What research and engagement shaped the program content?",
