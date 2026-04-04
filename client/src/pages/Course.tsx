@@ -427,7 +427,7 @@ export default function Course() {
                     lineHeight: 1.8,
                   }}
                 >
-                  This project was shaped by engagement with First Nations communities, education staff, learners, and families across Ontario. The map reflects the breadth of voices and experiences that informed these resources.
+                  This project was shaped by engagement with First Nations communities, education staff, and learners across Ontario. The map reflects diverse First Nations communities in Ontario this project seeks to support.
                 </p>
               </div>
             </FadeIn>
