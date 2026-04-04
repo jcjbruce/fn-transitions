@@ -11,7 +11,7 @@ import CourseOverview from "./pages/CourseOverview";
 import CourseLessons from "./pages/CourseLessons";
 import LessonPlayer from "./pages/LessonPlayer";
 import DocumentViewer from "./pages/DocumentViewer";
-import Success from "./pages/Success";
+
 import Flipbook from "./pages/Flipbook";
 import Certificate from "./pages/Certificate";
 import { lazy, Suspense } from "react";
@@ -53,7 +53,7 @@ function Router() {
         <Route path={"/report"} component={DocumentViewer} />
         <Route path={"/best-practices"} component={DocumentViewer} />
         <Route path={"/resources"} component={DocumentViewer} />
-        <Route path={"/success"} component={Success} />
+
         <Route path={"/flipbook"} component={Flipbook} />
         <Route path={"/certificate"} component={Certificate} />
         <Route path={"/activities/1"}>{() => <ActivityLoader><Activity1 /></ActivityLoader>}</Route>

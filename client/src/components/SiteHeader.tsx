@@ -7,7 +7,7 @@ const navLinks = [
   { label: "Report", href: "/report" },
   { label: "Best Practices", href: "/best-practices" },
   { label: "Directory", href: "/resources" },
-  { label: "Success", href: "/success" },
+
   {
     label: "Flipbook",
     href: "/flipbook",
