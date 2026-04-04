@@ -28,7 +28,7 @@ const faqItems = [
   {
     title: "How were these resources developed?",
     content:
-      "The resources were shaped through extensive engagement with First Nations learners, families, communities, and education support staff across Ontario \u2014 including community visits, interviews, focus groups, and surveys. Chi-miigwech to everyone who contributed.",
+      "The resources were shaped through engagement with First Nations learners, communities, and education support staff across Ontario. These engagements included interviews, focus groups, and case studies. Chi-miigwech to everyone who contributed.",
   },
   {
     title: "How do I get started with the resources?",
