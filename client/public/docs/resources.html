@@ -220,22 +220,6 @@ nav {
   font-family: var(--serif); font-size: 0.9rem; color: var(--ink); line-height: 1.78;
 }
 
-/* ══ BACK TO TOP ══════════════════════════════ */
-.back-top {
-  display: inline-flex; align-items: center; gap: 0.5rem;
-  font-family: var(--sans); font-size: 0.72rem; font-weight: 600;
-  letter-spacing: 0.08em; text-transform: uppercase;
-  color: var(--stone); text-decoration: none;
-  margin-top: 2rem; padding: 0.5rem 1rem;
-  border: 1px solid var(--border); border-radius: 2px;
-  background: white; transition: all 0.18s;
-  position: relative; z-index: 1;
-}
-.back-top:hover { color: var(--red); border-color: var(--red); background: var(--red-faint); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(187,10,18,0.1); }
-.back-top svg { transition: transform 0.2s; }
-.back-top:hover svg { transform: translateY(-2px); }
-
-
 
 
 /* ══ FOOTNOTE ══════════════════════════════════ */
@@ -301,19 +285,6 @@ nav {
 /* ══ AOS ══════════════════════════════════════ */
 .aos { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .aos.visible { opacity: 1; transform: none; }
-
-/* ══ FLOATING BACK TO TOP BUTTON ══════════════ */
-#floatTop {
-  position: fixed; bottom: 2rem; right: 2rem; z-index: 500;
-  width: 44px; height: 44px; border-radius: 50%;
-  background: var(--red); color: white; border: none; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 16px rgba(187,10,18,0.35);
-  opacity: 0; transform: translateY(10px) scale(0.9);
-  transition: all 0.25s ease; pointer-events: none;
-}
-#floatTop.show { opacity: 1; transform: none; pointer-events: all; }
-#floatTop:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(187,10,18,0.4); }
 
 /* ══ RESPONSIVE ══════════════════════════════ */
 @media (max-width: 780px) {
@@ -484,7 +455,6 @@ nav {
 <div class="resource-name">My Career Journey &mdash; Ontario</div>
 <div class="resource-desc">My Career Journey is a free Ontario government tool that helps users at any stage whether working, in school, or returning to school explore education and career options. It includes a 5 minute questionnaire to generate personalized resources, a search for in-demand careers in fields like skilled trades, health care, and IT, and dedicated pathways to find postsecondary schools, Indigenous Institutes, financial assistance, and employment supports.</div>
 </div></div>
-<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
 </div>
 <!-- 02 COURSES & HANDBOOKS -->
 <div class="cat-section aos" id="courses">
@@ -507,7 +477,6 @@ nav {
 <div class="resource-name">Taking Steps to Increase my Success in Post-Secondary</div>
 <div class="resource-desc">ONECA provides a program to support Indigenous women and adult learners who are considering college, university, trades, or other post-secondary pathways, offering guidance that helps learners take their first steps with confidence.</div>
 </div></div>
-<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
 </div>
 <!-- 03 COMMUNITY SUPPORTS -->
 <div class="cat-section aos" id="community">
@@ -542,7 +511,6 @@ nav {
 <div class="resource-name">Regional Multicultural Youth Council<span class="non-indigenous">★ Not Indigenous-specific</span></div>
 <div class="resource-desc">The Multicultural Association of Northwestern Ontario supports a youth-led organization and drop-in centre in Thunder Bay that provides a safe space, resources, and support for children and youth, including homework help, computers, workshops, and community activities that build belonging and leadership. This resource is not Indigenous-specific, though First Nations learners may still find it helpful.</div>
 </div></div>
-<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
 </div>
 <!-- 04 FINANCIAL LITERACY -->
 <div class="cat-section aos" id="financial">
@@ -565,7 +533,6 @@ nav {
 <div class="resource-name">Indigenous Peoples' Money and Youth</div>
 <div class="resource-desc">The Canadian Foundation for Economic Education (CFEE) offers a financial literacy learning program designed to build practical money skills for Indigenous youth through foundational learning on budgeting, saving, and everyday financial decisions.</div>
 </div></div>
-<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
 </div>
 <!-- 05 MENTORSHIP & PEER SUPPORT -->
 <div class="cat-section aos" id="mentorship">
@@ -600,7 +567,6 @@ nav {
 <div class="resource-name">Niijii Indigenous Mentorship Program</div>
 <div class="resource-desc">Lakehead University provides a hands-on mentorship program connecting Indigenous youth with Lakehead University students through classroom visits, activities, and cultural learning that builds confidence and supports post-secondary pathways.</div>
 </div></div>
-<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
 </div>
 <!-- 06 ORIENTATION EVENTS & ACTIVITIES -->
 <div class="cat-section aos" id="orientation">
@@ -638,7 +604,6 @@ nav {
 <div class="resource-name">Western Mini University Program</div>
 <div class="resource-desc">Western University hosts a week-long summer camp for Indigenous youth (ages 11–17), offering hands-on learning, cultural teachings, and a campus-based experience through workshops, activities, mentors, and exploration of post-secondary and career pathways.</div>
 </div></div>
-<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
 </div>
 <!-- 07 POST-SECONDARY PATHWAYS -->
 <div class="cat-section aos" id="pathways">
@@ -693,7 +658,6 @@ nav {
 <div class="resource-name">University Consortium Year 1 Program</div>
 <div class="resource-desc">Six Nations Polytechnic offers a one-year, community-based university preparation program where students complete first-year courses in a culturally grounded environment, with transferrable credits and transition support into partner universities.</div>
 </div></div>
-<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
 </div>
 <!-- 08 SKILLS TRAINING -->
 <div class="cat-section aos" id="skills">
@@ -732,7 +696,6 @@ nav {
 <div class="resource-name">Try a Trade – Home Renovation &amp; Preventive Maintenance</div>
 <div class="resource-desc">Oshki-Pimache-O-Win: The Wenjack Education Institute, in partnership with Confederation College, offers a six week hands on Try a Trade program for First Nations learners focused on home renovation and preventive maintenance. Covering carpentry, plumbing, electrical, HVAC, and interior and exterior finishing, the program builds practical skills as a gateway to further trades training and Oshki-Wenjack's in-community apprenticeship programs serving Nishnawbe Aski Nation communities.</div>
 </div></div>
-<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
 </div>
 <!-- 09 TRANSITION GUIDES -->
 <div class="cat-section aos" id="guides">
@@ -778,7 +741,6 @@ nav {
 <div class="resource-name">Youth in Transition: A Resource Guide for Youth and Workers (2022)</div>
 <div class="resource-desc">Association of Native Child and Family Services Agencies of Ontario (ANCFSAO) offers a guide supporting Indigenous youth transitioning from child welfare systems into adulthood, focused on practical navigation, wraparound supports, and building stability and independence.</div>
 </div></div>
-<a class="back-top" href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><svg fill="none" height="13" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="13"><path d="M18 15l-6-6-6 6"></path></svg>Back to top</a>
 </div>
 <!-- 10 WELLNESS & HOLISTIC SUPPORTS -->
 <div class="cat-section aos" id="wellness">
@@ -832,10 +794,6 @@ nav {
 </div>
 </div>
 
-<!-- Floating back to top -->
-<button id="floatTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">
-<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="18"><path d="M18 15l-6-6-6 6"></path></svg>
-</button>
 <script>
 // AOS
 const obs = new IntersectionObserver(entries => {
@@ -861,12 +819,6 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     }
   });
 });
-
-// Floating back-to-top visibility
-const floatBtn = document.getElementById('floatTop');
-window.addEventListener('scroll', () => {
-  floatBtn.classList.toggle('show', window.scrollY > 400);
-}, { passive: true });
 </script>
 </body>
 </html>
