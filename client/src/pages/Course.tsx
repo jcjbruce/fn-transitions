@@ -471,7 +471,7 @@ export default function Course() {
                       color: "#ffffff",
                     }}
                   >
-                    Let's strengthen learner pathways — together.
+                    Let's strengthen learner pathways together.
                   </h2>
                   <p
                     className="mb-7"
