@@ -10,8 +10,8 @@ import FntAccordion from "@/components/FntAccordion";
 import { useState, useEffect, useRef } from "react";
 import { X, Download } from "lucide-react";
 
-const COURSE_HERO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/dbdnf9YxmUznohGAsnbG3a/coo_course_hero2-mvowcqJvE8k52fP27jwkpZ.webp";
-const COURSE_ABOUT = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/dbdnf9YxmUznohGAsnbG3a/coo_course_about2-ZvuwW3dWF5aKP2WQmqdy8D.webp";
+const COURSE_HERO = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/dbdnf9YxmUznohGAsnbG3a/coo_hero_wide-BNTHTVXA59ntYpaqUGu4dF.webp";
+const COURSE_ABOUT = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/dbdnf9YxmUznohGAsnbG3a/coo_cta_section-MNkeMDJnGxmuGd7StAHjgE.webp";
 
 const whyTakeItems = [
   {
@@ -156,7 +156,7 @@ export default function CourseOverview() {
       )}
 
       <main className="flex-1">
-        {/* ===== HERO — Full-width with learning circle image, LEFT-aligned text ===== */}
+        {/* ===== HERO — Full-width image, LEFT-aligned text ===== */}
         <section
           className="relative w-full overflow-hidden"
           style={{ minHeight: "min(70vh, 560px)" }}
@@ -166,7 +166,7 @@ export default function CourseOverview() {
             style={{
               backgroundImage: `url(${COURSE_HERO})`,
               backgroundSize: "cover",
-              backgroundPosition: "center 35%",
+              backgroundPosition: "center 38%",
             }}
           />
           <div
@@ -380,9 +380,9 @@ export default function CourseOverview() {
               <div className="overflow-hidden" style={{ borderRadius: 4 }}>
                 <img
                   src={COURSE_ABOUT}
-                  alt="Stone circle with eagle feather on autumn leaves"
+                  alt="Calm water and northern shoreline, matching project photography"
                   className="w-full h-auto block"
-                  style={{ aspectRatio: "4/3", objectFit: "cover" }}
+                  style={{ aspectRatio: "4/3", objectFit: "cover", objectPosition: "center 55%" }}
                 />
               </div>
             </FadeIn>

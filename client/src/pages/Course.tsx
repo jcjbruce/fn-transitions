@@ -11,7 +11,7 @@ import FntAccordion from "@/components/FntAccordion";
 import OntarioMapEmbed from "@/components/OntarioMapEmbed";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/dbdnf9YxmUznohGAsnbG3a/coo_hero_wide-BNTHTVXA59ntYpaqUGu4dF.webp";
-const ABOUT_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/dbdnf9YxmUznohGAsnbG3a/coo_about_section-GwfTQ2tLaKQ3Xv6SR4ZNSj.webp";
+const ABOUT_IMG = HERO_BG;
 const CTA_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663407421710/dbdnf9YxmUznohGAsnbG3a/coo_cta_section-MNkeMDJnGxmuGd7StAHjgE.webp";
 
 const faqItems = [
@@ -203,9 +203,9 @@ export default function Course() {
               >
                 <img
                   src={ABOUT_IMG}
-                  alt="Stone circle in autumn forest"
+                  alt="Northern forest pathway at dusk, echoing the project hero imagery"
                   className="w-full h-auto block"
-                  style={{ aspectRatio: "4/3", objectFit: "cover" }}
+                  style={{ aspectRatio: "4/3", objectFit: "cover", objectPosition: "30% 42%" }}
                 />
               </div>
             </FadeIn>
