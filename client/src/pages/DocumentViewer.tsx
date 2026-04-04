@@ -3,7 +3,6 @@
 // No header banner — each HTML document has its own internal header/hero
 // Colors: Red #BB0A12, warm white #fdfcf9, ink #1a1a18
 
-import { useEffect, useRef, useState } from "react";
 import { useRoute } from "wouter";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
@@ -55,20 +54,18 @@ export default function DocumentViewer() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col" style={{ background: "#fdfcf9" }}>
+    <div className="flex min-h-screen flex-col" style={{ background: "#fdfcf9" }}>
       <SiteHeader />
 
-      {/* Embedded Document — full height, no extra header */}
-      <main className="flex-1 flex flex-col">
+      {/* Tall iframe scrolls internally (back-to-top in HTML); footer sits below in normal flow — not viewport-pinned. */}
+      <main className="w-full shrink-0">
         <iframe
           src={doc.url}
           title={doc.title}
+          className="block w-full border-0 bg-white"
           style={{
-            flex: 1,
-            width: "100%",
-            minHeight: "calc(100vh - 128px)",
-            border: "none",
-            background: "#ffffff",
+            height: "calc(100dvh - 64px)",
+            maxHeight: "calc(100dvh - 64px)",
           }}
         />
       </main>
