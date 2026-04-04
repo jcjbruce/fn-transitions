@@ -286,6 +286,19 @@ nav {
 .aos { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
 .aos.visible { opacity: 1; transform: none; }
 
+/* ══ FLOATING BACK TO TOP (red arrow) ═════════ */
+#floatTop {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 500;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: var(--red); color: white; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(187,10,18,0.35);
+  opacity: 0; transform: translateY(10px) scale(0.9);
+  transition: all 0.25s ease; pointer-events: none;
+}
+#floatTop.show { opacity: 1; transform: none; pointer-events: all; }
+#floatTop:hover { background: var(--red-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(187,10,18,0.4); }
+
 /* ══ RESPONSIVE ══════════════════════════════ */
 @media (max-width: 780px) {
   .hero-top { max-width: 100%; }
@@ -794,6 +807,9 @@ nav {
 </div>
 </div>
 
+<button id="floatTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top" type="button">
+<svg fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-width="2.5" viewbox="0 0 24 24" width="18"><path d="M18 15l-6-6-6 6"></path></svg>
+</button>
 <script>
 // AOS
 const obs = new IntersectionObserver(entries => {
@@ -819,6 +835,11 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     }
   });
 });
+
+const floatBtn = document.getElementById('floatTop');
+window.addEventListener('scroll', () => {
+  floatBtn.classList.toggle('show', window.scrollY > 400);
+}, { passive: true });
 </script>
 </body>
 </html>
