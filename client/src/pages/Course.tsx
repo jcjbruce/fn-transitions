@@ -47,7 +47,7 @@ const pillars = [
 
 const siteResources = [
   { title: "Education Strategy", desc: "A comprehensive strategy for supporting First Nations learner transitions across Ontario.", href: "/strategy" },
-  { title: "Research Report", desc: "Research findings and analysis on education transitions for First Nations communities.", href: "/report" },
+  { title: "Research Report", desc: "Research findings and analysis on education transitions for First Nations learners.", href: "/report" },
   { title: "Best Practices", desc: "Evidence-based practices for supporting First Nations learners through educational transitions.", href: "/best-practices" },
   { title: "Programs & Resources", desc: "A directory of programs and resources available to support First Nations education transitions.", href: "/resources" },
   { title: "Online Program", desc: "A story-based, experiential program with 5 modules, 16 lessons, and hands-on activities.", href: "/courses/transitions" },
